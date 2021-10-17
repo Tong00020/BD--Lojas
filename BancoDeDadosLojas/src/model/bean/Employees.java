@@ -5,11 +5,15 @@
  */
 package model.bean;
 
+import dao.EmployeesDAO;
+import java.util.ArrayList;
+
 /**
  *
  * @author Tong
  */
 public class Employees {
+
     private int cpf;
     private String name;
     private int address_number;
@@ -136,6 +140,42 @@ public class Employees {
     public void setJob_title(String job_title) {
         this.job_title = job_title;
     }
-    
-    
+
+    public void create() throws Exception {
+        EmployeesDAO eDAO = new EmployeesDAO();
+        eDAO.create(this);
+    }
+
+    public void alter() throws Exception {
+        EmployeesDAO eDAO = new EmployeesDAO();
+        eDAO.alter(this);
+    }
+
+    public void delete() throws Exception {
+        EmployeesDAO eDAO = new EmployeesDAO();
+        eDAO.delete(this.cpf);
+    }
+
+    public ArrayList<Employees> list() throws Exception {
+        EmployeesDAO eDAO = new EmployeesDAO();
+        return eDAO.list();
+    }
+
+    public void load() throws Exception {
+        EmployeesDAO eDAO = new EmployeesDAO();
+        this.cpf = eDAO.loadCPF(this.cpf).getCpf();
+        this.name = eDAO.loadCPF(this.cpf).getName();
+        this.address_number = eDAO.loadCPF(this.cpf).getAddress_number();
+        this.fixed_phone = eDAO.loadCPF(this.cpf).getFixed_phone();
+        this.cell_phone = eDAO.loadCPF(this.cpf).getCell_phone();
+        this.email = eDAO.loadCPF(this.cpf).getEmail();
+        this.cep = eDAO.loadCPF(this.cpf).getCep();
+        this.state = eDAO.loadCPF(this.cpf).getState();
+        this.city = eDAO.loadCPF(this.cpf).getCity();
+        this.complement = eDAO.loadCPF(this.cpf).getComplement();
+        this.address = eDAO.loadCPF(this.cpf).getAddress();
+        this.status = eDAO.loadCPF(this.cpf).getStatus();
+        this.photo = eDAO.loadCPF(this.cpf).getPhoto();
+        this.job_title = eDAO.loadCPF(this.cpf).getJob_title();
+    }
 }

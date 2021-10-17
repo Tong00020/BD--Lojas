@@ -5,18 +5,22 @@
  */
 package model.bean;
 
+import dao.VehiclesDAO;
+import java.util.ArrayList;
+
 /**
  *
  * @author Tong
  */
 public class Vehicles {
+
     private int id;
     private int year;
     private String color;
     private int km_current;
     private String model;
     private String plate;
-    private int clients_id;
+    private Clients client;
 
     public int getId() {
         return id;
@@ -66,14 +70,42 @@ public class Vehicles {
         this.plate = plate;
     }
 
-    public int getClients_id() {
-        return clients_id;
+    public Clients getClient() {
+        return client;
     }
 
-    public void setClients_id(int clients_id) {
-        this.clients_id = clients_id;
+    public void setClient(Clients client) {
+        this.client = client;
     }
-    
-    
-    
+
+    public void create() throws Exception {
+        VehiclesDAO vDAO = new VehiclesDAO();
+        vDAO.create(this);
+    }
+
+    public void alter() throws Exception {
+        VehiclesDAO vDAO = new VehiclesDAO();
+        vDAO.alter(this);
+    }
+
+    public void delete() throws Exception {
+        VehiclesDAO vDAO = new VehiclesDAO();
+        vDAO.delete(this.id);
+    }
+
+    public ArrayList<Vehicles> list() throws Exception {
+        VehiclesDAO vDAO = new VehiclesDAO();
+        return vDAO.list();
+    }
+
+    public void load() throws Exception {
+        VehiclesDAO vDAO = new VehiclesDAO();
+        this.id = vDAO.loadID(this.id).getId();
+        this.year = vDAO.loadID(this.id).getYear();
+        this.color = vDAO.loadID(this.id).getColor();
+        this.km_current = vDAO.loadID(this.id).getKm_current();
+        this.model = vDAO.loadID(this.id).getModel();
+        this.plate = vDAO.loadID(this.id).getPlate();
+        this.client = vDAO.loadID(this.id).getClient();
+    }
 }

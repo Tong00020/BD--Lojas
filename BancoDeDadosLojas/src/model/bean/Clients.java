@@ -5,11 +5,15 @@
  */
 package model.bean;
 
+import dao.ClientsDAO;
+import java.util.ArrayList;
+
 /**
  *
  * @author Tong
  */
 public class Clients {
+
     private int cpf;
     private String name;
     private String address;
@@ -100,6 +104,39 @@ public class Clients {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
+
+    public void create() throws Exception {
+        ClientsDAO cDAO = new ClientsDAO();
+        cDAO.create(this);
+    }
+
+    public void alter() throws Exception {
+        ClientsDAO cDAO = new ClientsDAO();
+        cDAO.alter(this);
+    }
+
+    public void delete() throws Exception {
+        ClientsDAO cDAO = new ClientsDAO();
+        cDAO.delete(this.cpf);
+    }
+
+    public ArrayList<Clients> list() throws Exception {
+        ClientsDAO cDAO = new ClientsDAO();
+        return cDAO.list();
+    }
+
+    public void load() throws Exception {
+        ClientsDAO cDAO = new ClientsDAO();
+        this.cpf = cDAO.loadCPF(this.cpf).getCpf();
+        this.name = cDAO.loadCPF(this.cpf).getName();
+        this.address = cDAO.loadCPF(this.cpf).getAddress();
+        this.complement = cDAO.loadCPF(this.cpf).getComplement();
+        this.state = cDAO.loadCPF(this.cpf).getState();
+        this.city = cDAO.loadCPF(this.cpf).getCity();
+        this.cep = cDAO.loadCPF(this.cpf).getCep();
+        this.fixed_phone = cDAO.loadCPF(this.cpf).getFixed_phone();
+        this.cell_phone = cDAO.loadCPF(this.cpf).getCell_phone();
+        this.email = cDAO.loadCPF(this.cpf).getEmail();
+    }
+
 }

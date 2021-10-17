@@ -5,11 +5,15 @@
  */
 package model.bean;
 
+import dao.ProductsDAO;
+import java.util.ArrayList;
+
 /**
  *
  * @author Tong
  */
 public class Products {
+
     private int id;
     private String name;
     private String description;
@@ -73,6 +77,36 @@ public class Products {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-    
-    
+
+    public void create() throws Exception {
+        ProductsDAO pDAO = new ProductsDAO();
+        pDAO.create(this);
+    }
+
+    public void alter() throws Exception {
+        ProductsDAO pDAO = new ProductsDAO();
+        pDAO.alter(this);
+    }
+
+    public void delete() throws Exception {
+        ProductsDAO pDAO = new ProductsDAO();
+        pDAO.delete(this.id);
+    }
+
+    public ArrayList<Products> list() throws Exception {
+        ProductsDAO pDAO = new ProductsDAO();
+        return pDAO.list();
+    }
+
+    public void load() throws Exception {
+        ProductsDAO pDAO = new ProductsDAO();
+        this.id = pDAO.loadID(this.id).getId();
+        this.name = pDAO.loadID(this.id).getName();
+        this.description = pDAO.loadID(this.id).getDescription();
+        this.category = pDAO.loadID(this.id).getCategory();
+        this.price = pDAO.loadID(this.id).getPrice();
+        this.barcode = pDAO.loadID(this.id).getBarcode();
+        this.photo = pDAO.loadID(this.id).getPhoto();
+    }
+
 }

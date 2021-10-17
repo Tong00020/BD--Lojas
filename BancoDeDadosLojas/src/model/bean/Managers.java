@@ -5,11 +5,15 @@
  */
 package model.bean;
 
+import dao.ManagersDAO;
+import java.util.ArrayList;
+
 /**
  *
  * @author Tong
  */
 public class Managers {
+
     private int cpf;
     private String name;
     private int address_number;
@@ -82,6 +86,36 @@ public class Managers {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-    
-    
+
+    public void create() throws Exception {
+        ManagersDAO mDAO = new ManagersDAO();
+        mDAO.create(this);
+    }
+
+    public void alter() throws Exception {
+        ManagersDAO mDAO = new ManagersDAO();
+        mDAO.alter(this);
+    }
+
+    public void delete() throws Exception {
+        ManagersDAO mDAO = new ManagersDAO();
+        mDAO.delete(this.cpf);
+    }
+
+    public ArrayList<Managers> list() throws Exception {
+        ManagersDAO mDAO = new ManagersDAO();
+        return mDAO.list();
+    }
+
+    public void load() throws Exception {
+        ManagersDAO mDAO = new ManagersDAO();
+        this.cpf = mDAO.loadCPF(this.cpf).getCpf();
+        this.name = mDAO.loadCPF(this.cpf).getName();
+        this.address_number = mDAO.loadCPF(this.cpf).getAddress_number();
+        this.fixed_phone = mDAO.loadCPF(this.cpf).getFixed_phone();
+        this.cell_phone = mDAO.loadCPF(this.cpf).getCell_phone();
+        this.email = mDAO.loadCPF(this.cpf).getEmail();
+        this.state = mDAO.loadCPF(this.cpf).getState();
+        this.photo = mDAO.loadCPF(this.cpf).getPhoto();
+    }
 }

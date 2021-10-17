@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.dao;
+package dao;
 
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.bean.Products;
 
@@ -17,10 +18,11 @@ import model.bean.Products;
  * @author Tong
  */
 public class ProductsDAO {
-     public void create(Products p) throws SQLException {
-        
+
+    public void create(Products p) throws SQLException {
+
         Connection con = (Connection) ConnectionFactory.getConnection();
-        
+
         PreparedStatement stmt = null;
 
         try {
@@ -44,5 +46,20 @@ public class ProductsDAO {
 
     }
 
-    
+    public void alter(Products p) throws Exception {
+    }
+
+    public void delete(int id) throws Exception {
+    }
+
+    public ArrayList<Products> list() throws Exception {
+        //TODO: especificar retorno
+        return null;
+    }
+
+    public Products loadID(int id) throws Exception {
+        //TODO: especificar retorno
+        return null;
+    }
+
 }
