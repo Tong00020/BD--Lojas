@@ -6,20 +6,56 @@
 package view;
 import javax.swing.JOptionPane;
 import model.bean.Products;
-
+import java.awt.*;
+import java.net.*;
+import javax.swing.*;
 /**
  *
  * @author Tong
  */
 public class MainFlame extends javax.swing.JFrame {
-
+        
     /**
      * Creates new form MainFlame
      */
     public MainFlame() {
         initComponents();
-    }
+        URL path = getClass().getResource("gerenciamento.png");
+        //URL path = new URL("http://www.itinterns.org/wp-content/uploads/2015/09/Java_620X0.jpg");
+        JPanel p = new myCustomPanel(path);
+        this.add(p);
+        this.pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+    }   
+    
+    class myCustomPanel extends JPanel {
 
+        private Image background;
+
+        public myCustomPanel(URL path) {
+            this.background = new ImageIcon(path).getImage();
+            setOpaque(false);
+            setPreferredSize(new Dimension(getWidth(), getHeight()));
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            g.drawImage(background, 0, 0, this);
+            super.paintComponent(g);
+        }
+
+        @Override
+        public int getWidth() {
+            return background.getWidth(this);
+        }
+
+        @Override
+        public int getHeight() {
+            return background.getHeight(this);
+        }
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,6 +65,7 @@ public class MainFlame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Sobre = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         Provedores = new javax.swing.JMenuItem();
@@ -36,11 +73,19 @@ public class MainFlame extends javax.swing.JFrame {
         Clientes = new javax.swing.JMenuItem();
         Funcionarios = new javax.swing.JMenuItem();
         Produto = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         Sair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 153, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        Sobre.setText("Sobre o Banco de Dados");
+        Sobre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SobreMouseClicked(evt);
+            }
+        });
 
         jMenu1.setText("Banco de dados");
 
@@ -81,9 +126,6 @@ public class MainFlame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Sobre");
-        jMenuBar1.add(jMenu2);
-
         jMenu3.setText("Sair");
 
         Sair.setText("Sair");
@@ -107,11 +149,17 @@ public class MainFlame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 745, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(462, 462, 462)
+                .addComponent(Sobre, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(498, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 474, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(261, 261, 261)
+                .addComponent(Sobre, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(244, Short.MAX_VALUE))
         );
 
         pack();
@@ -142,6 +190,10 @@ public class MainFlame extends javax.swing.JFrame {
        System.exit(0);
     }//GEN-LAST:event_SairMouseClicked
 
+    private void SobreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SobreMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SobreMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -171,8 +223,11 @@ public class MainFlame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new MainFlame().setVisible(true);
+                MainFlame b = new MainFlame();
+                b.setLocationRelativeTo(null);
+                b.setVisible(true);
             }
         });
     }
@@ -183,9 +238,9 @@ public class MainFlame extends javax.swing.JFrame {
     private javax.swing.JMenuItem Produto;
     private javax.swing.JMenuItem Provedores;
     private javax.swing.JMenuItem Sair;
+    private javax.swing.JButton Sobre;
     private javax.swing.JMenuItem Veiculos;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
