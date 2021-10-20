@@ -4,24 +4,27 @@
  * and open the template in the editor.
  */
 package model.bean;
+
 import model.dao.ProvidersDAO;
 import java.util.ArrayList;
+
 /**
  *
  * @author Tong
  */
 public class Providers {
+
     private int id;
     private String name;
-    private String color;
-    private int cell_phone;
-    private int cnpj;
-    private int cep;
-    private int address_number;
-    private String state;
-    private String city;
-    private String complement;
+    private String cnpj;
+    private String cell_phone;
+    private String fixed_phone;
+    private String cep;
     private String address;
+    private int address_number;
+    private String complement;
+    private String city;
+    private String state;
     private String url_site;
 
     public int getId() {
@@ -40,68 +43,36 @@ public class Providers {
         this.name = name;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public int getCell_phone() {
-        return cell_phone;
-    }
-
-    public void setCell_phone(int cell_phone) {
-        this.cell_phone = cell_phone;
-    }
-
-    public int getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(int cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 
-    public int getCep() {
+    public String getCell_phone() {
+        return cell_phone;
+    }
+
+    public void setCell_phone(String cell_phone) {
+        this.cell_phone = cell_phone;
+    }
+
+    public String getFixed_phone() {
+        return fixed_phone;
+    }
+
+    public void setFixed_phone(String fixed_phone) {
+        this.fixed_phone = fixed_phone;
+    }
+
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
-    }
-
-    public int getAddress_number() {
-        return address_number;
-    }
-
-    public void setAddress_number(int address_number) {
-        this.address_number = address_number;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getComplement() {
-        return complement;
-    }
-
-    public void setComplement(String complement) {
-        this.complement = complement;
     }
 
     public String getAddress() {
@@ -112,6 +83,38 @@ public class Providers {
         this.address = address;
     }
 
+    public int getAddress_number() {
+        return address_number;
+    }
+
+    public void setAddress_number(int address_number) {
+        this.address_number = address_number;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     public String getUrl_site() {
         return url_site;
     }
@@ -119,8 +122,8 @@ public class Providers {
     public void setUrl_site(String url_site) {
         this.url_site = url_site;
     }
-            
-        public void create() throws Exception {
+
+    public void create() throws Exception {
         ProvidersDAO pDAO = new ProvidersDAO();
         pDAO.create(this);
     }
@@ -144,15 +147,15 @@ public class Providers {
         ProvidersDAO pDAO = new ProvidersDAO();
         this.id = pDAO.loadID(this.id).getId();
         this.name = pDAO.loadID(this.id).getName();
-        this.color = pDAO.loadID(this.id).getColor();
-        this.cell_phone = pDAO.loadID(this.id).getCell_phone();
         this.cnpj = pDAO.loadID(this.id).getCnpj();
+        this.cell_phone = pDAO.loadID(this.id).getCell_phone();
+        this.fixed_phone = pDAO.loadID(this.id).getFixed_phone();
         this.cep = pDAO.loadID(this.id).getCep();
-        this.address_number = pDAO.loadID(this.id).getAddress_number();
-        this.state = pDAO.loadID(this.id).getState();
-        this.city = pDAO.loadID(this.id).getCity();
-        this.complement = pDAO.loadID(this.id).getComplement();
         this.address = pDAO.loadID(this.id).getAddress();
+        this.address_number = pDAO.loadID(this.id).getAddress_number();
+        this.complement = pDAO.loadID(this.id).getComplement();
+        this.city = pDAO.loadID(this.id).getCity();
+        this.state = pDAO.loadID(this.id).getState();
         this.url_site = pDAO.loadID(this.id).getUrl_site();
     }
 }
