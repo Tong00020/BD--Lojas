@@ -5,9 +5,11 @@
  */
 package view;
 import javax.swing.JOptionPane;
-import model.bean.Products;
 import java.awt.*;
 import java.net.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 /**
  *
@@ -111,6 +113,11 @@ public class MainFlame extends javax.swing.JFrame {
         jMenu1.add(Veiculos);
 
         Clientes.setText("Clientes");
+        Clientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClientesActionPerformed(evt);
+            }
+        });
         jMenu1.add(Clientes);
 
         Funcionarios.setText("Funcionarios");
@@ -125,6 +132,11 @@ public class MainFlame extends javax.swing.JFrame {
         Produto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ProdutoMouseClicked(evt);
+            }
+        });
+        Produto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProdutoActionPerformed(evt);
             }
         });
         jMenu1.add(Produto);
@@ -168,6 +180,7 @@ public class MainFlame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProdutoMouseClicked
@@ -175,15 +188,15 @@ public class MainFlame extends javax.swing.JFrame {
     }//GEN-LAST:event_ProdutoMouseClicked
 
     private void FuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FuncionariosActionPerformed
-         new Produtos().setVisible(true);
+        new Employees().setVisible(true);
     }//GEN-LAST:event_FuncionariosActionPerformed
 
     private void VeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VeiculosActionPerformed
-        // TODO add your handling code here:
+        new Vehicles().setVisible(true);
     }//GEN-LAST:event_VeiculosActionPerformed
 
     private void ProvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvedoresActionPerformed
-        // TODO add your handling code here:
+        new Providers().setVisible(true);
     }//GEN-LAST:event_ProvedoresActionPerformed
 
     private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
@@ -203,6 +216,18 @@ public class MainFlame extends javax.swing.JFrame {
     private void SobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SobreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SobreActionPerformed
+
+    private void ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesActionPerformed
+        new Clients().setVisible(true);
+    }//GEN-LAST:event_ClientesActionPerformed
+
+    private void ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdutoActionPerformed
+        try {
+            new FProducts().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainFlame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_ProdutoActionPerformed
 
     /**
      * @param args the command line arguments

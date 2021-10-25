@@ -15,7 +15,7 @@ public class Budget {
     private int id;
     private float price;
     private int amount;
-    private int subtotal;
+    private double subtotal;
     private double budgcol;
 
     public int getId() {
@@ -42,11 +42,11 @@ public class Budget {
         this.amount = amount;
     }
 
-    public int getSubtotal() {
+    public double getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(int subtotal) {
+    public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
     }
 

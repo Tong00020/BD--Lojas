@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package model.bean;
+import java.sql.SQLException;
 import model.dao.ProductsDAO;
 import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author Tong
@@ -104,6 +106,11 @@ public class Products {
         this.category = pDAO.loadID(this.id).getCategory();
         this.price = pDAO.loadID(this.id).getPrice();
         this.barcode = pDAO.loadID(this.id).getBarcode();
+    }
+    
+    @Override
+    public String toString() {
+        return getDescription(); 
     }
 
 }

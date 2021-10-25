@@ -25,17 +25,17 @@ public class ClientsDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO produto (CPF,name,address,complement,state,city,cep,fixed_phone,cell_phone,email)VALUES(?,?,?,?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO clients (CPF,name,address,complement,state,city,cep,fixed_phone,cell_phone,email)VALUES(?,?,?,?,?,?,?,?,?,?)");
             stmt.setInt(1, p.getCpf());
             stmt.setString(2, p.getName());
             stmt.setString(3, p.getAddress());
             stmt.setString(4, p.getComplement());
-            stmt.setString(4, p.getState());
-            stmt.setString(5, p.getCity());
-            stmt.setInt(6, p.getCep());
-            stmt.setInt(7, p.getFixed_phone());
-            stmt.setInt(7, p.getCell_phone());
-            stmt.setString(5, p.getEmail());
+            stmt.setString(5, p.getState());
+            stmt.setString(6, p.getCity());
+            stmt.setInt(7, p.getCep());
+            stmt.setInt(8, p.getFixed_phone());
+            stmt.setInt(9, p.getCell_phone());
+            stmt.setString(10, p.getEmail());
 
             stmt.executeUpdate();
 
