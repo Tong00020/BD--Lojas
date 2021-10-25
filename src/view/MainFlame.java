@@ -86,6 +86,11 @@ public class MainFlame extends javax.swing.JFrame {
                 SobreMouseClicked(evt);
             }
         });
+        Sobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SobreActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Banco de dados");
 
@@ -191,8 +196,13 @@ public class MainFlame extends javax.swing.JFrame {
     }//GEN-LAST:event_SairMouseClicked
 
     private void SobreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SobreMouseClicked
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null,"Banco de dados de uma loja de que presta serviços auto-motivos.\n\n Obrigado pela preferência!");
+    
     }//GEN-LAST:event_SobreMouseClicked
+
+    private void SobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SobreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SobreActionPerformed
 
     /**
      * @param args the command line arguments
