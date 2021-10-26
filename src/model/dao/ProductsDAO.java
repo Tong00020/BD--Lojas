@@ -59,7 +59,7 @@ public class ProductsDAO {
         List<Products> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM Products");
+            stmt = con.prepareStatement("SELECT * FROM produto");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -169,6 +169,7 @@ public class ProductsDAO {
         }
 
     }
+    
     public void alter(Products p) throws Exception {
     }
 

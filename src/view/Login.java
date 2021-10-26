@@ -17,7 +17,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         jButton1.setEnabled(false);
-        jTextField1.setEnabled(false);
+        jTextField2.setEnabled(false);
     }
     
     /**
@@ -103,7 +103,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        jTextField1.setEnabled(true);
+        jTextField2.setEnabled(true);
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed

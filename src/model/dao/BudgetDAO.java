@@ -76,7 +76,7 @@ public class BudgetDAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BudgetDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
@@ -112,7 +112,7 @@ public class BudgetDAO {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BudgetDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
