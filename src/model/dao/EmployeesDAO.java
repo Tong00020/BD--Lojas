@@ -27,7 +27,7 @@ public class EmployeesDAO {
         return null;
     }
 
-    public Employees loadCPF(int cpf) throws Exception {
+    public Employees loadById(int id) throws Exception {
         //TODO: especificar retorno
         return null;
     }

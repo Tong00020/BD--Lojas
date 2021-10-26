@@ -145,6 +145,7 @@ public class Clients {
 
     public void load() throws Exception {
         ClientsDAO cDAO = new ClientsDAO();
+        this.id = cDAO.loadById(this.id).getId();
         this.cpf = cDAO.loadById(this.id).getCpf();
         this.name = cDAO.loadById(this.id).getName();
         this.address = cDAO.loadById(this.id).getAddress();

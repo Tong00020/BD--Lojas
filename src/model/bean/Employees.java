@@ -4,13 +4,17 @@
  * and open the template in the editor.
  */
 package model.bean;
+
 import model.dao.EmployeesDAO;
 import java.util.ArrayList;
+
 /**
  *
  * @author Tong
  */
 public class Employees {
+
+    private int id;
     private int cpf;
     private String name;
     private int address_number;
@@ -24,6 +28,14 @@ public class Employees {
     private String address;
     private String status;
     private String job_title;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getCpf() {
         return cpf;
@@ -120,6 +132,7 @@ public class Employees {
     public void setStatus(String status) {
         this.status = status;
     }
+
     public String getJob_title() {
         return job_title;
     }
@@ -127,7 +140,7 @@ public class Employees {
     public void setJob_title(String job_title) {
         this.job_title = job_title;
     }
-    
+
     public void create() throws Exception {
         EmployeesDAO eDAO = new EmployeesDAO();
         eDAO.create(this);
@@ -150,19 +163,20 @@ public class Employees {
 
     public void load() throws Exception {
         EmployeesDAO eDAO = new EmployeesDAO();
-        this.cpf = eDAO.loadCPF(this.cpf).getCpf();
-        this.name = eDAO.loadCPF(this.cpf).getName();
-        this.address_number = eDAO.loadCPF(this.cpf).getAddress_number();
-        this.fixed_phone = eDAO.loadCPF(this.cpf).getFixed_phone();
-        this.cell_phone = eDAO.loadCPF(this.cpf).getCell_phone();
-        this.email = eDAO.loadCPF(this.cpf).getEmail();
-        this.cep = eDAO.loadCPF(this.cpf).getCep();
-        this.state = eDAO.loadCPF(this.cpf).getState();
-        this.city = eDAO.loadCPF(this.cpf).getCity();
-        this.complement = eDAO.loadCPF(this.cpf).getComplement();
-        this.address = eDAO.loadCPF(this.cpf).getAddress();
-        this.status = eDAO.loadCPF(this.cpf).getStatus();
-        this.job_title = eDAO.loadCPF(this.cpf).getJob_title();
+        this.id = eDAO.loadById(this.id).getId();
+        this.cpf = eDAO.loadById(this.id).getCpf();
+        this.name = eDAO.loadById(this.id).getName();
+        this.address_number = eDAO.loadById(this.id).getAddress_number();
+        this.fixed_phone = eDAO.loadById(this.id).getFixed_phone();
+        this.cell_phone = eDAO.loadById(this.id).getCell_phone();
+        this.email = eDAO.loadById(this.id).getEmail();
+        this.cep = eDAO.loadById(this.id).getCep();
+        this.state = eDAO.loadById(this.id).getState();
+        this.city = eDAO.loadById(this.id).getCity();
+        this.complement = eDAO.loadById(this.id).getComplement();
+        this.address = eDAO.loadById(this.id).getAddress();
+        this.status = eDAO.loadById(this.id).getStatus();
+        this.job_title = eDAO.loadById(this.id).getJob_title();
     }
-    
+
 }
