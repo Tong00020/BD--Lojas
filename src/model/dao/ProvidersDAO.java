@@ -104,7 +104,7 @@ public class ProvidersDAO {
         List<Providers> produtos = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM providers WHERE descricao LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM providers WHERE state LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();
@@ -169,7 +169,7 @@ public class ProvidersDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("DELETE FROM produto WHERE id = ?");
+            stmt = con.prepareStatement("DELETE FROM providers WHERE id = ?");
             stmt.setInt(1, p.getId());
 
             stmt.executeUpdate();

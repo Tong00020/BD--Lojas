@@ -89,7 +89,7 @@ public class ServicesDAO {
         List<Services> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM services WHERE descricao LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM services WHERE name LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();

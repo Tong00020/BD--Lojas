@@ -218,7 +218,7 @@ public class MainFlame extends javax.swing.JFrame {
     }//GEN-LAST:event_SobreActionPerformed
 
     private void ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesActionPerformed
-        new Clients().setVisible(true);
+        new FClients().setVisible(true);
     }//GEN-LAST:event_ClientesActionPerformed
 
     private void ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProdutoActionPerformed

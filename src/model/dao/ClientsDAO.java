@@ -62,7 +62,7 @@ public class ClientsDAO {
         List<Clients> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM Clients");
+            stmt = con.prepareStatement("SELECT * FROM clients");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -102,7 +102,7 @@ public class ClientsDAO {
         List<Clients> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM clients WHERE descricao LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM clients WHERE state LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();
@@ -166,7 +166,7 @@ public class ClientsDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("DELETE FROM produto WHERE cpf = ?");
+            stmt = con.prepareStatement("DELETE FROM clients WHERE cpf = ?");
             stmt.setInt(1, p.getCpf());
 
             stmt.executeUpdate();

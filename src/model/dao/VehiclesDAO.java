@@ -96,7 +96,7 @@ public class VehiclesDAO {
         List<Vehicles> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM vehicles WHERE descricao LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM vehicles WHERE year LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();

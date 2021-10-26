@@ -106,7 +106,7 @@ public class EmployeesDAO {
         List<Employees> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM employees WHERE descricao LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM employees WHERE state LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();

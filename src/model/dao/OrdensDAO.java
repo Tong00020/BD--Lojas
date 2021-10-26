@@ -95,7 +95,7 @@ public class OrdensDAO {
         List<Ordens> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM ordens WHERE descricao LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM ordens WHERE id LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();
