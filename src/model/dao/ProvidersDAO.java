@@ -29,10 +29,9 @@ public class ProvidersDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO providers (id,name,color,cell_phone,cnpj,address_number,state,city,complement,address,url_site)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO providers (id,name,cell_phone,cnpj,address_number,state,city,complement,address,url_site)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
             stmt.setInt(1, p.getId());
             stmt.setString(2, p.getName());
-            stmt.setString(3, p.getColor());
             stmt.setInt(4, p.getCell_phone());
             stmt.setInt(5, p.getCnpj());
             stmt.setInt(6, p.getCep());
@@ -71,7 +70,6 @@ public class ProvidersDAO {
 
                 produto.setId(rs.getInt("id"));
                 produto.setName(rs.getString("name"));
-                produto.setColor(rs.getString("color"));
                 produto.setCell_phone(rs.getInt("cell_phone"));
                 produto.setCnpj(rs.getInt("cnpj"));
                 produto.setCep(rs.getInt("cep"));
@@ -115,7 +113,6 @@ public class ProvidersDAO {
 
                 produto.setId(rs.getInt("id"));
                 produto.setName(rs.getString("name"));
-                produto.setColor(rs.getString("color"));
                 produto.setCell_phone(rs.getInt("cell_phone"));
                 produto.setCnpj(rs.getInt("cnpj"));
                 produto.setCep(rs.getInt("cep"));

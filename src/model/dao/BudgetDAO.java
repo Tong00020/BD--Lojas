@@ -29,13 +29,13 @@ public class BudgetDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO budget (id,price,amount,subtotal,budgcol)VALUES(?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO budget (id,price,amount,subtotal,budgcol,description)VALUES(?,?,?,?,?,?)");
             stmt.setInt(1, p.getId());
             stmt.setFloat(2, p.getPrice());
             stmt.setInt(3, p.getAmount());
             stmt.setDouble(4, p.getSubtotal());
             stmt.setDouble(6, p.getBudgcol());
-
+            stmt.setString(7, p.getDescription());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -69,7 +69,7 @@ public class BudgetDAO {
                 produto.setAmount(rs.getInt("amount"));
                 produto.setSubtotal(rs.getDouble("subtotal"));
                 produto.setBudgcol(rs.getDouble("budgcol"));
-                
+                produto.setDescription(rs.getString("description"));
                 produtos.add(produto);
                 
                 
@@ -94,7 +94,7 @@ public class BudgetDAO {
         List<Budget> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM budget WHERE descricao LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM budget WHERE description LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();
@@ -108,6 +108,7 @@ public class BudgetDAO {
                 produto.setAmount(rs.getInt("amount"));
                 produto.setSubtotal(rs.getDouble("subtotal"));
                 produto.setBudgcol(rs.getDouble("budgcol"));
+                produto.setDescription(rs.getString("description"));
                 produtos.add(produto);
             }
 

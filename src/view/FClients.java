@@ -163,8 +163,19 @@ public class FClients extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1029, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton2)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton3)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
@@ -216,19 +227,6 @@ public class FClients extends javax.swing.JFrame {
                                         .addComponent(jLabel6)
                                         .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGap(73, 73, 73))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1)
-                        .addGap(30, 30, 30)
-                        .addComponent(jButton2)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1029, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,8 +328,8 @@ public class FClients extends javax.swing.JFrame {
             });
 
         }
-
     }
+    
     private void jTClientsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTClientsMouseClicked
         if (jTClients.getSelectedRow() != -1) {
 
@@ -442,7 +440,6 @@ public class FClients extends javax.swing.JFrame {
                 ClientsDAO dao = new ClientsDAO();
 
                 p.setCpf(Integer.parseInt(txtCpfClients.getText()));
-                p.setName(txtNomeClients.getText());
                 p.setName(txtNomeClients.getText());
                 p.setAddress(txtEnderecoClients.getText());
                 p.setComplement(txtComplementoClients.getText());

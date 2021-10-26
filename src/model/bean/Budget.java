@@ -17,7 +17,8 @@ public class Budget {
     private int amount;
     private double subtotal;
     private double budgcol;
-
+    private String description;
+    
     public int getId() {
         return id;
     }
@@ -50,7 +51,13 @@ public class Budget {
         this.subtotal = subtotal;
     }
 
-    
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public double getBudgcol() {
         return budgcol;
@@ -87,5 +94,6 @@ public class Budget {
         this.amount = pDAO.loadID(this.id).getAmount();
         this.subtotal = pDAO.loadID(this.id).getSubtotal();
         this.budgcol = pDAO.loadID(this.id).getBudgcol();
+        this.description = pDAO.loadID(this.id).getDescription();
     }
 }

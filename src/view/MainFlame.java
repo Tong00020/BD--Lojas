@@ -75,6 +75,9 @@ public class MainFlame extends javax.swing.JFrame {
         Clientes = new javax.swing.JMenuItem();
         Funcionarios = new javax.swing.JMenuItem();
         Produto = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         Sair = new javax.swing.JMenuItem();
 
@@ -141,6 +144,30 @@ public class MainFlame extends javax.swing.JFrame {
         });
         jMenu1.add(Produto);
 
+        jMenuItem3.setText("Privilegios");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem2.setText("Ordens");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem1.setText("Orçamentos");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Sair");
@@ -188,15 +215,15 @@ public class MainFlame extends javax.swing.JFrame {
     }//GEN-LAST:event_ProdutoMouseClicked
 
     private void FuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FuncionariosActionPerformed
-        new Employees().setVisible(true);
+        new FEmployees().setVisible(true);
     }//GEN-LAST:event_FuncionariosActionPerformed
 
     private void VeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VeiculosActionPerformed
-        new Vehicles().setVisible(true);
+        new FVehicles().setVisible(true);
     }//GEN-LAST:event_VeiculosActionPerformed
 
     private void ProvedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProvedoresActionPerformed
-        new Providers().setVisible(true);
+        new FProviders().setVisible(true);
     }//GEN-LAST:event_ProvedoresActionPerformed
 
     private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
@@ -228,6 +255,18 @@ public class MainFlame extends javax.swing.JFrame {
             Logger.getLogger(MainFlame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_ProdutoActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        new FBudget().setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        new FOrdens().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        new FPrivileges().setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,5 +317,8 @@ public class MainFlame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     // End of variables declaration//GEN-END:variables
 }

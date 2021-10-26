@@ -11,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 import model.bean.Products;
 /**
  *
@@ -25,6 +24,8 @@ public class FProducts extends javax.swing.JFrame {
      */
     public FProducts() throws SQLException {
         initComponents();
+        
+        jButton4.setEnabled(false);
         /*DefaultTableModel modelo = (DefaultTableModel) jTProducts.getModel();
         jTProducts.setRowSorter(new TableRowSorter(modelo));
 
@@ -134,6 +135,12 @@ public class FProducts extends javax.swing.JFrame {
         });
 
         jLabel7.setText("ID");
+
+        txtBuscaProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaProductsActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("DESCRIÇÃO");
 
@@ -421,6 +428,10 @@ public class FProducts extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void txtBuscaProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaProductsActionPerformed
+        jButton4.setEnabled(true);
+    }//GEN-LAST:event_txtBuscaProductsActionPerformed
+
     
     
     
@@ -454,11 +465,13 @@ public class FProducts extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+              
                 try {
                     new FProducts().setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
             }
         });
     }

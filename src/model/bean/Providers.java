@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class Providers {
     private int id;
     private String name;
-    private String color;
     private int cell_phone;
     private int cnpj;
     private int cep;
@@ -38,14 +37,6 @@ public class Providers {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public int getCell_phone() {
@@ -144,7 +135,6 @@ public class Providers {
         ProvidersDAO pDAO = new ProvidersDAO();
         this.id = pDAO.loadID(this.id).getId();
         this.name = pDAO.loadID(this.id).getName();
-        this.color = pDAO.loadID(this.id).getColor();
         this.cell_phone = pDAO.loadID(this.id).getCell_phone();
         this.cnpj = pDAO.loadID(this.id).getCnpj();
         this.cep = pDAO.loadID(this.id).getCep();
