@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema loja
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema loja
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `loja` DEFAULT CHARACTER SET utf8 ;
+USE `loja` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`clients`
+-- Table `loja`.`clients`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`clients` (
+CREATE TABLE IF NOT EXISTS `loja`.`clients` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `cpf` VARCHAR(14) NOT NULL,
   `name` VARCHAR(255) NOT NULL,
@@ -38,9 +38,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`privileges`
+-- Table `loja`.`privileges`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`privileges` (
+CREATE TABLE IF NOT EXISTS `loja`.`privileges` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `is_superadmin` TINYINT(1) NOT NULL,
@@ -49,9 +49,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`employees`
+-- Table `loja`.`employees`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`employees` (
+CREATE TABLE IF NOT EXISTS `loja`.`employees` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `photo` VARCHAR(255) NULL,
@@ -76,21 +76,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`employees` (
   INDEX `fk_employees_privileges1_idx` (`privileges_id` ASC),
   CONSTRAINT `fk_employees_employees1`
     FOREIGN KEY (`reports_to`)
-    REFERENCES `mydb`.`employees` (`id`)
+    REFERENCES `loja`.`employees` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_employees_privileges1`
     FOREIGN KEY (`privileges_id`)
-    REFERENCES `mydb`.`privileges` (`id`)
+    REFERENCES `loja`.`privileges` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`vehicles`
+-- Table `loja`.`vehicles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`vehicles` (
+CREATE TABLE IF NOT EXISTS `loja`.`vehicles` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `model` VARCHAR(45) NOT NULL,
   `brand` VARCHAR(45) NOT NULL,
@@ -104,16 +104,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`vehicles` (
   INDEX `fk_vehicles_customers_idx` (`clients_id` ASC),
   CONSTRAINT `fk_vehicles_customers`
     FOREIGN KEY (`clients_id`)
-    REFERENCES `mydb`.`clients` (`id`)
+    REFERENCES `loja`.`clients` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`providers`
+-- Table `loja`.`providers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`providers` (
+CREATE TABLE IF NOT EXISTS `loja`.`providers` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `cnpj` VARCHAR(18) NOT NULL,
@@ -131,9 +131,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`products`
+-- Table `loja`.`products`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`products` (
+CREATE TABLE IF NOT EXISTS `loja`.`products` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) NULL,
@@ -146,16 +146,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`products` (
   INDEX `fk_products_providers1_idx` (`providers_id` ASC),
   CONSTRAINT `fk_products_providers1`
     FOREIGN KEY (`providers_id`)
-    REFERENCES `mydb`.`providers` (`id`)
+    REFERENCES `loja`.`providers` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`services`
+-- Table `loja`.`services`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`services` (
+CREATE TABLE IF NOT EXISTS `loja`.`services` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) NULL,
@@ -164,9 +164,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`budget`
+-- Table `loja`.`budget`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`budget` (
+CREATE TABLE IF NOT EXISTS `loja`.`budget` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `price_services` DECIMAL(10,2) NULL,
   `total_items` DECIMAL(10,2) NULL DEFAULT NULL,
@@ -181,26 +181,26 @@ CREATE TABLE IF NOT EXISTS `mydb`.`budget` (
   INDEX `fk_budget_services1_idx` (`services_id` ASC),
   CONSTRAINT `fk_budget_clients1`
     FOREIGN KEY (`clients_id`)
-    REFERENCES `mydb`.`clients` (`id`)
+    REFERENCES `loja`.`clients` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_budget_vehicles1`
     FOREIGN KEY (`vehicles_id`)
-    REFERENCES `mydb`.`vehicles` (`id`)
+    REFERENCES `loja`.`vehicles` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_budget_services1`
     FOREIGN KEY (`services_id`)
-    REFERENCES `mydb`.`services` (`id`)
+    REFERENCES `loja`.`services` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`orders`
+-- Table `loja`.`orders`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`orders` (
+CREATE TABLE IF NOT EXISTS `loja`.`orders` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `discount` DECIMAL(10,2) NULL,
   `observation` VARCHAR(45) NULL,
@@ -214,21 +214,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`orders` (
   INDEX `fk_orders_budget1_idx` (`budget_id` ASC),
   CONSTRAINT `fk_orders_employees1`
     FOREIGN KEY (`employees_id`)
-    REFERENCES `mydb`.`employees` (`id`)
+    REFERENCES `loja`.`employees` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_orders_budget1`
     FOREIGN KEY (`budget_id`)
-    REFERENCES `mydb`.`budget` (`id`)
+    REFERENCES `loja`.`budget` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`budget_details`
+-- Table `loja`.`budget_details`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`budget_details` (
+CREATE TABLE IF NOT EXISTS `loja`.`budget_details` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `price` DECIMAL(10,2) NOT NULL,
   `amount` INT(10) UNSIGNED NOT NULL DEFAULT '0',
@@ -240,12 +240,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`budget_details` (
   INDEX `fk_budget_details_products1_idx` (`products_id` ASC),
   CONSTRAINT `fk_budget_details_budget1`
     FOREIGN KEY (`budget_id`)
-    REFERENCES `mydb`.`budget` (`id`)
+    REFERENCES `loja`.`budget` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_budget_details_products1`
     FOREIGN KEY (`products_id`)
-    REFERENCES `mydb`.`products` (`id`)
+    REFERENCES `loja`.`products` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
