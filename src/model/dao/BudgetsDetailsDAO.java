@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import model.bean.Budgets;
+import model.bean.BudgetsDetails;
 import model.bean.Clients;
+import model.bean.Products;
 import model.bean.Services;
 import model.bean.Vehicles;
 
@@ -20,24 +22,23 @@ import model.bean.Vehicles;
  *
  * @author Vinícius Vasconcelos
  */
-public class BudgetsDAO {
+public class BudgetsDetailsDAO {
 
-    public void create(Budgets b) throws SQLException {
+    public void create(BudgetsDetails bd) throws SQLException {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
         try {
-            String sql = "INSERT INTO budgets (date,price_services,total_items,total,id_vehicle,"
-                    + "id_service,id_client) VALUES (now(),?,?,?,?,?,?)";
+            String sql = "INSERT INTO budgets_details (price,amount,subtotal,"
+                    + "id_budget,id_product) VALUES (?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
-            stmt.setDouble(1, b.getPrice_services());
-            stmt.setDouble(2, b.getTotal_items());
-            stmt.setDouble(3, b.getTotal());
-            stmt.setInt(4, b.getVehicle().getId());
-            stmt.setInt(5, b.getService().getId());
-            stmt.setInt(6, b.getClient().getId());
+            stmt.setDouble(1, bd.getPrice());
+            stmt.setDouble(2, bd.getAmount());
+            stmt.setDouble(3, bd.getSubtotal());
+            stmt.setInt(4, bd.getBudget().getId());
+            stmt.setInt(5, bd.getProduct().getId());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -49,23 +50,21 @@ public class BudgetsDAO {
 
     }
 
-    public void alter(Budgets b) throws Exception {
+    public void alter(BudgetsDetails bd) throws Exception {
         Connection con = (Connection) ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
         try {
-            String sql = "UPDATE budgets SET date = now(),price_services = ?,"
-                    + "total_items = ?,total = ?,id_vehicle = ?,id_service = ?,"
-                    + "id_client = ? WHERE id = ?";
+            String sql = "UPDATE budgets_details SET price = ?,amount = ?,"
+                    + "subtotal = ?,id_budget = ?,id_product = ? WHERE id = ?";
             stmt = con.prepareStatement(sql);
-            stmt.setDouble(1, b.getPrice_services());
-            stmt.setDouble(2, b.getTotal_items());
-            stmt.setDouble(3, b.getTotal());
-            stmt.setInt(4, b.getVehicle().getId());
-            stmt.setInt(5, b.getService().getId());
-            stmt.setInt(6, b.getClient().getId());
-            stmt.setInt(7, b.getId());
+            stmt.setDouble(1, bd.getPrice());
+            stmt.setDouble(2, bd.getAmount());
+            stmt.setDouble(3, bd.getSubtotal());
+            stmt.setInt(4, bd.getBudget().getId());
+            stmt.setInt(5, bd.getProduct().getId());
+            stmt.setInt(6, bd.getId());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -82,7 +81,7 @@ public class BudgetsDAO {
         PreparedStatement stmt = null;
 
         try {
-            String sql = "DELETE FROM budgets WHERE id=?";
+            String sql = "DELETE FROM budgets_details WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             stmt.executeUpdate();
@@ -95,15 +94,15 @@ public class BudgetsDAO {
         }
     }
 
-    public ArrayList<Budgets> list() throws Exception {
-        ArrayList<Budgets> lista = new ArrayList<Budgets>();
+    public ArrayList<BudgetsDetails> list() throws Exception {
+        ArrayList<BudgetsDetails> lista = new ArrayList<BudgetsDetails>();
 
         Connection con = (Connection) ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
         try {
-            String sql = "SELECT * FROM budgets";
+            String sql = "SELECT * FROM budgets_details";
             stmt = con.prepareStatement(sql);
             /*
             ResultSet é uma interface utilizada pra guardar dados vindos 
@@ -115,30 +114,23 @@ public class BudgetsDAO {
              */
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                BudgetsDetails bd = new BudgetsDetails();
+                bd.setId(rs.getInt("id"));
+                bd.setPrice(rs.getDouble("price"));
+                bd.setAmount(rs.getDouble("amount"));
+                bd.setSubtotal(rs.getDouble("subtotal"));
 
                 Budgets b = new Budgets();
-                b.setId(rs.getInt("id"));
-                b.setDate(rs.getDate("date"));
-                b.setPrice_services(rs.getDouble("price_services"));
-                b.setTotal_items(rs.getDouble("total_items"));
-                b.setTotal(rs.getDouble("total"));
+                b.setId(rs.getInt("id_budget"));
+                b.load();
+                bd.setBudget(b);
 
-                Vehicles v = new Vehicles();
-                v.setId(rs.getInt("id_vehicle"));
-                v.load();
-                b.setVehicle(v);
+                Products p = new Products();
+                p.setId(rs.getInt("id_client"));
+                p.load();
+                bd.setProduct(p);
 
-                Services s = new Services();
-                s.setId(rs.getInt("id_service"));
-                s.load();
-                b.setService(s);
-
-                Clients c = new Clients();
-                c.setId(rs.getInt("id_client"));
-                c.load();
-                b.setClient(c);
-
-                lista.add(b);
+                lista.add(bd);
             }
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
@@ -149,39 +141,33 @@ public class BudgetsDAO {
         return lista;
     }
 
-    public Budgets loadById(int id) throws Exception {
+    public BudgetsDetails loadById(int id) throws Exception {
         Connection con = (Connection) ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
-        Budgets b = new Budgets();
+        BudgetsDetails bd = new BudgetsDetails();
 
         try {
-            String sql = "SELECT * FROM orders WHERE id=?";
+            String sql = "SELECT * FROM budgets_details WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                b.setId(rs.getInt("id"));
-                b.setDate(rs.getDate("date"));
-                b.setPrice_services(rs.getDouble("price_services"));
-                b.setTotal_items(rs.getDouble("total_items"));
-                b.setTotal(rs.getDouble("total"));
+                bd.setId(rs.getInt("id"));
+                bd.setPrice(rs.getDouble("price"));
+                bd.setAmount(rs.getDouble("amount"));
+                bd.setSubtotal(rs.getDouble("subtotal"));
 
-                Vehicles v = new Vehicles();
-                v.setId(rs.getInt("id_vehicle"));
-                v.load();
-                b.setVehicle(v);
+                Budgets b = new Budgets();
+                b.setId(rs.getInt("id_budget"));
+                b.load();
+                bd.setBudget(b);
 
-                Services s = new Services();
-                s.setId(rs.getInt("id_service"));
-                s.load();
-                b.setService(s);
-
-                Clients c = new Clients();
-                c.setId(rs.getInt("id_client"));
-                c.load();
-                b.setClient(c);
+                Products p = new Products();
+                p.setId(rs.getInt("id_client"));
+                p.load();
+                bd.setProduct(p);
             }
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
@@ -189,6 +175,6 @@ public class BudgetsDAO {
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
-        return b;
+        return bd;
     }
 }

@@ -16,28 +16,31 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.bean.Products;
+import model.bean.Providers;
 
 /**
  *
  * @author Tong
  */
 public class ProductsDAO {
-     public void create(Products p) throws SQLException {
-        
+
+    public void create(Products p) throws SQLException {
+
         Connection con = (Connection) ConnectionFactory.getConnection();
-        
+
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("INSERT INTO produto (id,name,description,category,price,barcode,quantity)VALUES(?,?,?,?,?,?,?)");
-            stmt.setInt(1, p.getId());
-            stmt.setString(2, p.getName());
-            stmt.setString(3, p.getDescription());
-            stmt.setString(4, p.getCategory());
-            stmt.setDouble(5, p.getPrice());
-            stmt.setInt(6, p.getBarcode());
-            stmt.setInt(7, p.getQuantity());
-
+            String sql = "INSERT INTO products (name,description,category,"
+                    + "price,barcode,photo,id_provider) VALUES (?,?,?,?,?,?,?)";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, p.getName());
+            stmt.setString(2, p.getDescription());
+            stmt.setString(3, p.getCategory());
+            stmt.setDouble(4, p.getPrice());
+            stmt.setInt(5, p.getBarcode());
+            stmt.setString(6, p.getPhoto());
+            stmt.setInt(7, p.getProvider().getId());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -49,139 +52,131 @@ public class ProductsDAO {
 
     }
 
-     public List<Products> read() throws SQLException {
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
-        
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        List<Products> produtos = new ArrayList<>();
-
-        try {
-            stmt = con.prepareStatement("SELECT * FROM Products");
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-
-                Products produto = new Products();
-
-                produto.setId(rs.getInt("id"));
-                produto.setName(rs.getString("name"));
-                produto.setDescription(rs.getString("description"));
-                produto.setCategory(rs.getString("category"));
-                produto.setPrice(rs.getFloat("price"));
-                produto.setBarcode(rs.getInt("barcode"));
-                produto.setQuantity(rs.getInt("quantity"));
-                produtos.add(produto);
-                
-                
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs);
-        }
-        return produtos;
-
-    }
-     
-      public List<Products> readForDesc(String desc) throws SQLException {
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
-        
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        List<Products> produtos = new ArrayList<>();
-
-        try {
-            stmt = con.prepareStatement("SELECT * FROM produto WHERE descricao LIKE ?");
-            stmt.setString(1, "%"+desc+"%");
-            
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-
-                Products produto = new Products();
-
-                produto.setId(rs.getInt("id"));
-                produto.setName(rs.getString("name"));
-                produto.setDescription(rs.getString("description"));
-                produto.setCategory(rs.getString("category"));
-                produto.setPrice(rs.getFloat("price"));
-                produto.setBarcode(rs.getInt("barcode"));
-                produto.setQuantity(rs.getInt("quantity"));
-                produtos.add(produto);
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs);
-        }
-
-        return produtos;
-
-    }
-
-    public void update(Products p) throws SQLException {
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
-        
-        PreparedStatement stmt = null;
-
-        try {
-            stmt = con.prepareStatement("UPDATE produto SET descricao = ? ,qtd = ?,preco = ? WHERE barcode = ?");
-            stmt.setString(1, p.getDescription());
-            stmt.setInt(2, p.getQuantity());
-            stmt.setDouble(3, p.getPrice());
-            stmt.setInt(4, p.getBarcode());
-            
-            stmt.executeUpdate();
-
-            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt);
-        }
-
-    }
-    public void delete(Products p) throws SQLException {
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
-        
-        PreparedStatement stmt = null;
-
-        try {
-            stmt = con.prepareStatement("DELETE FROM produto WHERE id = ?");
-            stmt.setInt(1, p.getId());
-
-            stmt.executeUpdate();
-
-            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt);
-        }
-
-    }
     public void alter(Products p) throws Exception {
+        Connection con = (Connection) ConnectionFactory.getConnection();
+
+        PreparedStatement stmt = null;
+
+        try {
+            String sql = "UPDATE products SET name = ?,description = ?,"
+                    + "category = ?,price = ?,barcode = ?,photo = ?,"
+                    + "id_provider = ? WHERE id = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, p.getName());
+            stmt.setString(2, p.getDescription());
+            stmt.setString(3, p.getCategory());
+            stmt.setDouble(4, p.getPrice());
+            stmt.setInt(5, p.getBarcode());
+            stmt.setString(6, p.getPhoto());
+            stmt.setInt(7, p.getProvider().getId());
+            stmt.setInt(8, p.getId());
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
     }
 
     public void delete(int id) throws Exception {
+        Connection con = (Connection) ConnectionFactory.getConnection();
+
+        PreparedStatement stmt = null;
+
+        try {
+            String sql = "DELETE FROM products WHERE id=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
     }
 
     public ArrayList<Products> list() throws Exception {
-        //TODO: especificar retorno
-        return null;
+        ArrayList<Products> lista = new ArrayList<Products>();
+
+        Connection con = (Connection) ConnectionFactory.getConnection();
+
+        PreparedStatement stmt = null;
+
+        try {
+            String sql = "SELECT * FROM products";
+            stmt = con.prepareStatement(sql);
+            /*
+            ResultSet é uma interface utilizada pra guardar dados vindos 
+            de um banco de dados.
+            
+            Basicamente, ela guarda o resultado de uma pesquisa numa estrutura 
+            de dados que pode ser percorrida, de forma que você possa ler os 
+            dados do banco.
+             */
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+
+                Products p = new Products();
+                p.setId(rs.getInt("id"));
+                p.setName(rs.getString("name"));
+                p.setDescription(rs.getString("description"));
+                p.setCategory(rs.getString("category"));
+                p.setPrice(rs.getDouble("price"));
+                p.setBarcode(rs.getInt("barcode"));
+                p.setPhoto(rs.getString("photo"));
+
+                Providers pv = new Providers();
+                pv.setId(rs.getInt("id"));
+                pv.load();
+                p.setProvider(pv);
+
+                lista.add(p);
+            }
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+        return lista;
     }
 
-    public Products loadID(int id) throws Exception {
-        //TODO: especificar retorno
-        return null;
+    public Products loadById(int id) throws Exception {
+        Connection con = (Connection) ConnectionFactory.getConnection();
+
+        PreparedStatement stmt = null;
+
+        Products p = new Products();
+
+        try {
+            String sql = "SELECT * FROM products WHERE id=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                p.setId(rs.getInt("id"));
+                p.setName(rs.getString("name"));
+                p.setDescription(rs.getString("description"));
+                p.setCategory(rs.getString("category"));
+                p.setPrice(rs.getDouble("price"));
+                p.setBarcode(rs.getInt("barcode"));
+                p.setPhoto(rs.getString("photo"));
+
+                Providers pv = new Providers();
+                pv.setId(rs.getInt("id"));
+                pv.load();
+                p.setProvider(pv);
+            }
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+        return p;
     }
 }

@@ -17,9 +17,11 @@ public class Orders {
     private int id;
     private Date date;
     private double discount;
+    private String observation;
+    private String payment;
+    private String situation;
     private Employees employees;
     private Budgets budget;
-    private Payments payment;
 
     public int getId() {
         return id;
@@ -45,6 +47,30 @@ public class Orders {
         this.discount = discount;
     }
 
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+
+    public String getSituation() {
+        return situation;
+    }
+
+    public void setSituation(String situation) {
+        this.situation = situation;
+    }
+
     public Employees getEmployees() {
         return employees;
     }
@@ -59,14 +85,6 @@ public class Orders {
 
     public void setBudget(Budgets budget) {
         this.budget = budget;
-    }
-
-    public Payments getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payments payment) {
-        this.payment = payment;
     }
 
     public void create() throws Exception {
@@ -94,9 +112,11 @@ public class Orders {
         this.id = oDAO.loadById(this.id).getId();
         this.date = oDAO.loadById(this.id).getDate();
         this.discount = oDAO.loadById(this.id).getDiscount();
+        this.observation = oDAO.loadById(this.id).getObservation();
+        this.payment = oDAO.loadById(this.id).getPayment();
+        this.situation = oDAO.loadById(this.id).getSituation();
         this.employees = oDAO.loadById(this.id).getEmployees();
         this.budget = oDAO.loadById(this.id).getBudget();
-        this.payment = oDAO.loadById(this.id).getPayment();
     }
 
 }

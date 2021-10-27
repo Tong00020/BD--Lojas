@@ -29,13 +29,16 @@ public class OrdersDAO {
         PreparedStatement stmt = null;
 
         try {
-            String sql = "INSERT INTO orders (date,discount,id_employees,"
-                    + "id_budget,id_payment) VALUES (now(),?,?,?,?,?)";
+            String sql = "INSERT INTO orders (date,discount,observation,payment,"
+                    + "situation,id_employees,id_budget) "
+                    + "VALUES (now(),?,?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
             stmt.setDouble(1, o.getDiscount());
-            stmt.setInt(2, o.getEmployees().getId());
-            stmt.setInt(3, o.getBudget().getId());
-            stmt.setInt(4, o.getPayment().getId());
+            stmt.setString(2, o.getObservation());
+            stmt.setString(3, o.getPayment());
+            stmt.setString(4, o.getSituation());
+            stmt.setInt(5, o.getEmployees().getId());
+            stmt.setInt(6, o.getBudget().getId());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -54,14 +57,16 @@ public class OrdersDAO {
 
         try {
             String sql = "UPDATE orders SET date = now(),discount = ?,"
-                    + "id_employees = ?,id_budget = ?,id_payment = ? "
-                    + "WHERE id = ?";
+                    + "observation = ?,payment = ?,situation = ?,"
+                    + "id_employees = ?,id_budget = ? WHERE id = ?";
             stmt = con.prepareStatement(sql);
             stmt.setDouble(1, o.getDiscount());
-            stmt.setInt(2, o.getEmployees().getId());
-            stmt.setInt(3, o.getBudget().getId());
-            stmt.setInt(4, o.getPayment().getId());
-            stmt.setInt(5, o.getId());
+            stmt.setString(2, o.getObservation());
+            stmt.setString(3, o.getPayment());
+            stmt.setString(4, o.getSituation());
+            stmt.setInt(5, o.getEmployees().getId());
+            stmt.setInt(6, o.getBudget().getId());
+            stmt.setInt(7, o.getId());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -115,6 +120,9 @@ public class OrdersDAO {
                 o.setId(rs.getInt("id"));
                 o.setDate(rs.getDate("date"));
                 o.setDiscount(rs.getDouble("discount"));
+                o.setObservation(rs.getString("observation"));
+                o.setPayment(rs.getString("payment"));
+                o.setSituation(rs.getString("situation"));
 
                 Employees e = new Employees();
                 e.setId(rs.getInt("id_employees"));
@@ -125,11 +133,6 @@ public class OrdersDAO {
                 b.setId(rs.getInt("id_budget"));
                 b.load();
                 o.setBudget(b);
-
-                Payments p = new Payments();
-                p.setId(rs.getInt("id_payment"));
-                p.load();
-                o.setPayment(p);
 
                 lista.add(o);
             }
@@ -158,6 +161,9 @@ public class OrdersDAO {
                 o.setId(rs.getInt("id"));
                 o.setDate(rs.getDate("date"));
                 o.setDiscount(rs.getDouble("discount"));
+                o.setObservation(rs.getString("observation"));
+                o.setPayment(rs.getString("payment"));
+                o.setSituation(rs.getString("situation"));
 
                 Employees e = new Employees();
                 e.setId(rs.getInt("id_employees"));
@@ -168,11 +174,6 @@ public class OrdersDAO {
                 b.setId(rs.getInt("id_budget"));
                 b.load();
                 o.setBudget(b);
-
-                Payments p = new Payments();
-                p.setId(rs.getInt("id_payment"));
-                p.load();
-                o.setPayment(p);
             }
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {

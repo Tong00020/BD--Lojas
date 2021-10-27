@@ -15,11 +15,13 @@ import model.dao.BudgetsDAO;
 public class Budgets {
 
     private int id;
-    private String description;
     private Date date;
+    private double price_services;
+    private double total_items;
+    private double total;
     private Vehicles vehicle;
-    private Products product;
     private Clients client;
+    private Services service;
 
     public int getId() {
         return id;
@@ -27,14 +29,6 @@ public class Budgets {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Date getDate() {
@@ -45,6 +39,30 @@ public class Budgets {
         this.date = date;
     }
 
+    public double getPrice_services() {
+        return price_services;
+    }
+
+    public void setPrice_services(double price_services) {
+        this.price_services = price_services;
+    }
+
+    public double getTotal_items() {
+        return total_items;
+    }
+
+    public void setTotal_items(double total_items) {
+        this.total_items = total_items;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
     public Vehicles getVehicle() {
         return vehicle;
     }
@@ -53,20 +71,20 @@ public class Budgets {
         this.vehicle = vehicle;
     }
 
-    public Products getProduct() {
-        return product;
-    }
-
-    public void setProduct(Products product) {
-        this.product = product;
-    }
-
     public Clients getClient() {
         return client;
     }
 
     public void setClient(Clients client) {
         this.client = client;
+    }
+
+    public Services getService() {
+        return service;
+    }
+
+    public void setService(Services service) {
+        this.service = service;
     }
 
     public void create() throws Exception {
@@ -92,11 +110,13 @@ public class Budgets {
     public void load() throws Exception {
         BudgetsDAO bDAO = new BudgetsDAO();
         this.id = bDAO.loadById(this.id).getId();
-        this.description = bDAO.loadById(this.id).getDescription();
         this.date = bDAO.loadById(this.id).getDate();
+        this.price_services = bDAO.loadById(this.id).getPrice_services();
+        this.total_items = bDAO.loadById(this.id).getTotal_items();
+        this.total = bDAO.loadById(this.id).getTotal();
         this.vehicle = bDAO.loadById(this.id).getVehicle();
-        this.product = bDAO.loadById(this.id).getProduct();
         this.client = bDAO.loadById(this.id).getClient();
+        this.service = bDAO.loadById(this.id).getService();
     }
 
 }

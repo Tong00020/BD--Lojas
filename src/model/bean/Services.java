@@ -15,7 +15,7 @@ public class Services {
 
     private int id;
     private String name;
-    private Double price;
+    private String description;
 
     public int getId() {
         return id;
@@ -33,12 +33,12 @@ public class Services {
         this.name = name;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void create() throws Exception {
@@ -65,6 +65,6 @@ public class Services {
         ServicesDAO sDAO = new ServicesDAO();
         this.id = sDAO.loadById(this.id).getId();
         this.name = sDAO.loadById(this.id).getName();
-        this.price = sDAO.loadById(this.id).getPrice();
+        this.description = sDAO.loadById(this.id).getDescription();
     }
 }

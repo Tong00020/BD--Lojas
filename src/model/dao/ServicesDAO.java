@@ -26,10 +26,10 @@ public class ServicesDAO {
         PreparedStatement stmt = null;
 
         try {
-            String sql = "INSERT INTO services (name,price) VALUES (?,?)";
+            String sql = "INSERT INTO services (name,description) VALUES (?,?)";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, s.getName());
-            stmt.setDouble(2, s.getPrice());
+            stmt.setString(2, s.getDescription());
             stmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -47,10 +47,10 @@ public class ServicesDAO {
         PreparedStatement stmt = null;
 
         try {
-            String sql = "UPDATE services SET name=?,price=? WHERE id=?";
+            String sql = "UPDATE services SET name=?,description=? WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, s.getName());
-            stmt.setDouble(2, s.getPrice());
+            stmt.setString(2, s.getDescription());
             stmt.setInt(3, s.getId());
             stmt.executeUpdate();
 
@@ -104,7 +104,7 @@ public class ServicesDAO {
                 Services s = new Services();
                 s.setId(rs.getInt("id"));
                 s.setName(rs.getString("name"));
-                s.setPrice(rs.getDouble("price"));
+                s.setDescription(rs.getString("description"));
                 lista.add(s);
             }
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
@@ -131,7 +131,7 @@ public class ServicesDAO {
             while (rs.next()) {
                 s.setId(rs.getInt("id"));
                 s.setName(rs.getString("name"));
-                s.setPrice(rs.getDouble("price"));
+                s.setDescription(rs.getString("description"));
             }
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {

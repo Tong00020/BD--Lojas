@@ -4,20 +4,24 @@
  * and open the template in the editor.
  */
 package model.bean;
+
 import model.dao.ProductsDAO;
 import java.util.ArrayList;
+
 /**
  *
  * @author Tong
  */
 public class Products {
+
     private int id;
     private String name;
     private String description;
     private String category;
     private double price;
     private int barcode;
-    private int quantity;
+    private String photo;
+    private Providers provider;
 
     public int getId() {
         return id;
@@ -67,16 +71,23 @@ public class Products {
         this.barcode = barcode;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
-   
-     public void create() throws Exception {
+    public Providers getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Providers provider) {
+        this.provider = provider;
+    }
+
+    public void create() throws Exception {
         ProductsDAO pDAO = new ProductsDAO();
         pDAO.create(this);
     }
@@ -98,12 +109,14 @@ public class Products {
 
     public void load() throws Exception {
         ProductsDAO pDAO = new ProductsDAO();
-        this.id = pDAO.loadID(this.id).getId();
-        this.name = pDAO.loadID(this.id).getName();
-        this.description = pDAO.loadID(this.id).getDescription();
-        this.category = pDAO.loadID(this.id).getCategory();
-        this.price = pDAO.loadID(this.id).getPrice();
-        this.barcode = pDAO.loadID(this.id).getBarcode();
+        this.id = pDAO.loadById(this.id).getId();
+        this.name = pDAO.loadById(this.id).getName();
+        this.description = pDAO.loadById(this.id).getDescription();
+        this.category = pDAO.loadById(this.id).getCategory();
+        this.price = pDAO.loadById(this.id).getPrice();
+        this.barcode = pDAO.loadById(this.id).getBarcode();
+        this.photo = pDAO.loadById(this.id).getPhoto();
+        this.provider = pDAO.loadById(this.id).getProvider();
     }
 
 }
