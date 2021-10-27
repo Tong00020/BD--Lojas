@@ -19,7 +19,7 @@ public class Vehicles {
     private String brand;
     private String plate;
     private int year;
-    private int km_current;
+    private Double km_current;
     private String color;
     private String type_fuel;
     private Clients client;
@@ -64,11 +64,11 @@ public class Vehicles {
         this.year = year;
     }
 
-    public int getKm_current() {
+    public Double getKm_current() {
         return km_current;
     }
 
-    public void setKm_current(int km_current) {
+    public void setKm_current(Double km_current) {
         this.km_current = km_current;
     }
 

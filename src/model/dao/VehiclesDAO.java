@@ -34,7 +34,7 @@ public class VehiclesDAO {
             stmt.setString(2, v.getBrand());
             stmt.setString(3, v.getPlate());
             stmt.setInt(4, v.getYear());
-            stmt.setInt(5, v.getKm_current());
+            stmt.setDouble(5, v.getKm_current());
             stmt.setString(6, v.getColor());
             stmt.setString(7, v.getType_fuel());
             stmt.setInt(8, v.getClient().getId());
@@ -62,7 +62,7 @@ public class VehiclesDAO {
             stmt.setString(2, v.getBrand());
             stmt.setString(3, v.getPlate());
             stmt.setInt(4, v.getYear());
-            stmt.setInt(5, v.getKm_current());
+            stmt.setDouble(5, v.getKm_current());
             stmt.setString(6, v.getColor());
             stmt.setString(7, v.getType_fuel());
             stmt.setInt(8, v.getClient().getId());
@@ -113,7 +113,7 @@ public class VehiclesDAO {
                 v.setBrand(rs.getString("brand"));
                 v.setPlate(rs.getString("plate"));
                 v.setYear(rs.getInt("year"));
-                v.setKm_current(rs.getInt("km_current"));
+                v.setKm_current(rs.getDouble("km_current"));
                 v.setColor(rs.getString("color"));
                 v.setType_fuel(rs.getString("type_fuel"));
 
@@ -151,7 +151,7 @@ public class VehiclesDAO {
                 v.setBrand(rs.getString("brand"));
                 v.setPlate(rs.getString("plate"));
                 v.setYear(rs.getInt("year"));
-                v.setKm_current(rs.getInt("km_current"));
+                v.setKm_current(rs.getDouble("km_current"));
                 v.setColor(rs.getString("color"));
                 v.setType_fuel(rs.getString("type_fuel"));
 
