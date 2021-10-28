@@ -5,6 +5,7 @@
 package model.bean;
 
 import java.util.ArrayList;
+import java.util.List;
 import model.dao.ServicesDAO;
 
 /**
@@ -53,14 +54,18 @@ public class Services {
 
     public void delete() throws Exception {
         ServicesDAO sDAO = new ServicesDAO();
-        sDAO.delete(this.id);
+        sDAO.delete(this);
     }
 
     public ArrayList<Services> list() throws Exception {
         ServicesDAO sDAO = new ServicesDAO();
         return sDAO.list();
     }
-
+    
+    public List<Services> read() throws Exception {
+        ServicesDAO sDAO = new ServicesDAO();
+        return sDAO.read();
+    }
     public void load() throws Exception {
         ServicesDAO sDAO = new ServicesDAO();
         this.id = sDAO.loadById(this.id).getId();

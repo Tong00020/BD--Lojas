@@ -5,9 +5,10 @@
  */
 package model.bean;
 
+import static com.sun.tools.attach.spi.AttachProvider.providers;
 import model.dao.ProductsDAO;
 import java.util.ArrayList;
-
+import model.dao.ProvidersDAO;
 /**
  *
  * @author Tong
@@ -20,9 +21,17 @@ public class Products {
     private String category;
     private double price;
     private int barcode;
-    private String photo;
+    private String quantity;
     private Providers provider;
 
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+   
     public int getId() {
         return id;
     }
@@ -71,20 +80,20 @@ public class Products {
         this.barcode = barcode;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
     public Providers getProvider() {
         return provider;
     }
 
     public void setProvider(Providers provider) {
         this.provider = provider;
+    }
+    
+    public int getProvidersId() {
+        return provider.getId();
+    }
+    
+    public void setProvidersId(int id) {
+        this.provider.setId(id);
     }
 
     public void create() throws Exception {
@@ -99,7 +108,7 @@ public class Products {
 
     public void delete() throws Exception {
         ProductsDAO pDAO = new ProductsDAO();
-        pDAO.delete(this.id);
+        pDAO.delete(this);
     }
 
     public ArrayList<Products> list() throws Exception {
@@ -115,7 +124,7 @@ public class Products {
         this.category = pDAO.loadById(this.id).getCategory();
         this.price = pDAO.loadById(this.id).getPrice();
         this.barcode = pDAO.loadById(this.id).getBarcode();
-        this.photo = pDAO.loadById(this.id).getPhoto();
+        this.quantity = pDAO.loadById(this.id).getQuantity();
         this.provider = pDAO.loadById(this.id).getProvider();
     }
 

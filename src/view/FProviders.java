@@ -65,6 +65,8 @@ public class FProviders extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         txtBuscaProviders = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        txtTelefoneProviders = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -95,14 +97,14 @@ public class FProviders extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOME", "CELULAR", "CNPJ", "CEP", "Nº DE ENDEREÇO", "ESTADO", "CIDADE", "COMPLEMENTO", "ENDEREÇO", "URL DO SITE"
+                "ID", "NOME", "CELULAR", "CNPJ", "CEP", "Nº DE ENDEREÇO", "ESTADO", "CIDADE", "COMPLEMENTO", "ENDEREÇO", "URL DO SITE", "TELEFONE FIXO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -158,6 +160,8 @@ public class FProviders extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
+
+        jLabel12.setText("TELEFONE FIXO");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -216,7 +220,11 @@ public class FProviders extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtCelularProviders, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
-                                .addComponent(txtNumEnderecoProviders, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtNumEnderecoProviders, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTelefoneProviders, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(38, 38, 38)
@@ -227,7 +235,7 @@ public class FProviders extends javax.swing.JFrame {
                         .addComponent(txtBuscaProviders, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addComponent(jButton4)))
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addGap(84, 84, 84))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1))
@@ -271,8 +279,11 @@ public class FProviders extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel8))
-                        .addGap(62, 62, 62)))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTelefoneProviders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -310,6 +321,7 @@ public class FProviders extends javax.swing.JFrame {
                 p.getCep(),
                 p.getCnpj(),
                 p.getCell_phone(),
+                p.getFixed_phone(),
                 p.getAddress_number(),
                 p.getUrl_site()
             });
@@ -335,6 +347,7 @@ public class FProviders extends javax.swing.JFrame {
                 p.getCep(),
                 p.getCnpj(),
                 p.getCell_phone(),
+                p.getFixed_phone(),
                 p.getAddress_number(),
                 p.getUrl_site()
             });
@@ -356,7 +369,7 @@ public class FProviders extends javax.swing.JFrame {
             txtComplementoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 9).toString());
             txtEnderecoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 10).toString());
             txtSiteProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 11).toString());
-            
+            txtTelefoneProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 12).toString()); 
         }
     }//GEN-LAST:event_jTProvidersMouseClicked
 
@@ -374,6 +387,7 @@ public class FProviders extends javax.swing.JFrame {
             txtComplementoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 9).toString());
             txtEnderecoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 10).toString());
             txtSiteProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 11).toString());
+            txtTelefoneProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 12).toString()); 
         }
     }//GEN-LAST:event_jTProvidersKeyReleased
 
@@ -399,7 +413,8 @@ public class FProviders extends javax.swing.JFrame {
                 txtCnpjProviders.setText("");
                 txtCelularProviders.setText("");
                 txtNumEnderecoProviders.setText("");
-                txtSiteProviders.setText("");
+                txtSiteProviders.setText(""); 
+                txtTelefoneProviders.setText("");  
                 readJTable();
 
             } catch (SQLException ex) {
@@ -421,9 +436,9 @@ public class FProviders extends javax.swing.JFrame {
 
                 p.setId(Integer.parseInt(txtIdProviders.getText()));
                 p.setName(txtNomeProviders.getText());
-                p.setCell_phone(Integer.parseInt(txtCelularProviders.getText()));
-                p.setCnpj(Integer.parseInt(txtCnpjProviders.getText()));
-                p.setCep(Integer.parseInt(txtCepProviders.getText()));
+                p.setCell_phone(txtCelularProviders.getText());
+                p.setCnpj(txtCnpjProviders.getText());
+                p.setCep(txtCepProviders.getText());
                 p.setAddress_number(Integer.parseInt(txtNumEnderecoProviders.getText()));
                 p.setState(txtEstadoProviders.getText());
                 p.setCity(txtCidadeProviders.getText());
@@ -433,8 +448,10 @@ public class FProviders extends javax.swing.JFrame {
                 p.setId((int) jTProviders.getValueAt(jTProviders.getSelectedRow(), 0));
 
                 try {
-                    dao.update(p);
+                    dao.alter(p);
                 } catch (SQLException ex) {
+                    Logger.getLogger(FProviders.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
                     Logger.getLogger(FProviders.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
@@ -448,7 +465,8 @@ public class FProviders extends javax.swing.JFrame {
                 txtCnpjProviders.setText("");
                 txtCelularProviders.setText("");
                 txtNumEnderecoProviders.setText("");
-                txtSiteProviders.setText("");
+                txtSiteProviders.setText(""); 
+                txtTelefoneProviders.setText("");  
                 readJTable();
 
             } catch (SQLException ex) {
@@ -465,9 +483,9 @@ public class FProviders extends javax.swing.JFrame {
 
             p.setId(Integer.parseInt(txtIdProviders.getText()));
             p.setName(txtNomeProviders.getText());
-            p.setCell_phone(Integer.parseInt(txtCelularProviders.getText()));
-            p.setCnpj(Integer.parseInt(txtCnpjProviders.getText()));
-            p.setCep(Integer.parseInt(txtCepProviders.getText()));
+            p.setCell_phone(txtCelularProviders.getText());
+            p.setCnpj(txtCnpjProviders.getText());
+            p.setCep(txtCepProviders.getText());
             p.setAddress_number(Integer.parseInt(txtNumEnderecoProviders.getText()));
             p.setState(txtEstadoProviders.getText());
             p.setCity(txtCidadeProviders.getText());
@@ -487,10 +505,12 @@ public class FProviders extends javax.swing.JFrame {
             txtCelularProviders  .setText("");
             txtNumEnderecoProviders.setText("");
             txtSiteProviders.setText("");    
-
+            txtTelefoneProviders.setText("");    
             readJTable();
 
         } catch (SQLException ex) {
+            Logger.getLogger(FProviders.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(FProviders.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -552,6 +572,7 @@ public class FProviders extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -574,5 +595,6 @@ public class FProviders extends javax.swing.JFrame {
     private javax.swing.JTextField txtNomeProviders;
     private javax.swing.JTextField txtNumEnderecoProviders;
     private javax.swing.JTextField txtSiteProviders;
+    private javax.swing.JTextField txtTelefoneProviders;
     // End of variables declaration//GEN-END:variables
 }

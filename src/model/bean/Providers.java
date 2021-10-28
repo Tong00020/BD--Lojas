@@ -7,6 +7,7 @@ package model.bean;
 
 import model.dao.ProvidersDAO;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -135,12 +136,17 @@ public class Providers {
 
     public void delete() throws Exception {
         ProvidersDAO pDAO = new ProvidersDAO();
-        pDAO.delete(this.id);
+        pDAO.delete(this);
     }
 
     public ArrayList<Providers> list() throws Exception {
         ProvidersDAO pDAO = new ProvidersDAO();
         return pDAO.list();
+    }
+    
+    public List<Providers> read() throws Exception {
+        ProvidersDAO pDAO = new ProvidersDAO();
+        return pDAO.read();
     }
 
     public void load() throws Exception {

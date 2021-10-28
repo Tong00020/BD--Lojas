@@ -9,8 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.bean.Budget;
-import model.dao.BudgetDAO;
+import model.bean.Budgets;
+import model.dao.BudgetsDAO;
 
 /**
  *
@@ -242,9 +242,9 @@ public class FBudget extends javax.swing.JFrame {
         
         DefaultTableModel modelo = (DefaultTableModel) jTBudget.getModel();
         modelo.setNumRows(0);
-        BudgetDAO pdao = new BudgetDAO();
+        BudgetsDAO pdao = new BudgetsDAO();
 
-        for (Budget p : pdao.read()) {
+        for (Budgets p : pdao.read()) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -264,9 +264,9 @@ public class FBudget extends javax.swing.JFrame {
         
         DefaultTableModel modelo = (DefaultTableModel) jTBudget.getModel();
         modelo.setNumRows(0);
-        BudgetDAO pdao = new BudgetDAO();
+        BudgetsDAO pdao = new BudgetsDAO();
 
-        for (Budget p : pdao.readForDesc(desc)) {
+        for (Budgets p : pdao.readForDesc(desc)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -307,8 +307,8 @@ public class FBudget extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            Budget p = new Budget();
-            BudgetDAO dao = new BudgetDAO();
+            Budgets p = new Budgets();
+            BudgetsDAO dao = new BudgetsDAO();
 
             p.setId(Integer.parseInt(txtIdBudget.getText()));
             p.setPrice(Integer.parseInt(txtPrecoBudget.getText()));
@@ -339,8 +339,8 @@ public class FBudget extends javax.swing.JFrame {
 
             try {
 
-                Budget p = new Budget();
-                BudgetDAO dao = new BudgetDAO();
+                Budgets p = new Budgets();
+                BudgetsDAO dao = new BudgetsDAO();
 
                 p.setId((int) jTBudget.getValueAt(jTBudget.getSelectedRow(), 0));
 
@@ -370,8 +370,8 @@ public class FBudget extends javax.swing.JFrame {
 
             try {
 
-                Budget p = new Budget();
-                BudgetDAO dao = new BudgetDAO();
+                Budgets p = new Budgets();
+                BudgetsDAO dao = new BudgetsDAO();
 
                 p.setId(Integer.parseInt(txtIdBudget.getText()));
                 p.setPrice(Integer.parseInt(txtPrecoBudget.getText()));
