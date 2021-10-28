@@ -79,11 +79,11 @@ public class FProducts extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "DESCRIÇÃO", "QUANTIDADE", "PREÇO", "NOME", "CATEGORIA", "BARCODE", "ID PROVEDOR"
+                "ID", "NOME", "DESCRIÇÃO", "CATEGORIA", "PREÇO", "BARCODE", "QUANTIDADE", "ID PROVEDOR"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, true
@@ -256,6 +256,7 @@ public class FProducts extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     

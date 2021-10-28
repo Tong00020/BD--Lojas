@@ -97,14 +97,14 @@ public class FProviders extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOME", "CELULAR", "CNPJ", "CEP", "Nº DE ENDEREÇO", "ESTADO", "CIDADE", "COMPLEMENTO", "ENDEREÇO", "URL DO SITE", "TELEFONE FIXO"
+                "ID", "NOME", "CNPJ", "CELULAR", "TELEFONE FIXO", "CEP", "ENDEREÇO", "Nº DE ENDEREÇO", "COMPLEMENTO", "CIDADE", "ESTADO", "URL DO SITE"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, true
+                false, false, false, false, true, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -301,6 +301,7 @@ public class FProviders extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public void readJTable() throws SQLException {
@@ -340,15 +341,15 @@ public class FProviders extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getName(),
-                p.getAddress(),
-                p.getComplement(),
-                p.getState(),
-                p.getCity(),
-                p.getCep(),
                 p.getCnpj(),
                 p.getCell_phone(),
                 p.getFixed_phone(),
+                p.getCep(),
+                p.getAddress(),
                 p.getAddress_number(),
+                p.getComplement(),
+                p.getCity(),
+                p.getState(),
                 p.getUrl_site()
             });
 

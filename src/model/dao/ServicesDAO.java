@@ -181,7 +181,7 @@ public class ServicesDAO {
         return produtos;
 
     }
-     
+    
     public List<Services> readForDesc(String desc) throws SQLException {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
@@ -192,7 +192,7 @@ public class ServicesDAO {
         List<Services> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM services WHERE name LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM services WHERE id LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();
@@ -206,13 +206,12 @@ public class ServicesDAO {
                 produto.setDescription(rs.getString("description"));
                 produtos.add(produto);
             }
-            
-            } catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             System.out.println(ex);
-            } finally {
+        } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
-        
 
         return produtos;
 

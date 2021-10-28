@@ -19,6 +19,23 @@ public class BudgetsDetails {
     private double subtotal;
     private Budgets budget;
     private Products product;
+    
+    
+    public int getBudgetsId() {
+        return budget.getId();
+    }
+    
+    public void setBudgetsId(int id) {
+        this.budget.setId(id);
+    }
+    
+    public int getProductsId() {
+        return product.getId();
+    }
+    
+    public void setProductsId(int id) {
+        this.product.setId(id);
+    }
 
     public int getId() {
         return id;
@@ -80,7 +97,7 @@ public class BudgetsDetails {
 
     public void delete() throws Exception {
         BudgetsDetailsDAO bdDAO = new BudgetsDetailsDAO();
-        bdDAO.delete(this.id);
+        bdDAO.delete(this);
     }
 
     public ArrayList<BudgetsDetails> list() throws Exception {

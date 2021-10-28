@@ -213,7 +213,6 @@ public class VehiclesDAO {
         return produtos;
 
     }
-    
     public List<Vehicles> readForDesc(String desc) throws SQLException {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
@@ -224,7 +223,7 @@ public class VehiclesDAO {
         List<Vehicles> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM vehicles WHERE year LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM vehicles WHERE id LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();
@@ -242,6 +241,7 @@ public class VehiclesDAO {
                 v.setType_fuel(rs.getString("type_fuel"));
                 v.setKm_current(rs.getDouble("km_current"));
                 v.setClientId(rs.getInt("clients_id"));
+
                 produtos.add(v);
             }
 
@@ -250,7 +250,7 @@ public class VehiclesDAO {
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
-
+        
         return produtos;
 
     }

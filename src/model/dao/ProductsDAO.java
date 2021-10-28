@@ -232,7 +232,7 @@ public class ProductsDAO {
         List<Products> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM produto WHERE name LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM produto WHERE id LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();

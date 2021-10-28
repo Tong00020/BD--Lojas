@@ -190,7 +190,7 @@ public class PrivilegesDAO {
         List<Privileges> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM privileges WHERE name LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM privileges WHERE id LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();

@@ -84,14 +84,14 @@ public class FVehicles extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "ANO", "COR", "VELOCIDADE ATUAL", "MODELO", "PLACA", "ID DO CLIENTE", "MARCA", "TIPO DE COMBUSTIVEL"
+                "ID", "MODELO", "MARCA", "PLACA", "ANO", "COR", "TIPO DE COMBUSTIVEL", "VELOCIDADE ATUAL", "ID DO CLIENTE"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true, true
+                false, false, true, false, false, false, true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -275,6 +275,7 @@ public class FVehicles extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
      public void readJTable() throws SQLException {

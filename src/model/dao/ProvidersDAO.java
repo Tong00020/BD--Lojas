@@ -225,7 +225,7 @@ public class ProvidersDAO {
         List<Providers> produtos = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM providers WHERE state LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM providers WHERE id LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();

@@ -22,6 +22,30 @@ public class Budgets {
     private Vehicles vehicle;
     private Clients client;
     private Services service;
+    
+    public int getVehiclesId() {
+        return vehicle.getId();
+    }
+    
+    public void setVehiclesId(int id) {
+        this.vehicle.setId(id);
+    }
+    
+    public int getClientsId() {
+        return client.getId();
+    }
+    
+    public void setClientsId(int id) {
+        this.client.setId(id);
+    }
+    
+    public int getServicesId() {
+        return service.getId();
+    }
+    
+    public void setServicesId(int id) {
+        this.service.setId(id);
+    }
 
     public int getId() {
         return id;
@@ -99,7 +123,7 @@ public class Budgets {
 
     public void delete() throws Exception {
         BudgetsDAO bDAO = new BudgetsDAO();
-        bDAO.delete(this.id);
+        bDAO.delete(this);
     }
 
     public ArrayList<Budgets> list() throws Exception {
