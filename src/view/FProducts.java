@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.bean.Products;
+
 /**
  *
  * @author Tong
@@ -20,11 +21,12 @@ public class FProducts extends javax.swing.JFrame {
 
     /**
      * Creates new form Products
+     *
      * @throws java.sql.SQLException
      */
     public FProducts() throws SQLException {
         initComponents();
-        
+
         jButton4.setEnabled(false);
         /*DefaultTableModel modelo = (DefaultTableModel) jTProducts.getModel();
         jTProducts.setRowSorter(new TableRowSorter(modelo));
@@ -259,9 +261,8 @@ public class FProducts extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
     public void readJTableForDesc(String desc) throws SQLException {
-        
+
         DefaultTableModel modelo = (DefaultTableModel) jTProducts.getModel();
         modelo.setNumRows(0);
         ProductsDAO pdao = new ProductsDAO();
@@ -282,9 +283,9 @@ public class FProducts extends javax.swing.JFrame {
         }
 
     }
-    
+
     public void readJTable() throws SQLException {
-        
+
         DefaultTableModel modelo = (DefaultTableModel) jTProducts.getModel();
         modelo.setNumRows(0);
         ProductsDAO pdao = new ProductsDAO();
@@ -306,13 +307,13 @@ public class FProducts extends javax.swing.JFrame {
 
     }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
+
         try {
             readJTableForDesc(txtBuscaProducts.getText());
         } catch (SQLException ex) {
             Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProductsMouseClicked
@@ -345,21 +346,20 @@ public class FProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jTProductsKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {                                         
+        try {
             Products p = new Products();
             ProductsDAO dao = new ProductsDAO();
-            
+
             p.setId(Integer.parseInt(txtIdProdutos.getText()));
             p.setName(txtNomeProdutos.getText());
             p.setDescription(txtDescProdutos.getText());
             p.setProvidersId(Integer.parseInt(txtIdProvedorProdutos.getText()));
             p.setPrice(Double.parseDouble(txtPrecoProdutos.getText()));
             p.setBarcode(Integer.parseInt(txtQtdProdutos.getText()));
-            p.setQuantity(txtQtdProdutos.getText());
+            p.setQuantity(Integer.parseInt(txtQtdProdutos.getText()));
             p.setCategory(txtCategoriaProdutos.getText());
             dao.create(p);
-            
-            
+
             txtDescProdutos.setText("");
             txtQtdProdutos.setText("");
             txtPrecoProdutos.setText("");
@@ -369,7 +369,7 @@ public class FProducts extends javax.swing.JFrame {
             txtIdProvedorProdutos.setText("");
             txtCategoriaProdutos.setText("");
             readJTable();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -383,11 +383,11 @@ public class FProducts extends javax.swing.JFrame {
 
                 Products p = new Products();
                 ProductsDAO dao = new ProductsDAO();
-                
+
                 p.setId((int) jTProducts.getValueAt(jTProducts.getSelectedRow(), 0));
-                
+
                 dao.delete(p);
-                
+
                 txtDescProdutos.setText("");
                 txtQtdProdutos.setText("");
                 txtPrecoProdutos.setText("");
@@ -396,9 +396,9 @@ public class FProducts extends javax.swing.JFrame {
                 txtBarCodeProdutos.setText("");
                 txtIdProvedorProdutos.setText("");
                 txtCategoriaProdutos.setText("");
-                
+
                 readJTable();
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -415,17 +415,17 @@ public class FProducts extends javax.swing.JFrame {
 
                 Products p = new Products();
                 ProductsDAO dao = new ProductsDAO();
-                
+
                 p.setId(Integer.parseInt(txtIdProdutos.getText()));
                 p.setName(txtNomeProdutos.getText());
                 p.setDescription(txtDescProdutos.getText());
                 p.setProvidersId(Integer.parseInt(txtIdProvedorProdutos.getText()));
                 p.setPrice(Double.parseDouble(txtPrecoProdutos.getText()));
                 p.setBarcode(Integer.parseInt(txtQtdProdutos.getText()));
-                p.setQuantity(txtQtdProdutos.getText());
+                p.setQuantity(Integer.parseInt(txtQtdProdutos.getText()));
                 p.setCategory(txtCategoriaProdutos.getText());
                 p.setId((int) jTProducts.getValueAt(jTProducts.getSelectedRow(), 0));
-                
+
                 try {
                     dao.alter(p);
                 } catch (SQLException ex) {
@@ -433,8 +433,7 @@ public class FProducts extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                
+
                 txtDescProdutos.setText("");
                 txtQtdProdutos.setText("");
                 txtPrecoProdutos.setText("");
@@ -444,7 +443,7 @@ public class FProducts extends javax.swing.JFrame {
                 txtIdProvedorProdutos.setText("");
                 txtCategoriaProdutos.setText("");
                 readJTable();
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -456,9 +455,6 @@ public class FProducts extends javax.swing.JFrame {
         jButton4.setEnabled(true);
     }//GEN-LAST:event_txtBuscaProductsActionPerformed
 
-    
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -489,13 +485,13 @@ public class FProducts extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              
+
                 try {
                     new FProducts().setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
             }
         });
     }
@@ -526,5 +522,4 @@ public class FProducts extends javax.swing.JFrame {
     private javax.swing.JTextField txtQtdProdutos;
     // End of variables declaration//GEN-END:variables
 
-    
 }

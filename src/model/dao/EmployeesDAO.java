@@ -14,6 +14,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.List;
 import model.bean.Privileges;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -103,12 +105,11 @@ public class EmployeesDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
-    
-    
+
     public void delete(Employees p) throws SQLException {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
-        
+
         PreparedStatement stmt = null;
 
         try {
@@ -125,7 +126,6 @@ public class EmployeesDAO {
         }
 
     }
-
 
     public ArrayList<Employees> list() throws Exception {
         ArrayList<Employees> lista = new ArrayList<Employees>();
@@ -229,8 +229,8 @@ public class EmployeesDAO {
                 p.load();
                 e.setPrivilege(p);
             }
-            
-         JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
             System.out.println(ex);
         } finally {
@@ -238,10 +238,11 @@ public class EmployeesDAO {
         }
         return e;
     }
+
     public List<Employees> read() throws SQLException {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
-        
+
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -274,8 +275,7 @@ public class EmployeesDAO {
                 e.setEmployeesId(rs.getInt("report_to"));
                 e.setPrivilegesId(rs.getInt("id_privilege"));
                 produtos.add(e);
-                
-                
+
             }
 
         } catch (SQLException ex) {
@@ -286,11 +286,11 @@ public class EmployeesDAO {
         return produtos;
 
     }
-    
+
     public List<Employees> readForDesc(String desc) throws SQLException {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
-        
+
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -298,8 +298,8 @@ public class EmployeesDAO {
 
         try {
             stmt = con.prepareStatement("SELECT * FROM employees WHERE id LIKE ?");
-            stmt.setString(1, "%"+desc+"%");
-            
+            stmt.setString(1, "%" + desc + "%");
+
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -334,6 +334,37 @@ public class EmployeesDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
         return produtos;
+
+    }
+
+    public boolean checkLogin(String login, String password) {
+
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        boolean check = false;
+
+        try {
+
+            stmt = con.prepareStatement("SELECT * FROM employees WHERE login = ? and password = ?");
+            stmt.setString(1, login);
+            stmt.setString(2, password);
+
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+                check = true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+
+        return check;
 
     }
 }

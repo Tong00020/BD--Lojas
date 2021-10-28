@@ -5,6 +5,9 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import model.dao.EmployeesDAO;
+
 /**
  *
  * @author Tong
@@ -16,10 +19,10 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        jButton1.setEnabled(false);
-        jTextField2.setEnabled(false);
+        jButton1.setEnabled(true);
+        jTextField2.setEnabled(true);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,13 +35,13 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 204, 255));
 
-        jLabel1.setText("NOME:");
+        jLabel1.setText("LOGIN:");
 
         jLabel2.setText("SENHA:");
 
@@ -54,7 +57,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("OK");
+        jButton1.setText("ENTRAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -111,7 +114,16 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new MainFlame().setVisible(true);
+        EmployeesDAO eDAO = new EmployeesDAO();
+
+        if (eDAO.checkLogin(jTextField1.getText(), jTextField2.getText())) {
+            new MainFlame().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "SENHA INCORRETA!");
+        }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

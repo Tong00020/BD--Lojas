@@ -38,7 +38,7 @@ CREATE TABLE `budget` (
   CONSTRAINT `fk_budget_clients1` FOREIGN KEY (`clients_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_budget_services1` FOREIGN KEY (`services_id`) REFERENCES `services` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_budget_vehicles1` FOREIGN KEY (`vehicles_id`) REFERENCES `vehicles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,7 +113,7 @@ CREATE TABLE `clients` (
 
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-INSERT INTO `clients` VALUES (1,'063.862.116-00','Kauê Anthony Cauã Cavalcanti','Rua Acer','827','Centro da Serra','ES','Serra','29179-415','(27) 99899-3109','(27) 2957-4631','kaueanthonycauacavalcanti__kaueanthonycauacavalcanti@revati.com.br'),(2,'372.265.475-03','Francisca Louise Assis','Quadra Quadra 2 Comércio Local 18','660','Sobradinho','DF','Brasília','73016-145','(61) 98722-0250','(61) 3519-7599','franciscalouiseassis..franciscalouiseassis@biconsult.com.br'),(3,'958.178.428-40','Breno Thomas Drumond','Beco Aguiar','348','São José','RJ','Belford Roxo','26193-584','(21) 99118-5285','(21) 3780-6378','brenothomasdrumond_@usa.com'),(4,'633.728.004-00','Henrique Calebe Diego Rodrigues','Alameda Ana Maria Muniz','942','Popular Nova','MS','Corumbá','79321-050','(67) 98119-9452','(67) 3749-1966','henriquecalebediegorodrigues__henriquecalebediegorodrigues@domain.com.br'),(5,'333.522.085-49','Lara Alessandra Tânia Almada','Rua Marly Félix do Nascimento','676','Mangabeira','PB','João Pessoa','58056-575','(83) 99675-8430','(83) 3748-0871','laraalessandrataniaalmada__laraalessandrataniaalmada@agenziamarketing.com.br');
+INSERT INTO `clients` VALUES (1,'063.862.116-00','Kauê Anthony Cauã Cavalcanti','Rua Acer','827','Centro da Serra','ES','Serra','29179-415','(27) 99899-3109','','kaueanthonycauacavalcanti__kaueanthonycauacavalcanti@revati.com.br'),(2,'372.265.475-03','Francisca Louise Assis','Quadra Quadra 2 Comércio Local 18','660','Sobradinho','DF','Brasília','73016-145','(61) 98722-0250','','franciscalouiseassis..franciscalouiseassis@biconsult.com.br'),(3,'958.178.428-40','Breno Thomas Drumond','Beco Aguiar','348','São José','RJ','Belford Roxo','26193-584','(21) 99118-5285','','brenothomasdrumond_@usa.com'),(4,'633.728.004-00','Henrique Calebe Diego Rodrigues','Alameda Ana Maria Muniz','942','Popular Nova','MS','Corumbá','79321-050','(67) 98119-9452','','henriquecalebediegorodrigues__henriquecalebediegorodrigues@domain.com.br'),(5,'333.522.085-49','Lara Alessandra Tânia Almada','Rua Marly Félix do Nascimento','676','Mangabeira','PB','João Pessoa','58056-575','(83) 99675-8430','','laraalessandrataniaalmada__laraalessandrataniaalmada@agenziamarketing.com.br');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,11 +134,11 @@ CREATE TABLE `employees` (
   `fixed_phone` varchar(14) DEFAULT NULL,
   `cep` varchar(10) NOT NULL,
   `address` varchar(255) NOT NULL,
-  `address_number` varchar(45) NOT NULL,
+  `address_number` int(11) NOT NULL,
   `complement` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
   `state` char(2) NOT NULL,
-  `status` tinyint(4) NOT NULL,
+  `status` varchar(45) NOT NULL,
   `login` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `job_title` varchar(255) DEFAULT NULL,
@@ -149,7 +149,7 @@ CREATE TABLE `employees` (
   KEY `fk_employees_privileges1_idx` (`privileges_id`),
   CONSTRAINT `fk_employees_employees1` FOREIGN KEY (`reports_to`) REFERENCES `employees` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_employees_privileges1` FOREIGN KEY (`privileges_id`) REFERENCES `privileges` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,6 +158,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` VALUES (1,'Esther Isabelly Mirella Nunes',NULL,'eestherisabellymirellanunes@tricoproducts.com.br','470.609.975-71','(51) 98568-2434','(51) 3501-6786','90810-464','Rua Ilha',556,'Santa Tereza','Porto Alegre','RS','ATIVO','admin','admin','ADMINISTRADOR',NULL,1);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -233,7 +234,7 @@ CREATE TABLE `products` (
   `category` varchar(45) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `barcode` int(11) DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
   `providers_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_products_providers1_idx` (`providers_id`),
@@ -281,7 +282,7 @@ CREATE TABLE `providers` (
 
 LOCK TABLES `providers` WRITE;
 /*!40000 ALTER TABLE `providers` DISABLE KEYS */;
-INSERT INTO `providers` VALUES (1,'Otávio e Adriana Vidros Ltda','60.029.254/0001-64','(14) 98910-1027','(14) 2978-9030','16402-291','Rua Antônio Samora','867','Jardim Tangará','Lins','SP','www.otavioeadrianavidrosltda.com.br'),(2,'Lucca e Carolina Limpeza Ltda','93.825.788/0001-56','(68) 99605-8626','(68) 2728-0367','69920-187','Travessa Café','186','Distrito Industrial','Rio Branco','AC','www.luccaecarolinalimpezaltda.com.br'),(3,'Enrico e Benedito Telas ME','18.374.787/0001-17','(82) 98506-1430','(82) 2518-2331','57307-700','Rua José Sabino Sampaio','167','Jardim Esperança','Arapiraca','AL','www.enricoebeneditotelasme.com.br'),(4,'Ryan e Evelyn Gráfica Ltda','11.475.148/0001-07','(96) 98715-4778','(96) 2602-0960','68909-546','Avenida Alvaro Carvalho Barbosa','994','Boné Azul','Macapá','AP','www.ryaneevelyngraficaltda.com.br'),(5,'Sophia e Bernardo Eletrônica Ltda','43.184.699/0001-08','(92) 99641-4984','(92) 2714-4421','69400-410','Rua Coronel Salgado','152','São Francisco','Manacapuru','AM','www.sophiaebernardoeletronicaltda.com.br');
+INSERT INTO `providers` VALUES (1,'Otávio e Adriana Vidros Ltda','60.029.254/0001-64','(14) 98910-1027','','16402-291','Rua Antônio Samora','867','Jardim Tangará','Lins','SP',''),(2,'Lucca e Carolina Limpeza Ltda','93.825.788/0001-56','(68) 99605-8626','','69920-187','Travessa Café','186','Distrito Industrial','Rio Branco','AC',''),(3,'Enrico e Benedito Telas ME','18.374.787/0001-17','(82) 98506-1430','','57307-700','Rua José Sabino Sampaio','167','Jardim Esperança','Arapiraca','AL',''),(4,'Ryan e Evelyn Gráfica Ltda','11.475.148/0001-07','(96) 98715-4778','','68909-546','Avenida Alvaro Carvalho Barbosa','994','Boné Azul','Macapá','AP',''),(5,'Sophia e Bernardo Eletrônica Ltda','43.184.699/0001-08','(92) 99641-4984','','69400-410','Rua Coronel Salgado','152','São Francisco','Manacapuru','AM','');
 /*!40000 ALTER TABLE `providers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,4 +353,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-27 15:13:37
+-- Dump completed on 2021-10-28 18:53:15

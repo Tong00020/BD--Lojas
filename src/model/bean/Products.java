@@ -9,6 +9,7 @@ import static com.sun.tools.attach.spi.AttachProvider.providers;
 import model.dao.ProductsDAO;
 import java.util.ArrayList;
 import model.dao.ProvidersDAO;
+
 /**
  *
  * @author Tong
@@ -21,17 +22,17 @@ public class Products {
     private String category;
     private double price;
     private int barcode;
-    private String quantity;
+    private int quantity;
     private Providers provider;
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-   
+
     public int getId() {
         return id;
     }
@@ -87,11 +88,11 @@ public class Products {
     public void setProvider(Providers provider) {
         this.provider = provider;
     }
-    
+
     public int getProvidersId() {
         return provider.getId();
     }
-    
+
     public void setProvidersId(int id) {
         this.provider.setId(id);
     }
