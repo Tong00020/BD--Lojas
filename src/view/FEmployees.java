@@ -69,6 +69,16 @@ public class FEmployees extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         txtBuscaEmployees = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        txtIdEmployees = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txtLoginEmployees = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        txtSenhaEmployees = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        txtReportaEmployees = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        txtIdPrivEmployees = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -97,14 +107,14 @@ public class FEmployees extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CPF", "NOME", "Nº ENDEREÇO", "TELEFONE FIXO", "CELULAR", "EMAIL", "CEP", "ESTADO", "CIDADE", "COMPLEMENTO", "ENDEREÇO", "STATUS", "TRABALHO"
+                "ID", "NOME", "EMAIL", "CPF", "CELULAR", "TELEFONE FIXO", "CEP", "ENDEREÇO", "Nº ENDEREÇO", "COMPLEMENTO", "CIDADE", "ESTADO", "STATUS", "LOGIN", "SENHA", "TRABALHO", "REPORTA PARA (ID)", "ID PRIVILEGIO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -167,6 +177,16 @@ public class FEmployees extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setText("ID");
+
+        jLabel15.setText("LOGIN");
+
+        jLabel16.setText("SENHA");
+
+        jLabel17.setText("REPORTA PARA (ID)");
+
+        jLabel18.setText("ID PRIVILEGIO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,23 +196,43 @@ public class FEmployees extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(txtTelefoFixoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46)
+                            .addComponent(jLabel5)
+                            .addComponent(txtNomeEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(txtCelularEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
+                            .addComponent(txtCpfEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(txtNumEnderecoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(52, 52, 52)
+                            .addComponent(jLabel14)
+                            .addComponent(txtIdEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTrabalhoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3)
+                            .addComponent(txtCepEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEstadoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(txtEmailEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(154, 154, 154))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(txtTelefoFixoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(46, 46, 46)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(txtCelularEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(txtNumEnderecoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -204,33 +244,31 @@ public class FEmployees extends javax.swing.JFrame {
                                 .addGap(54, 54, 54)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
-                                    .addComponent(txtComplementoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtComplementoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(txtNomeEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel12)
+                                    .addComponent(txtStatusEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCpfEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(33, 33, 33)
+                                    .addComponent(jLabel15)
+                                    .addComponent(txtLoginEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(txtCepEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(86, 86, 86)
+                                    .addComponent(txtTrabalhoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel17)
+                                    .addComponent(txtReportaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEstadoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(txtEmailEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12)
-                            .addComponent(txtStatusEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(154, 154, 154))))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                                    .addComponent(jLabel16)
+                                    .addComponent(txtSenhaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel18)
+                                    .addComponent(txtIdPrivEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(91, 91, 91))))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1)
@@ -241,65 +279,101 @@ public class FEmployees extends javax.swing.JFrame {
                 .addGap(191, 191, 191)
                 .addComponent(txtBuscaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(jButton4)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jButton4))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1181, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNomeEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCpfEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCepEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEstadoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEmailEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtNomeEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCpfEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCepEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtEstadoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtEmailEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtIdEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtEnderecoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCidadeEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtComplementoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtStatusEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtLoginEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEnderecoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCidadeEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtStatusEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtComplementoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTelefoFixoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCelularEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNumEnderecoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTrabalhoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtBuscaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton4))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1)
-                        .addComponent(jButton3)
-                        .addComponent(jButton2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTelefoFixoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCelularEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNumEnderecoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTrabalhoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSenhaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtBuscaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton4))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton1)
+                                .addComponent(jButton3)
+                                .addComponent(jButton2))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtIdPrivEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtReportaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public void readJTable() throws SQLException {
@@ -311,19 +385,24 @@ public class FEmployees extends javax.swing.JFrame {
         for (Employees p : pdao.read()) {
 
             modelo.addRow(new Object[]{
-                p.getCpf(),
+                p.getId(),
                 p.getName(),
-                p.getAddress_number(),
-                p.getFixed_phone(),
-                p.getCell_phone(),
                 p.getEmail(),
+                p.getCpf(),
+                p.getCell_phone(),
+                p.getFixed_phone(),
                 p.getCep(),
-                p.getState(),
-                p.getCity(),
-                p.getComplement(),
                 p.getAddress(),
+                p.getAddress_number(),
+                p.getComplement(),
+                p.getCity(),
+                p.getState(),
                 p.getStatus(),
-                p.getJob_title()
+                p.getLogin(),
+                p.getPassword(),
+                p.getJob_title(),
+                p.getReport_to(),
+                p.getPrivilegesId()
                 
             });
 
@@ -341,19 +420,24 @@ public class FEmployees extends javax.swing.JFrame {
         for (Employees p : pdao.readForDesc(desc)) {
 
             modelo.addRow(new Object[]{
-               p.getCpf(),
+                p.getId(),
                 p.getName(),
-                p.getAddress_number(),
-                p.getFixed_phone(),
-                p.getCell_phone(),
                 p.getEmail(),
+                p.getCpf(),
+                p.getCell_phone(),
+                p.getFixed_phone(),
                 p.getCep(),
-                p.getState(),
-                p.getCity(),
-                p.getComplement(),
                 p.getAddress(),
+                p.getAddress_number(),
+                p.getComplement(),
+                p.getCity(),
+                p.getState(),
                 p.getStatus(),
-                p.getJob_title()
+                p.getLogin(),
+                p.getPassword(),
+                p.getJob_title(),
+                p.getReport_to(),
+                p.getPrivilegesId()
             });
 
         }
@@ -361,20 +445,25 @@ public class FEmployees extends javax.swing.JFrame {
     }
     private void jTEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTEmployeesMouseClicked
         if (jTEmployees.getSelectedRow() != -1) {
-
-            txtCpfEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 1).toString());
+            
+            txtIdEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 1).toString());
             txtNomeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 2).toString());
-            txtEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 3).toString()); 
-            txtTelefoFixoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 4).toString());
+            txtEmailEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 3).toString());
+            txtCpfEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 4).toString());
             txtCelularEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 5).toString());
-            txtEmailEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 6).toString());
-            txtCepEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 7).toString());
-            txtEstadoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 8).toString());
-            txtCidadeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 9).toString());
+            txtTelefoFixoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 6).toString());
+            txtCepEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 7).toString()); 
+            txtEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 8).toString());
+            txtNumEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 9).toString());
             txtComplementoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 10).toString());
-            txtEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 11).toString());
-            txtStatusEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 12).toString());
-            txtTrabalhoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
+            txtCidadeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 11).toString());
+            txtEstadoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 12).toString());
+            txtStatusEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
+            txtLoginEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 14).toString());
+            txtSenhaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
+            txtTrabalhoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
+            txtReportaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17).toString());
+            txtIdPrivEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 18).toString());
 
         }
     }//GEN-LAST:event_jTEmployeesMouseClicked
@@ -382,19 +471,24 @@ public class FEmployees extends javax.swing.JFrame {
     private void jTEmployeesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEmployeesKeyReleased
         if (jTEmployees.getSelectedRow() != -1) {
 
-            txtCpfEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 1).toString());
+            txtIdEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 1).toString());
             txtNomeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 2).toString());
-            txtEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 3).toString()); 
-            txtTelefoFixoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 4).toString());
+            txtEmailEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 3).toString());
+            txtCpfEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 4).toString());
             txtCelularEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 5).toString());
-            txtEmailEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 6).toString());
-            txtCepEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 7).toString());
-            txtEstadoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 8).toString());
-            txtCidadeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 9).toString());
+            txtTelefoFixoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 6).toString());
+            txtCepEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 7).toString()); 
+            txtEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 8).toString());
+            txtNumEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 9).toString());
             txtComplementoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 10).toString());
-            txtEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 11).toString());
-            txtStatusEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 12).toString());
-            txtTrabalhoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
+            txtCidadeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 11).toString());
+            txtEstadoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 12).toString());
+            txtStatusEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
+            txtLoginEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 14).toString());
+            txtSenhaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
+            txtTrabalhoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
+            txtReportaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17).toString());
+            txtIdPrivEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 18).toString());
 
         }
     }//GEN-LAST:event_jTEmployeesKeyReleased
@@ -403,35 +497,46 @@ public class FEmployees extends javax.swing.JFrame {
         try {
             Employees p = new Employees();
             EmployeesDAO dao = new EmployeesDAO();
-
-            p.setCpf(Integer.parseInt(txtCpfEmployees.getText()));
+            
+            p.setId(Integer.parseInt(txtIdEmployees.getText()));
             p.setName(txtNomeEmployees.getText());
+            p.setCpf(txtCpfEmployees.getText());
             p.setAddress_number(Integer.parseInt(txtNumEnderecoEmployees.getText()));
             p.setAddress(txtEnderecoEmployees.getText());
             p.setComplement(txtComplementoEmployees.getText());
             p.setState(txtEstadoEmployees.getText());
             p.setCity(txtCidadeEmployees.getText());
-            p.setCep(Integer.parseInt(txtCepEmployees.getText()));
-            p.setFixed_phone(Integer.parseInt(txtTelefoFixoEmployees.getText()));
-            p.setCell_phone(Integer.parseInt(txtCelularEmployees.getText()));
+            p.setCep(txtCepEmployees.getText());
+            p.setFixed_phone(txtTelefoFixoEmployees.getText());
+            p.setCell_phone(txtCelularEmployees.getText());
             p.setEmail(txtEmailEmployees.getText());
             p.setStatus(txtStatusEmployees.getText());
-            p.setJob_title(txtTrabalhoEmployees.getText());
+            p.setLogin(txtLoginEmployees.getText());
+            p.setPassword(txtSenhaEmployees.getText());
+            p.setEmployeesId(Integer.parseInt(txtReportaEmployees.getText()));
+            p.setPrivilegesId(Integer.parseInt(txtIdPrivEmployees.getText()));
             dao.create(p);
-
-            txtCpfEmployees.setText("");
+            
+            txtIdEmployees.setText("");
             txtNomeEmployees.setText("");
-            txtEnderecoEmployees.setText("");
-            txtComplementoEmployees.setText("");
-            txtEstadoEmployees.setText("");
-            txtCidadeEmployees.setText("");
-            txtCepEmployees.setText("");
-            txtTelefoFixoEmployees.setText("");
-            txtCelularEmployees.setText("");
             txtEmailEmployees.setText("");
-            txtTrabalhoEmployees.setText("");
-            txtStatusEmployees.setText("");
+            txtCpfEmployees.setText("");
+            txtCelularEmployees.setText("");
+            txtTelefoFixoEmployees.setText("");
+            txtCepEmployees.setText(""); 
+            txtEnderecoEmployees.setText("");
             txtNumEnderecoEmployees.setText("");
+            txtComplementoEmployees.setText("");
+            txtCidadeEmployees.setText("");
+            txtEstadoEmployees.setText("");
+            txtStatusEmployees.setText("");
+            txtLoginEmployees.setText("");
+            txtSenhaEmployees.setText("");
+            txtTrabalhoEmployees.setText("");
+            txtReportaEmployees.setText("");
+            txtIdPrivEmployees.setText("");
+
+
             
             readJTable();
 
@@ -448,23 +553,28 @@ public class FEmployees extends javax.swing.JFrame {
                 Employees p = new Employees();
                 EmployeesDAO dao = new EmployeesDAO();
 
-                p.setCpf((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
+                p.setId((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
 
                 dao.delete(p);
 
-                txtCpfEmployees.setText("");
+                txtIdEmployees.setText("");
                 txtNomeEmployees.setText("");
-                txtEnderecoEmployees.setText("");
-                txtComplementoEmployees.setText("");
-                txtEstadoEmployees.setText("");
-                txtCidadeEmployees.setText("");
-                txtCepEmployees.setText("");
-                txtTelefoFixoEmployees.setText("");
-                txtCelularEmployees.setText("");
                 txtEmailEmployees.setText("");
-                txtTrabalhoEmployees.setText("");
-                txtStatusEmployees.setText("");
+                txtCpfEmployees.setText("");
+                txtCelularEmployees.setText("");
+                txtTelefoFixoEmployees.setText("");
+                txtCepEmployees.setText(""); 
+                txtEnderecoEmployees.setText("");
                 txtNumEnderecoEmployees.setText("");
+                txtComplementoEmployees.setText("");
+                txtCidadeEmployees.setText("");
+                txtEstadoEmployees.setText("");
+                txtStatusEmployees.setText("");
+                txtLoginEmployees.setText("");
+                txtSenhaEmployees.setText("");
+                txtTrabalhoEmployees.setText("");
+                txtReportaEmployees.setText("");
+                txtIdPrivEmployees.setText("");
 
                 readJTable();
 
@@ -485,37 +595,51 @@ public class FEmployees extends javax.swing.JFrame {
                 Employees p = new Employees();
                 EmployeesDAO dao = new EmployeesDAO();
 
-                p.setCpf(Integer.parseInt(txtCpfEmployees.getText()));
+               p.setId(Integer.parseInt(txtIdEmployees.getText()));
                 p.setName(txtNomeEmployees.getText());
+                p.setCpf(txtCpfEmployees.getText());
                 p.setAddress_number(Integer.parseInt(txtNumEnderecoEmployees.getText()));
                 p.setAddress(txtEnderecoEmployees.getText());
                 p.setComplement(txtComplementoEmployees.getText());
                 p.setState(txtEstadoEmployees.getText());
                 p.setCity(txtCidadeEmployees.getText());
-                p.setCep(Integer.parseInt(txtCepEmployees.getText()));
-                p.setFixed_phone(Integer.parseInt(txtTelefoFixoEmployees.getText()));
-                p.setCell_phone(Integer.parseInt(txtCelularEmployees.getText()));
+                p.setCep(txtCepEmployees.getText());
+                p.setFixed_phone(txtTelefoFixoEmployees.getText());
+                p.setCell_phone(txtCelularEmployees.getText());
                 p.setEmail(txtEmailEmployees.getText());
                 p.setStatus(txtStatusEmployees.getText());
-                p.setJob_title(txtTrabalhoEmployees.getText());
-                p.setCpf((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
+                p.setLogin(txtLoginEmployees.getText());
+                p.setPassword(txtSenhaEmployees.getText());
+                p.setEmployeesId(Integer.parseInt(txtReportaEmployees.getText()));
+                p.setPrivilegesId(Integer.parseInt(txtIdPrivEmployees.getText()));
+                p.setId((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
 
                 try {
-                    dao.update(p);
+                    dao.alter(p);
                 } catch (SQLException ex) {
+                    Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
                     Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                txtCpfEmployees.setText("");
+                txtIdEmployees.setText("");
                 txtNomeEmployees.setText("");
-                txtEnderecoEmployees.setText("");
-                txtComplementoEmployees.setText("");
-                txtEstadoEmployees.setText("");
-                txtCidadeEmployees.setText("");
-                txtCepEmployees.setText("");
-                txtTelefoFixoEmployees.setText("");
-                txtCelularEmployees.setText("");
                 txtEmailEmployees.setText("");
+                txtCpfEmployees.setText("");
+                txtCelularEmployees.setText("");
+                txtTelefoFixoEmployees.setText("");
+                txtCepEmployees.setText(""); 
+                txtEnderecoEmployees.setText("");
+                txtNumEnderecoEmployees.setText("");
+                txtComplementoEmployees.setText("");
+                txtCidadeEmployees.setText("");
+                txtEstadoEmployees.setText("");
+                txtStatusEmployees.setText("");
+                txtLoginEmployees.setText("");
+                txtSenhaEmployees.setText("");
+                txtTrabalhoEmployees.setText("");
+                txtReportaEmployees.setText("");
+                txtIdPrivEmployees.setText("");
                 readJTable();
 
             } catch (SQLException ex) {
@@ -584,6 +708,11 @@ public class FEmployees extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -603,8 +732,13 @@ public class FEmployees extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmailEmployees;
     private javax.swing.JTextField txtEnderecoEmployees;
     private javax.swing.JTextField txtEstadoEmployees;
+    private javax.swing.JTextField txtIdEmployees;
+    private javax.swing.JTextField txtIdPrivEmployees;
+    private javax.swing.JTextField txtLoginEmployees;
     private javax.swing.JTextField txtNomeEmployees;
     private javax.swing.JTextField txtNumEnderecoEmployees;
+    private javax.swing.JTextField txtReportaEmployees;
+    private javax.swing.JTextField txtSenhaEmployees;
     private javax.swing.JTextField txtStatusEmployees;
     private javax.swing.JTextField txtTelefoFixoEmployees;
     private javax.swing.JTextField txtTrabalhoEmployees;

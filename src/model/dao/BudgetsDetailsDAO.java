@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.util.List;
 import model.bean.Budgets;
 import model.bean.BudgetsDetails;
 import model.bean.Clients;
@@ -75,20 +76,19 @@ public class BudgetsDetailsDAO {
         }
     }
 
-    public void delete(int id) throws Exception {
+    public void delete(BudgetsDetails p) throws Exception {
         Connection con = (Connection) ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
         try {
-            String sql = "DELETE FROM budgets_details WHERE id=?";
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt = con.prepareStatement("DELETE FROM budgets_details WHERE id = ?");
+            stmt.setInt(1, p.getId());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
@@ -176,5 +176,81 @@ public class BudgetsDetailsDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
         return bd;
+    }
+    
+     public List<BudgetsDetails> read() throws SQLException {
+
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<BudgetsDetails> produtos = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM budgets_details");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                BudgetsDetails bd = new BudgetsDetails();
+
+                bd.setId(rs.getInt("id"));
+                bd.setPrice(rs.getDouble("price"));
+                bd.setAmount(rs.getDouble("amount"));
+                bd.setSubtotal(rs.getDouble("subtotal"));
+                bd.setBudgetsId(rs.getInt("id_budget"));
+                bd.setProductsId(rs.getInt("id_product"));
+                
+                produtos.add(bd);
+                
+                
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+        return produtos;
+
+    }
+     
+     public List<BudgetsDetails> readForDesc(String desc) throws SQLException {
+
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<BudgetsDetails> produtos = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM budgets_details WHERE id LIKE ?");
+            stmt.setString(1, "%"+desc+"%");
+            
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                BudgetsDetails bd = new BudgetsDetails();
+
+                bd.setId(rs.getInt("id"));
+                bd.setPrice(rs.getDouble("price"));
+                bd.setAmount(rs.getDouble("amount"));
+                bd.setSubtotal(rs.getDouble("subtotal"));
+                bd.setBudgetsId(rs.getInt("id_budget"));
+                bd.setProductsId(rs.getInt("id_product"));
+                produtos.add(bd);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+
+        return produtos;
+
     }
 }

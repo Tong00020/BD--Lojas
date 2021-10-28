@@ -5,6 +5,8 @@
 package model.dao;
 
 import connection.ConnectionFactory;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.bean.Services;
 import java.sql.ResultSet;
+import java.util.List;
+import view.FServices;
 
 /**
  *
@@ -62,23 +66,25 @@ public class ServicesDAO {
         }
     }
 
-    public void delete(int id) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void delete(Services p) throws SQLException {
 
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
         PreparedStatement stmt = null;
 
         try {
-            String sql = "DELETE FROM services WHERE id=?";
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt = con.prepareStatement("DELETE FROM services WHERE id = ?");
+            stmt.setInt(1, p.getId());
+
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
+
     }
 
     public ArrayList<Services> list() throws Exception {
@@ -140,5 +146,74 @@ public class ServicesDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
         return s;
+    }
+    
+    public List<Services> read() throws SQLException {
+
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Services> produtos = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM services");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Services produto = new Services();
+
+                produto.setId(rs.getInt("id"));
+                produto.setName(rs.getString("name"));
+                produto.setDescription(rs.getString("description"));
+                produtos.add(produto);
+                
+                
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+        
+        return produtos;
+
+    }
+    
+    public List<Services> readForDesc(String desc) throws SQLException {
+
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Services> produtos = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM services WHERE id LIKE ?");
+            stmt.setString(1, "%"+desc+"%");
+            
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Services produto = new Services();
+
+                produto.setId(rs.getInt("id"));
+                produto.setName(rs.getString("name"));
+                produto.setDescription(rs.getString("description"));
+                produtos.add(produto);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+
+        return produtos;
+
     }
 }

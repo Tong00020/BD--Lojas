@@ -66,7 +66,7 @@ public class FPrivileges extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -191,6 +191,7 @@ public class FPrivileges extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public void readJTable() throws SQLException {
@@ -204,7 +205,7 @@ public class FPrivileges extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getName(),
-                p.getIs_superadm()
+                p.isIs_superadmin()
             });
 
         }
@@ -223,7 +224,7 @@ public class FPrivileges extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getName(),
-                p.getIs_superadm()
+                p.isIs_superadmin()
             });
 
         }
@@ -255,7 +256,7 @@ public class FPrivileges extends javax.swing.JFrame {
 
             p.setId(Integer.parseInt(txtIdPrivileges.getText()));
             p.setName(txtNomePrivileges.getText());
-            p.setIs_superadm(txtIsAdminPrivileges.getText());
+            p.setIs_superadmin(Boolean.parseBoolean(txtIsAdminPrivileges.getText()));
             dao.create(p);
 
             txtIdPrivileges.setText("");
@@ -306,12 +307,14 @@ public class FPrivileges extends javax.swing.JFrame {
 
                 p.setId(Integer.parseInt(txtIdPrivileges.getText()));
                 p.setName(txtNomePrivileges.getText());
-                p.setIs_superadm(txtIsAdminPrivileges.getText());
+                p.setIs_superadmin(Boolean.parseBoolean(txtIsAdminPrivileges.getText()));
                 p.setId((int) jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 0));
 
                 try {
-                    dao.update(p);
+                    dao.alter(p);
                 } catch (SQLException ex) {
+                    Logger.getLogger(FPrivileges.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
                     Logger.getLogger(FPrivileges.class.getName()).log(Level.SEVERE, null, ex);
                 }
 

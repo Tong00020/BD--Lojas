@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.List;
 import model.bean.Privileges;
 
 /**
@@ -102,25 +103,29 @@ public class EmployeesDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
+    
+    
+    public void delete(Employees p) throws SQLException {
 
-    public void delete(int id) throws Exception {
         Connection con = (Connection) ConnectionFactory.getConnection();
-
+        
         PreparedStatement stmt = null;
 
         try {
-            String sql = "DELETE FROM employees WHERE id=?";
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt = con.prepareStatement("DELETE FROM employees WHERE id = ?");
+            stmt.setInt(1, p.getId());
+
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
+
     }
+
 
     public ArrayList<Employees> list() throws Exception {
         ArrayList<Employees> lista = new ArrayList<Employees>();
@@ -224,12 +229,111 @@ public class EmployeesDAO {
                 p.load();
                 e.setPrivilege(p);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            
+         JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
             System.out.println(ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
         return e;
+    }
+    public List<Employees> read() throws SQLException {
+
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Employees> produtos = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM employees");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Employees e = new Employees();
+
+                e.setId(rs.getInt("id"));
+                e.setName(rs.getString("name"));
+                e.setPhoto(rs.getString("photo"));
+                e.setEmail(rs.getString("email"));
+                e.setCpf(rs.getString("cpf"));
+                e.setCell_phone(rs.getString("cell_phone"));
+                e.setFixed_phone(rs.getString("fixed_phone"));
+                e.setCep(rs.getString("cep"));
+                e.setAddress(rs.getString("address"));
+                e.setAddress_number(rs.getInt("address_number"));
+                e.setComplement(rs.getString("complement"));
+                e.setCity(rs.getString("city"));
+                e.setState(rs.getString("state"));
+                e.setStatus(rs.getString("status"));
+                e.setLogin(rs.getString("login"));
+                e.setPassword(rs.getString("password"));
+                e.setJob_title(rs.getString("job_title"));
+                e.setEmployeesId(rs.getInt("report_to"));
+                e.setPrivilegesId(rs.getInt("id_privilege"));
+                produtos.add(e);
+                
+                
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+        return produtos;
+
+    }
+    
+    public List<Employees> readForDesc(String desc) throws SQLException {
+
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Employees> produtos = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM employees WHERE id LIKE ?");
+            stmt.setString(1, "%"+desc+"%");
+            
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Employees e = new Employees();
+
+                e.setId(rs.getInt("id"));
+                e.setName(rs.getString("name"));
+                e.setPhoto(rs.getString("photo"));
+                e.setEmail(rs.getString("email"));
+                e.setCpf(rs.getString("cpf"));
+                e.setCell_phone(rs.getString("cell_phone"));
+                e.setFixed_phone(rs.getString("fixed_phone"));
+                e.setCep(rs.getString("cep"));
+                e.setAddress(rs.getString("address"));
+                e.setAddress_number(rs.getInt("address_number"));
+                e.setComplement(rs.getString("complement"));
+                e.setCity(rs.getString("city"));
+                e.setState(rs.getString("state"));
+                e.setStatus(rs.getString("status"));
+                e.setLogin(rs.getString("login"));
+                e.setPassword(rs.getString("password"));
+                e.setJob_title(rs.getString("job_title"));
+                e.setEmployeesId(rs.getInt("report_to"));
+                e.setPrivilegesId(rs.getInt("id_privilege"));
+                produtos.add(e);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+        return produtos;
+
     }
 }

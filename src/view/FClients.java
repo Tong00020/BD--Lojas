@@ -66,6 +66,10 @@ public class FClients extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtCelularClients = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtIdClients = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtNumEnderecoClients = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -92,14 +96,14 @@ public class FClients extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CPF", "NOME", "ENDEREÇO", "COMPLEMENTO", "ESTADO", "CIDADE", "CEP", "TELEFONE FIXO", "CELULAR", "EMAIL"
+                "ID", "CPF", "NOME", "ENDEREÇO", "Nº ENDEREÇO", "COMPLEMENTO", "ESTADO", "CIDADE", "CEP", "CELULAR", "TELEFONE FIXO", "EMAIL"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -158,6 +162,10 @@ public class FClients extends javax.swing.JFrame {
 
         jLabel9.setText("EMAIL");
 
+        jLabel10.setText("ID");
+
+        jLabel12.setText("Nº DO ENDEREÇO");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,53 +204,75 @@ public class FClients extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(txtEnderecoClients, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(txtCidadeClients, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtComplementoClients)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(txtNomeClients, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCpfClients, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(33, 33, 33)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(txtCepClients, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEstadoClients, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(txtEnderecoClients, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(26, 26, 26)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtCidadeClients, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtComplementoClients)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addGap(73, 73, 73))))
+                                .addComponent(jLabel6)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(73, 73, 73))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(txtNomeClients, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCpfClients, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(txtIdClients, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txtCepClients, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEstadoClients, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNumEnderecoClients, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNomeClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCpfClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCepClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEstadoClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel5))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtNomeClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCpfClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel10)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtIdClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCepClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEstadoClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNumEnderecoClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -289,15 +319,17 @@ public class FClients extends javax.swing.JFrame {
         for (Clients p : pdao.read()) {
 
             modelo.addRow(new Object[]{
-                 p.getCpf(),
+                p.getId(),
+                p.getCpf(),
                 p.getName(),
                 p.getAddress(),
+                p.getAddress_number(),
                 p.getComplement(),
                 p.getState(),
                 p.getCity(),
                 p.getCep(),
-                p.getFixed_phone(),
                 p.getCell_phone(),
+                p.getFixed_phone(),
                 p.getEmail()
             });
 
@@ -315,15 +347,17 @@ public class FClients extends javax.swing.JFrame {
         for (Clients p : pdao.readForDesc(desc)) {
 
             modelo.addRow(new Object[]{
+                p.getId(),
                 p.getCpf(),
                 p.getName(),
                 p.getAddress(),
+                p.getAddress_number(),
                 p.getComplement(),
                 p.getState(),
                 p.getCity(),
                 p.getCep(),
-                p.getFixed_phone(),
                 p.getCell_phone(),
+                p.getFixed_phone(),
                 p.getEmail()
             });
 
@@ -332,33 +366,37 @@ public class FClients extends javax.swing.JFrame {
     
     private void jTClientsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTClientsMouseClicked
         if (jTClients.getSelectedRow() != -1) {
-
-            txtCpfClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 1).toString());
-            txtNomeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 2).toString());
-            txtEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 3).toString());
-            txtComplementoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 4).toString());
-            txtEstadoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 5).toString());
-            txtCidadeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 6).toString());
-            txtCepClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 7).toString());
-            txtTelFixoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 8).toString());
-            txtCelularClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 9).toString());
-            txtEmailClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 10).toString());
+            
+            txtIdClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 1).toString());
+            txtCpfClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 2).toString());
+            txtNomeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 3).toString());
+            txtEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 4).toString());
+            txtNumEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 5).toString());
+            txtComplementoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 6).toString());
+            txtEstadoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 7).toString());
+            txtCidadeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 8).toString());
+            txtCepClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 9).toString());
+            txtCelularClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 10).toString());
+            txtTelFixoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 11).toString());
+            txtEmailClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 12).toString());
         }
     }//GEN-LAST:event_jTClientsMouseClicked
 
     private void jTClientsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClientsKeyReleased
         if (jTClients.getSelectedRow() != -1) {
 
-            txtCpfClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 1).toString());
-            txtNomeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 2).toString());
-            txtEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 3).toString());
-            txtComplementoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 4).toString());
-            txtEstadoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 5).toString());
-            txtCidadeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 6).toString());
-            txtCepClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 7).toString());
-            txtTelFixoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 8).toString());
-            txtCelularClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 9).toString());
-            txtEmailClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 10).toString());
+            txtIdClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 1).toString());
+            txtCpfClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 2).toString());
+            txtNomeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 3).toString());
+            txtEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 4).toString());
+            txtNumEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 5).toString());
+            txtComplementoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 6).toString());
+            txtEstadoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 7).toString());
+            txtCidadeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 8).toString());
+            txtCepClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 9).toString());
+            txtCelularClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 10).toString());
+            txtTelFixoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 11).toString());
+            txtEmailClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 12).toString());
         }
     }//GEN-LAST:event_jTClientsKeyReleased
 
@@ -367,15 +405,17 @@ public class FClients extends javax.swing.JFrame {
             Clients p = new Clients();
             ClientsDAO dao = new ClientsDAO();
 
-            p.setCpf(Integer.parseInt(txtCpfClients.getText()));
+            p.setId(Integer.parseInt(txtIdClients.getText()));
+            p.setCpf(txtCpfClients.getText());
             p.setName(txtNomeClients.getText());
             p.setAddress(txtEnderecoClients.getText());
+            p.setAddress_number(txtNumEnderecoClients.getText());
             p.setComplement(txtComplementoClients.getText());
             p.setState(txtEstadoClients.getText());
             p.setCity(txtCidadeClients.getText());
-            p.setCep(Integer.parseInt(txtCepClients.getText()));
-            p.setFixed_phone(Integer.parseInt(txtTelFixoClients.getText()));
-            p.setCell_phone(Integer.parseInt(txtCelularClients.getText()));
+            p.setCep(txtCepClients.getText());
+            p.setFixed_phone(txtTelFixoClients.getText());
+            p.setCell_phone(txtCelularClients.getText());
             p.setEmail(txtEmailClients.getText());
             dao.create(p);
 
@@ -389,7 +429,8 @@ public class FClients extends javax.swing.JFrame {
             txtTelFixoClients.setText("");
             txtCelularClients.setText("");
             txtEmailClients.setText("");
-            
+            txtComplementoClients.setText("");
+            txtIdClients.setText("");
             readJTable();
 
         } catch (SQLException ex) {
@@ -405,7 +446,7 @@ public class FClients extends javax.swing.JFrame {
                 Clients p = new Clients();
                 ClientsDAO dao = new ClientsDAO();
 
-                p.setCpf((int) jTClients.getValueAt(jTClients.getSelectedRow(), 0));
+                p.setId((int) jTClients.getValueAt(jTClients.getSelectedRow(), 0));
 
                 dao.delete(p);
 
@@ -419,6 +460,8 @@ public class FClients extends javax.swing.JFrame {
                 txtTelFixoClients.setText("");
                 txtCelularClients.setText("");
                 txtEmailClients.setText("");
+                txtComplementoClients.setText("");
+                txtIdClients.setText("");
 
                 readJTable();
 
@@ -439,20 +482,25 @@ public class FClients extends javax.swing.JFrame {
                 Clients p = new Clients();
                 ClientsDAO dao = new ClientsDAO();
 
-                p.setCpf(Integer.parseInt(txtCpfClients.getText()));
+                p.setId(Integer.parseInt(txtIdClients.getText()));
+                p.setCpf(txtCpfClients.getText());
                 p.setName(txtNomeClients.getText());
                 p.setAddress(txtEnderecoClients.getText());
+                p.setAddress_number(txtNumEnderecoClients.getText());
                 p.setComplement(txtComplementoClients.getText());
                 p.setState(txtEstadoClients.getText());
                 p.setCity(txtCidadeClients.getText());
-                p.setCep(Integer.parseInt(txtCepClients.getText()));
-                p.setFixed_phone(Integer.parseInt(txtTelFixoClients.getText()));
-                p.setCell_phone(Integer.parseInt(txtCelularClients.getText()));
-                p.setCpf((int) jTClients.getValueAt(jTClients.getSelectedRow(), 0));
+                p.setCep(txtCepClients.getText());
+                p.setFixed_phone(txtTelFixoClients.getText());
+                p.setCell_phone(txtCelularClients.getText());
+                p.setEmail(txtEmailClients.getText());
+                p.setId((int) jTClients.getValueAt(jTClients.getSelectedRow(), 0));
 
                 try {
-                    dao.update(p);
+                    dao.alter(p);
                 } catch (SQLException ex) {
+                    Logger.getLogger(FClients.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
                     Logger.getLogger(FClients.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
@@ -466,6 +514,8 @@ public class FClients extends javax.swing.JFrame {
                 txtTelFixoClients.setText("");
                 txtCelularClients.setText("");
                 txtEmailClients.setText("");
+                txtComplementoClients.setText("");
+                txtIdClients.setText("");
                 readJTable();
 
             } catch (SQLException ex) {
@@ -530,7 +580,9 @@ public class FClients extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -550,7 +602,9 @@ public class FClients extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmailClients;
     private javax.swing.JTextField txtEnderecoClients;
     private javax.swing.JTextField txtEstadoClients;
+    private javax.swing.JTextField txtIdClients;
     private javax.swing.JTextField txtNomeClients;
+    private javax.swing.JTextField txtNumEnderecoClients;
     private javax.swing.JTextField txtTelFixoClients;
     // End of variables declaration//GEN-END:variables
 }

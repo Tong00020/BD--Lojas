@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.bean.Vehicles;
 import java.sql.ResultSet;
+import java.util.List;
 import model.bean.Clients;
 
 /**
@@ -77,22 +78,25 @@ public class VehiclesDAO {
         }
     }
 
-    public void delete(int id) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void delete(Vehicles p) throws SQLException {
 
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
         PreparedStatement stmt = null;
 
         try {
-            String sql = "DELETE FROM vehicles WHERE id=?";
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt = con.prepareStatement("DELETE FROM vehicles WHERE id = ?");
+            stmt.setInt(1, p.getId());
+
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
+
     }
 
     public ArrayList<Vehicles> list() throws Exception {
@@ -167,5 +171,87 @@ public class VehiclesDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
         return v;
+    }
+    
+    public List<Vehicles> read() throws SQLException {
+
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Vehicles> produtos = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM vehicles");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                
+                Vehicles v = new Vehicles();
+
+                v.setId(rs.getInt("id"));
+                v.setModel(rs.getString("model"));
+                v.setBrand(rs.getString("brand"));
+                v.setPlate(rs.getString("plate"));
+                v.setYear(rs.getInt("year"));
+                v.setColor(rs.getString("color"));
+                v.setType_fuel(rs.getString("type_fuel"));
+                v.setKm_current(rs.getDouble("km_current"));
+                v.setClientId(rs.getInt("clients_id"));
+
+                produtos.add(v);
+              
+            }
+            
+          } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+        
+        return produtos;
+
+    }
+    public List<Vehicles> readForDesc(String desc) throws SQLException {
+
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Vehicles> produtos = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM vehicles WHERE id LIKE ?");
+            stmt.setString(1, "%"+desc+"%");
+            
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Vehicles v = new Vehicles();
+
+                v.setId(rs.getInt("id"));
+                v.setModel(rs.getString("model"));
+                v.setBrand(rs.getString("brand"));
+                v.setPlate(rs.getString("plate"));
+                v.setYear(rs.getInt("year"));
+                v.setColor(rs.getString("color"));
+                v.setType_fuel(rs.getString("type_fuel"));
+                v.setKm_current(rs.getDouble("km_current"));
+                v.setClientId(rs.getInt("clients_id"));
+
+                produtos.add(v);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+        
+        return produtos;
+
     }
 }

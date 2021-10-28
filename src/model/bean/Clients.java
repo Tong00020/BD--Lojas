@@ -18,7 +18,7 @@ public class Clients {
     private String cpf;
     private String name;
     private String address;
-    private int address_number;
+    private String address_number;
     private String complement;
     private String state;
     private String city;
@@ -59,11 +59,11 @@ public class Clients {
         this.address = address;
     }
 
-    public int getAddress_number() {
+    public String getAddress_number() {
         return address_number;
     }
 
-    public void setAddress_number(int address_number) {
+    public void setAddress_number(String address_number) {
         this.address_number = address_number;
     }
 
@@ -135,7 +135,7 @@ public class Clients {
 
     public void delete() throws Exception {
         ClientsDAO cDAO = new ClientsDAO();
-        cDAO.delete(this.id);
+        cDAO.delete(this);
     }
 
     public ArrayList<Clients> list() throws Exception {

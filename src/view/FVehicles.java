@@ -41,13 +41,13 @@ public class FVehicles extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtIdVehicles = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtTipoCombusVehicles = new javax.swing.JTextField();
+        txtMarcaVehicles = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtPlacaVehicles = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtAnoVehicles = new javax.swing.JTextField();
         txtModeloVehicles = new javax.swing.JTextField();
-        txtIdClienteVehicles = new javax.swing.JTextField();
+        txtCombusVehicles = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtCorVehicles = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -58,6 +58,8 @@ public class FVehicles extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         txtBuscaVehicles = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txtIdClienteVehicles = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,21 +77,21 @@ public class FVehicles extends javax.swing.JFrame {
 
         jLabel4.setText("COR");
 
-        jLabel1.setText("TIPO DE COMBUSTIVEL");
+        jLabel1.setText("MARCA");
 
         jTVehicles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "ANO", "COR", "VELOCIDADE ATUAL", "MODELO", "PLACA", "ID DO CLIENTE"
+                "ID", "MODELO", "MARCA", "PLACA", "ANO", "COR", "TIPO DE COMBUSTIVEL", "VELOCIDADE ATUAL", "ID DO CLIENTE"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, true, false, false, false, true, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -146,6 +148,8 @@ public class FVehicles extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setText("TIPO DE COMBUSTIVEL");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -168,7 +172,7 @@ public class FVehicles extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel1)
-                                            .addComponent(txtTipoCombusVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtMarcaVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(26, 26, 26)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel4)
@@ -182,13 +186,15 @@ public class FVehicles extends javax.swing.JFrame {
                                     .addComponent(txtAnoVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtKmVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11))
-                                .addGap(214, 214, 214)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtIdClienteVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtKmVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(214, 214, 214)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(100, 100, 100)
+                                        .addComponent(txtCombusVehicles)
+                                        .addGap(42, 42, 42))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton1)
                                 .addGap(30, 30, 30)
@@ -198,11 +204,20 @@ public class FVehicles extends javax.swing.JFrame {
                                 .addGap(244, 244, 244)
                                 .addComponent(txtBuscaVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32)
-                                .addComponent(jButton4))))
+                                .addComponent(jButton4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(253, 253, 253)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 991, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(506, Short.MAX_VALUE)
+                    .addComponent(txtIdClienteVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(375, 375, 375)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,9 +241,8 @@ public class FVehicles extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTipoCombusVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCorVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtIdClienteVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMarcaVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCorVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
@@ -236,8 +250,12 @@ public class FVehicles extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(jLabel11)
-                        .addGap(47, 47, 47)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCombusVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtBuscaVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,9 +267,15 @@ public class FVehicles extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(110, 110, 110)
+                    .addComponent(txtIdClienteVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(378, Short.MAX_VALUE)))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
      public void readJTable() throws SQLException {
@@ -264,12 +288,15 @@ public class FVehicles extends javax.swing.JFrame {
 
             modelo.addRow(new Object[]{
                 p.getId(),
+                p.getModel(),
+                p.getBrand(),
+                p.getPlate(),
                 p.getYear(),
                 p.getColor(),
+                p.getType_fuel(),
                 p.getKm_current(),
-                p.getModel(),
-                p.getPlate(),
-                p.getClients_id()
+                p.getColor(),
+                p.getClientId()
             });
 
         }
@@ -287,12 +314,15 @@ public class FVehicles extends javax.swing.JFrame {
 
             modelo.addRow(new Object[]{
                 p.getId(),
+                p.getModel(),
+                p.getBrand(),
+                p.getPlate(),
                 p.getYear(),
                 p.getColor(),
+                p.getType_fuel(),
                 p.getKm_current(),
-                p.getModel(),
-                p.getPlate(),
-                p.getClients_id()
+                p.getColor(),
+                p.getClientId()
             });
 
         }
@@ -302,13 +332,14 @@ public class FVehicles extends javax.swing.JFrame {
         if (jTVehicles.getSelectedRow() != -1) {
 
             txtIdVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 1).toString());
-            txtAnoVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 2).toString());
-            txtCorVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 3).toString());
-            txtKmVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 4).toString());
-            txtModeloVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 5).toString());
-            txtPlacaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 6).toString());
-            txtIdClienteVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 7).toString());
-           
+            txtAnoVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 5).toString());
+            txtCorVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 6).toString());
+            txtKmVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 8).toString());
+            txtModeloVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 2).toString());
+            txtPlacaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 4).toString());
+            txtCombusVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 7).toString());
+            txtMarcaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 3).toString());
+            txtIdClienteVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 9).toString());
         }
     }//GEN-LAST:event_jTVehiclesMouseClicked
 
@@ -316,12 +347,14 @@ public class FVehicles extends javax.swing.JFrame {
         if (jTVehicles.getSelectedRow() != -1) {
 
             txtIdVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 1).toString());
-            txtAnoVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 2).toString());
-            txtCorVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 3).toString());
-            txtKmVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 4).toString());
-            txtModeloVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 5).toString());
-            txtPlacaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 6).toString());
-            txtIdClienteVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 7).toString());
+            txtAnoVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 5).toString());
+            txtCorVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 6).toString());
+            txtKmVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 8).toString());
+            txtModeloVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 2).toString());
+            txtPlacaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 4).toString());
+            txtCombusVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 7).toString());
+            txtMarcaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 3).toString());
+            txtIdClienteVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 9).toString());
         }
     }//GEN-LAST:event_jTVehiclesKeyReleased
 
@@ -333,10 +366,12 @@ public class FVehicles extends javax.swing.JFrame {
             p.setId(Integer.parseInt(txtIdVehicles.getText()));
             p.setYear(Integer.parseInt(txtAnoVehicles.getText()));
             p.setColor(txtCorVehicles.getText());
-            p.setKm_current(Integer.parseInt(txtKmVehicles.getText()));
+            p.setType_fuel(txtCombusVehicles.getText());
+            p.setKm_current(Double.parseDouble(txtKmVehicles.getText()));
             p.setModel(txtModeloVehicles.getText());
             p.setPlate(txtPlacaVehicles.getText());
-            p.setClients_id(Integer.parseInt(txtIdClienteVehicles.getText()));
+            p.setClientId(Integer.parseInt(txtIdClienteVehicles.getText()));
+            p.setBrand(txtMarcaVehicles.getText());
             dao.create(p);
 
             txtIdVehicles.setText("");
@@ -345,11 +380,14 @@ public class FVehicles extends javax.swing.JFrame {
             txtKmVehicles.setText("");
             txtModeloVehicles.setText("");
             txtPlacaVehicles.setText("");
-            txtIdClienteVehicles.setText("");
-
+            txtCombusVehicles.setText("");
+            txtMarcaVehicles.setText("");
+            txtIdClienteVehicles.setText("");       
             readJTable();
 
         } catch (SQLException ex) {
+            Logger.getLogger(FVehicles.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(FVehicles.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -372,7 +410,9 @@ public class FVehicles extends javax.swing.JFrame {
                 txtKmVehicles.setText("");
                 txtModeloVehicles.setText("");
                 txtPlacaVehicles.setText("");
-                txtIdClienteVehicles.setText("");
+                txtCombusVehicles.setText("");
+                txtMarcaVehicles.setText("");
+                txtIdClienteVehicles.setText(""); 
 
                 readJTable();
 
@@ -381,7 +421,7 @@ public class FVehicles extends javax.swing.JFrame {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um cliente para excluir.");
+            JOptionPane.showMessageDialog(null, "Selecione um veículo para excluir.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -396,15 +436,19 @@ public class FVehicles extends javax.swing.JFrame {
                 p.setId(Integer.parseInt(txtIdVehicles.getText()));
                 p.setYear(Integer.parseInt(txtAnoVehicles.getText()));
                 p.setColor(txtCorVehicles.getText());
-                p.setKm_current(Integer.parseInt(txtKmVehicles.getText()));
+                p.setType_fuel(txtCombusVehicles.getText());
+                p.setKm_current(Double.parseDouble(txtKmVehicles.getText()));
                 p.setModel(txtModeloVehicles.getText());
                 p.setPlate(txtPlacaVehicles.getText());
-                p.setClients_id(Integer.parseInt(txtIdClienteVehicles.getText()));
+                p.setClientId(Integer.parseInt(txtIdClienteVehicles.getText()));
+                p.setBrand(txtMarcaVehicles.getText());
                 p.setId((int) jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 0));
 
                 try {
-                    dao.update(p);
+                    dao.alter(p);
                 } catch (SQLException ex) {
+                    Logger.getLogger(FVehicles.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
                     Logger.getLogger(FVehicles.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
@@ -414,6 +458,8 @@ public class FVehicles extends javax.swing.JFrame {
                 txtKmVehicles.setText("");
                 txtModeloVehicles.setText("");
                 txtPlacaVehicles.setText("");
+                txtCombusVehicles.setText("");
+                txtMarcaVehicles.setText("");
                 txtIdClienteVehicles.setText("");
                 readJTable();
 
@@ -485,17 +531,19 @@ public class FVehicles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTVehicles;
     private javax.swing.JTextField txtAnoVehicles;
     private javax.swing.JTextField txtBuscaVehicles;
+    private javax.swing.JTextField txtCombusVehicles;
     private javax.swing.JTextField txtCorVehicles;
     private javax.swing.JTextField txtIdClienteVehicles;
     private javax.swing.JTextField txtIdVehicles;
     private javax.swing.JTextField txtKmVehicles;
+    private javax.swing.JTextField txtMarcaVehicles;
     private javax.swing.JTextField txtModeloVehicles;
     private javax.swing.JTextField txtPlacaVehicles;
-    private javax.swing.JTextField txtTipoCombusVehicles;
     // End of variables declaration//GEN-END:variables
 }

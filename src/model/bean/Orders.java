@@ -22,6 +22,22 @@ public class Orders {
     private String situation;
     private Employees employees;
     private Budgets budget;
+    
+    public int getEmployeesId() {
+        return employees.getId();
+    }
+    
+    public void setEmployeesId(int id) {
+        this.employees.setId(id);
+    }
+    
+    public int getBudgetsId() {
+        return budget.getId();
+    }
+    
+    public void setBudgetsId(int id) {
+        this.budget.setId(id);
+    }
 
     public int getId() {
         return id;
@@ -99,7 +115,7 @@ public class Orders {
 
     public void delete() throws Exception {
         OrdersDAO oDAO = new OrdersDAO();
-        oDAO.delete(this.id);
+        oDAO.delete(this);
     }
 
     public ArrayList<Orders> list() throws Exception {

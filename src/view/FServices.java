@@ -190,6 +190,7 @@ public class FServices extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public void readJTable() throws SQLException {
@@ -288,7 +289,7 @@ public class FServices extends javax.swing.JFrame {
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um cliente para excluir.");
+            JOptionPane.showMessageDialog(null, "Selecione um serviço para excluir.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -306,8 +307,10 @@ public class FServices extends javax.swing.JFrame {
                 p.setId((int) jTServices.getValueAt(jTServices.getSelectedRow(), 0));
 
                 try {
-                    dao.update(p);
+                    dao.alter(p);
                 } catch (SQLException ex) {
+                    Logger.getLogger(FServices.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
                     Logger.getLogger(FServices.class.getName()).log(Level.SEVERE, null, ex);
                 }
 

@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package view;
+import java.sql.Date;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.bean.Budget;
-import model.dao.BudgetDAO;
+import model.bean.Budgets;
+import model.dao.BudgetsDAO;
 
 /**
  *
@@ -36,17 +37,14 @@ public class FBudget extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtQuantBudget = new javax.swing.JTextField();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
         txtPrecoBudget = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtSubtotalBudget = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        txtDescricaoBudget = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        txtBudgtcolBudget = new javax.swing.JTextField();
+        txtDateBudget = new javax.swing.JTextField();
         txtIdBudget = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTBudget = new javax.swing.JTable();
@@ -55,34 +53,49 @@ public class FBudget extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         txtBuscaBudget = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txttotalItensBudget = new javax.swing.JTextField();
+        txtIdClientesBudget = new javax.swing.JTextField();
+        txtIdVeiculosBudget = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtIdServicosBudget = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel9.setText("ID");
 
-        jLabel11.setText("BUDGTCOL");
+        jLabel11.setText("DATA");
 
-        jLabel4.setText("SUBTOTAL");
+        jLabel4.setText("TOTAL");
 
-        jLabel2.setText("PREÇO");
-
-        jLabel1.setText("DESCRIÇÃO");
-
-        jLabel5.setText("QUANTIDADE");
+        jLabel2.setText("PREÇO DE SERVIÇO");
 
         jTBudget.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "PREÇO", "QUANTIDADE", "SUBTOTAL", "BUDGCOL", "DESCRIÇÃO"
+                "ID", "PREÇO DE SERVIÇO", "TOTAL", "DATA", "DESCRIÇÃO", "ID VEICULOS", "ID SERVIÇOS", "ID CLIENTES"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -104,9 +117,6 @@ public class FBudget extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTBudget);
-        if (jTBudget.getColumnModel().getColumnCount() > 0) {
-            jTBudget.getColumnModel().getColumn(4).setResizable(false);
-        }
 
         jButton1.setText("Cadastrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -142,6 +152,20 @@ public class FBudget extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setText("TOTAL DE ITENS");
+
+        jLabel10.setText("ID CLIENTES");
+
+        txtIdServicosBudget.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdServicosBudgetActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("ID SERVIÇOS");
+
+        jLabel7.setText("ID VEICULOS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,78 +173,98 @@ public class FBudget extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(txtQuantBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtPrecoBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(txtDescricaoBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(26, 26, 26)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(txtSubtotalBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
-                                .addGap(133, 133, 133)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtIdBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(txtBudgtcolBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jButton1)
+                                .addGap(30, 30, 30)
+                                .addComponent(jButton2)
+                                .addGap(26, 26, 26)
+                                .addComponent(jButton3)
+                                .addGap(163, 163, 163)
+                                .addComponent(txtBuscaBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(jButton4))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(25, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(30, 30, 30)
-                        .addComponent(jButton2)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton3)
-                        .addGap(163, 163, 163)
-                        .addComponent(txtBuscaBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jButton4)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(txtSubtotalBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(txtDateBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtIdVeiculosBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(txtIdServicosBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(92, 92, 92))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(txtPrecoBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtIdBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txttotalItensBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(txtIdClientesBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(273, 273, 273))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(500, Short.MAX_VALUE)
+                    .addComponent(jLabel7)
+                    .addGap(322, 322, 322)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel5))
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtIdBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txttotalItensBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(txtPrecoBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtQuantBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPrecoBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel9))
+                        .addGap(10, 10, 10)
+                        .addComponent(txtIdBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIdClientesBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel4)
-                                .addComponent(jLabel11)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel11))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtSubtotalBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtBudgtcolBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtDescricaoBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                                .addComponent(txtDateBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtIdVeiculosBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIdServicosBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtBuscaBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,9 +276,15 @@ public class FBudget extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(80, 80, 80)
+                    .addComponent(jLabel7)
+                    .addContainerGap(345, Short.MAX_VALUE)))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     
@@ -242,17 +292,19 @@ public class FBudget extends javax.swing.JFrame {
         
         DefaultTableModel modelo = (DefaultTableModel) jTBudget.getModel();
         modelo.setNumRows(0);
-        BudgetDAO pdao = new BudgetDAO();
+        BudgetsDAO pdao = new BudgetsDAO();
 
-        for (Budget p : pdao.read()) {
+        for (Budgets p : pdao.read()) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
-                p.getPrice(),
-                p.getAmount(),
-                p.getSubtotal(),
-                p.getBudgcol(),
-                p.getDescription()
+                p.getPrice_services(),
+                p.getTotal_items(),
+                p.getTotal(),
+                p.getDate(),
+                p.getVehiclesId(),
+                p.getServicesId(),
+                p.getClientsId()
             });
 
         }
@@ -264,32 +316,36 @@ public class FBudget extends javax.swing.JFrame {
         
         DefaultTableModel modelo = (DefaultTableModel) jTBudget.getModel();
         modelo.setNumRows(0);
-        BudgetDAO pdao = new BudgetDAO();
+        BudgetsDAO pdao = new BudgetsDAO();
 
-        for (Budget p : pdao.readForDesc(desc)) {
+        for (Budgets p : pdao.readForDesc(desc)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
-                p.getPrice(),
-                p.getAmount(),
-                p.getSubtotal(),
-                p.getBudgcol(),
-                p.getDescription()
+                p.getPrice_services(),
+                p.getTotal_items(),
+                p.getTotal(),
+                p.getDate(),
+                p.getVehiclesId(),
+                p.getServicesId(),
+                p.getClientsId()
             });
 
         }
 
     }
+    
     private void jTBudgetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTBudgetMouseClicked
         if (jTBudget.getSelectedRow() != -1) {
 
             txtIdBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 1).toString());
             txtPrecoBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 2).toString());
-            txtQuantBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 3).toString());
+            txttotalItensBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 3).toString());
             txtSubtotalBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 4).toString());
-            txtBudgtcolBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 5).toString());
-            txtDescricaoBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 6).toString());
-            
+            txtDateBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 5).toString());
+            txtIdVeiculosBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 6).toString());
+            txtIdServicosBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 7).toString());
+            txtIdClientesBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 8).toString());
         }
     }//GEN-LAST:event_jTBudgetMouseClicked
 
@@ -298,32 +354,38 @@ public class FBudget extends javax.swing.JFrame {
 
             txtIdBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 1).toString());
             txtPrecoBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 2).toString());
-            txtQuantBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 3).toString());
+            txttotalItensBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 3).toString());
             txtSubtotalBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 4).toString());
-            txtBudgtcolBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 5).toString());
-            txtDescricaoBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 6).toString());
+            txtDateBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 5).toString());
+            txtIdVeiculosBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 6).toString());
+            txtIdServicosBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 7).toString());
+            txtIdClientesBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 8).toString());
         }
     }//GEN-LAST:event_jTBudgetKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            Budget p = new Budget();
-            BudgetDAO dao = new BudgetDAO();
+            Budgets p = new Budgets();
+            BudgetsDAO dao = new BudgetsDAO();
 
             p.setId(Integer.parseInt(txtIdBudget.getText()));
-            p.setPrice(Integer.parseInt(txtPrecoBudget.getText()));
-            p.setAmount(Integer.parseInt(txtQuantBudget.getText()));
-            p.setSubtotal(Double.parseDouble(txtSubtotalBudget.getText()));
-            p.setBudgcol(Double.parseDouble(txtBudgtcolBudget.getText()));
-            p.setDescription(txtDescricaoBudget.getText());
+            p.setPrice_services(Integer.parseInt(txtPrecoBudget.getText()));
+            p.setTotal_items(Integer.parseInt(txttotalItensBudget.getText()));
+            p.setTotal(Double.parseDouble(txtSubtotalBudget.getText()));
+            p.setDate(Date.valueOf(txtDateBudget.getText()));
+            p.setVehiclesId(Integer.parseInt(txtIdVeiculosBudget.getText()));
+            p.setServicesId(Integer.parseInt(txtIdServicosBudget.getText()));
+            p.setClientsId(Integer.parseInt(txtIdClientesBudget.getText()));
             dao.create(p);
 
             txtIdBudget.setText("");
             txtPrecoBudget.setText("");
-            txtQuantBudget.setText("");
+            txttotalItensBudget.setText("");
             txtSubtotalBudget.setText("");
-            txtBudgtcolBudget.setText("");
-            txtDescricaoBudget.setText("");
+            txtDateBudget.setText("");
+            txtIdVeiculosBudget.setText("");
+            txtIdServicosBudget.setText("");
+            txtIdClientesBudget.setText("");
 
             readJTable();
 
@@ -339,8 +401,8 @@ public class FBudget extends javax.swing.JFrame {
 
             try {
 
-                Budget p = new Budget();
-                BudgetDAO dao = new BudgetDAO();
+                Budgets p = new Budgets();
+                BudgetsDAO dao = new BudgetsDAO();
 
                 p.setId((int) jTBudget.getValueAt(jTBudget.getSelectedRow(), 0));
 
@@ -348,10 +410,13 @@ public class FBudget extends javax.swing.JFrame {
 
                 txtIdBudget.setText("");
                 txtPrecoBudget.setText("");
-                txtQuantBudget.setText("");
+                txttotalItensBudget.setText("");
                 txtSubtotalBudget.setText("");
-                txtBudgtcolBudget.setText("");
-                txtDescricaoBudget.setText("");
+                txtDateBudget.setText("");
+                txtIdVeiculosBudget.setText("");
+                txtIdServicosBudget.setText("");
+                txtIdClientesBudget.setText("");
+
 
 
                 readJTable();
@@ -370,29 +435,36 @@ public class FBudget extends javax.swing.JFrame {
 
             try {
 
-                Budget p = new Budget();
-                BudgetDAO dao = new BudgetDAO();
+                Budgets p = new Budgets();
+                BudgetsDAO dao = new BudgetsDAO();
 
                 p.setId(Integer.parseInt(txtIdBudget.getText()));
-                p.setPrice(Integer.parseInt(txtPrecoBudget.getText()));
-                p.setAmount(Integer.parseInt(txtQuantBudget.getText()));
-                p.setSubtotal(Double.parseDouble(txtSubtotalBudget.getText()));
-                p.setBudgcol(Double.parseDouble(txtBudgtcolBudget.getText()));
-                p.setDescription(txtDescricaoBudget.getText());
+                p.setPrice_services(Integer.parseInt(txtPrecoBudget.getText()));
+                p.setTotal_items(Integer.parseInt(txttotalItensBudget.getText()));
+                p.setTotal(Double.parseDouble(txtSubtotalBudget.getText()));
+                p.setDate(Date.valueOf(txtDateBudget.getText()));
+                p.setVehiclesId(Integer.parseInt(txtIdVeiculosBudget.getText()));
+                p.setServicesId(Integer.parseInt(txtIdServicosBudget.getText()));
+                p.setClientsId(Integer.parseInt(txtIdClientesBudget.getText()));
                 p.setId((int) jTBudget.getValueAt(jTBudget.getSelectedRow(), 0));
 
                 try {
-                    dao.update(p);
+                    dao.alter(p);
                 } catch (SQLException ex) {
+                    Logger.getLogger(FBudget.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
                     Logger.getLogger(FBudget.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 txtIdBudget.setText("");
                 txtPrecoBudget.setText("");
-                txtQuantBudget.setText("");
+                txttotalItensBudget.setText("");
                 txtSubtotalBudget.setText("");
-                txtBudgtcolBudget.setText("");
-                txtDescricaoBudget.setText("");
+                txtDateBudget.setText("");
+                txtIdVeiculosBudget.setText("");
+                txtIdServicosBudget.setText("");
+                txtIdClientesBudget.setText("");
+
                 readJTable();
 
             } catch (SQLException ex) {
@@ -414,6 +486,10 @@ public class FBudget extends javax.swing.JFrame {
             Logger.getLogger(FBudget.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txtIdServicosBudgetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdServicosBudgetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdServicosBudgetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -456,20 +532,25 @@ public class FBudget extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTBudget;
-    private javax.swing.JTextField txtBudgtcolBudget;
     private javax.swing.JTextField txtBuscaBudget;
-    private javax.swing.JTextField txtDescricaoBudget;
+    private javax.swing.JTextField txtDateBudget;
     private javax.swing.JTextField txtIdBudget;
+    private javax.swing.JTextField txtIdClientesBudget;
+    private javax.swing.JTextField txtIdServicosBudget;
+    private javax.swing.JTextField txtIdVeiculosBudget;
     private javax.swing.JTextField txtPrecoBudget;
-    private javax.swing.JTextField txtQuantBudget;
     private javax.swing.JTextField txtSubtotalBudget;
+    private javax.swing.JTextField txttotalItensBudget;
     // End of variables declaration//GEN-END:variables
 }

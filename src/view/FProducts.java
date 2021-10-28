@@ -62,6 +62,8 @@ public class FProducts extends javax.swing.JFrame {
         txtCategoriaProdutos = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtDescProdutos = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtIdProvedorProdutos = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -77,14 +79,14 @@ public class FProducts extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "DESCRIÇÃO", "QUANTIDADE", "PREÇO", "NOME", "CATEGORIA", "BARCODE"
+                "ID", "NOME", "DESCRIÇÃO", "CATEGORIA", "PREÇO", "BARCODE", "QUANTIDADE", "ID PROVEDOR"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -148,11 +150,18 @@ public class FProducts extends javax.swing.JFrame {
 
         jLabel3.setText("PREÇO");
 
+        jLabel8.setText("ID PROVEDOR");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 756, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(740, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIdProvedorProdutos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(51, 51, 51)
@@ -199,12 +208,17 @@ public class FProducts extends javax.swing.JFrame {
                                     .addComponent(txtBuscaProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(jButton4))))
-                        .addComponent(jScrollPane1))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE))
                     .addGap(52, 52, 52)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 498, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtIdProvedorProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(359, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(32, 32, 32)
@@ -242,6 +256,7 @@ public class FProducts extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     
@@ -260,7 +275,8 @@ public class FProducts extends javax.swing.JFrame {
                 p.getCategory(),
                 p.getPrice(),
                 p.getBarcode(),
-                p.getQuantity()
+                p.getQuantity(),
+                p.getProvidersId()
             });
 
         }
@@ -282,7 +298,8 @@ public class FProducts extends javax.swing.JFrame {
                 p.getCategory(),
                 p.getPrice(),
                 p.getBarcode(),
-                p.getQuantity()
+                p.getQuantity(),
+                p.getProvidersId()
             });
 
         }
@@ -306,8 +323,9 @@ public class FProducts extends javax.swing.JFrame {
             txtQtdProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 3).toString());
             txtPrecoProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 4).toString());
             txtNomeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 5).toString());
-            txtCategoriaProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 6).toString());
+            txtIdProvedorProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 8).toString());
             txtBarCodeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 7).toString());
+            txtCategoriaProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 6).toString());
         }
     }//GEN-LAST:event_jTProductsMouseClicked
 
@@ -319,9 +337,9 @@ public class FProducts extends javax.swing.JFrame {
             txtQtdProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 3).toString());
             txtPrecoProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 4).toString());
             txtNomeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 5).toString());
-            txtCategoriaProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 6).toString());
+            txtIdProvedorProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 8).toString());
             txtBarCodeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 7).toString());
-
+            txtCategoriaProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 6).toString());
         }
 
     }//GEN-LAST:event_jTProductsKeyReleased
@@ -334,10 +352,11 @@ public class FProducts extends javax.swing.JFrame {
             p.setId(Integer.parseInt(txtIdProdutos.getText()));
             p.setName(txtNomeProdutos.getText());
             p.setDescription(txtDescProdutos.getText());
-            p.setCategory(txtCategoriaProdutos.getText());
+            p.setProvidersId(Integer.parseInt(txtIdProvedorProdutos.getText()));
             p.setPrice(Double.parseDouble(txtPrecoProdutos.getText()));
             p.setBarcode(Integer.parseInt(txtQtdProdutos.getText()));
-            p.setQuantity(Integer.parseInt(txtQtdProdutos.getText()));
+            p.setQuantity(txtQtdProdutos.getText());
+            p.setCategory(txtCategoriaProdutos.getText());
             dao.create(p);
             
             
@@ -347,8 +366,8 @@ public class FProducts extends javax.swing.JFrame {
             txtNomeProdutos.setText("");
             txtIdProdutos.setText("");
             txtBarCodeProdutos.setText("");
+            txtIdProvedorProdutos.setText("");
             txtCategoriaProdutos.setText("");
-            
             readJTable();
             
         } catch (SQLException ex) {
@@ -375,6 +394,7 @@ public class FProducts extends javax.swing.JFrame {
                 txtNomeProdutos.setText("");
                 txtIdProdutos.setText("");
                 txtBarCodeProdutos.setText("");
+                txtIdProvedorProdutos.setText("");
                 txtCategoriaProdutos.setText("");
                 
                 readJTable();
@@ -399,15 +419,18 @@ public class FProducts extends javax.swing.JFrame {
                 p.setId(Integer.parseInt(txtIdProdutos.getText()));
                 p.setName(txtNomeProdutos.getText());
                 p.setDescription(txtDescProdutos.getText());
-                p.setCategory(txtCategoriaProdutos.getText());
+                p.setProvidersId(Integer.parseInt(txtIdProvedorProdutos.getText()));
                 p.setPrice(Double.parseDouble(txtPrecoProdutos.getText()));
                 p.setBarcode(Integer.parseInt(txtQtdProdutos.getText()));
-                p.setQuantity(Integer.parseInt(txtQtdProdutos.getText()));
+                p.setQuantity(txtQtdProdutos.getText());
+                p.setCategory(txtCategoriaProdutos.getText());
                 p.setId((int) jTProducts.getValueAt(jTProducts.getSelectedRow(), 0));
                 
                 try {
-                    dao.update(p);
+                    dao.alter(p);
                 } catch (SQLException ex) {
+                    Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
                     Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
@@ -418,6 +441,7 @@ public class FProducts extends javax.swing.JFrame {
                 txtNomeProdutos.setText("");
                 txtIdProdutos.setText("");
                 txtBarCodeProdutos.setText("");
+                txtIdProvedorProdutos.setText("");
                 txtCategoriaProdutos.setText("");
                 readJTable();
                 
@@ -488,6 +512,7 @@ public class FProducts extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTProducts;
     private javax.swing.JTextField txtBarCodeProdutos;
@@ -495,6 +520,7 @@ public class FProducts extends javax.swing.JFrame {
     private javax.swing.JTextField txtCategoriaProdutos;
     private javax.swing.JTextField txtDescProdutos;
     private javax.swing.JTextField txtIdProdutos;
+    private javax.swing.JTextField txtIdProvedorProdutos;
     private javax.swing.JTextField txtNomeProdutos;
     private javax.swing.JTextField txtPrecoProdutos;
     private javax.swing.JTextField txtQtdProdutos;

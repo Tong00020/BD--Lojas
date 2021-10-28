@@ -5,13 +5,16 @@
 package model.dao;
 
 import connection.ConnectionFactory;
+import java.lang.System.Logger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.bean.Providers;
+import view.FProviders;
 
 /**
  *
@@ -82,23 +85,25 @@ public class ProvidersDAO {
         }
     }
 
-    public void delete(int id) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void delete(Providers p) throws SQLException {
 
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
         PreparedStatement stmt = null;
 
         try {
-            String sql = "DELETE FROM providers WHERE id=?";
-            stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt = con.prepareStatement("DELETE FROM providers WHERE id = ?");
+            stmt.setInt(1, p.getId());
+
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
+
     }
 
     public ArrayList<Providers> list() throws Exception {
@@ -170,5 +175,85 @@ public class ProvidersDAO {
             ConnectionFactory.closeConnection(con, stmt);
         }
         return p;
+    }
+    public List<Providers> read() throws SQLException {
+
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Providers> produtos = new ArrayList<>();
+
+        try {
+            stmt = con.prepareStatement("SELECT * FROM providers");
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Providers produto = new Providers();
+
+                produto.setId(rs.getInt("id"));
+                produto.setName(rs.getString("name"));
+                produto.setCell_phone(rs.getString("cell_phone"));
+                produto.setCnpj(rs.getString("cnpj"));
+                produto.setCep(rs.getString("cep"));
+                produto.setAddress_number(rs.getInt("address_number"));
+                produto.setState(rs.getString("state"));
+                produto.setComplement(rs.getString("complement"));
+                produto.setAddress(rs.getString("address"));
+                produto.setUrl_site(rs.getString("url_site"));
+                produtos.add(produto);
+                
+                
+            }
+
+        } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(FProviders.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+        return produtos;
+
+    }
+     
+    public List<Providers> readForDesc(String desc) throws SQLException {
+
+        Connection con = (Connection) ConnectionFactory.getConnection();
+        
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        List<Providers> produtos = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM providers WHERE id LIKE ?");
+            stmt.setString(1, "%"+desc+"%");
+            
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                Providers produto = new Providers();
+
+                produto.setId(rs.getInt("id"));
+                produto.setName(rs.getString("name"));
+                produto.setCell_phone(rs.getString("cell_phone"));
+                produto.setCnpj(rs.getString("cnpj"));
+                produto.setCep(rs.getString("cep"));
+                produto.setAddress_number(rs.getInt("address_number"));
+                produto.setState(rs.getString("state"));
+                produto.setComplement(rs.getString("complement"));
+                produto.setAddress(rs.getString("address"));
+                produto.setUrl_site(rs.getString("url_site"));
+                produtos.add(produto);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+
+        return produtos;
+
     }
 }

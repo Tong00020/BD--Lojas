@@ -33,6 +33,22 @@ public class Employees {
     private String job_title;
     private Employees report_to;
     private Privileges privilege;
+    
+    public int getEmployeesId() {
+        return report_to.getId();
+    }
+    
+    public void setEmployeesId(int id) {
+        this.report_to.setId(id);
+    }
+    
+    public int getPrivilegesId() {
+        return privilege.getId();
+    }
+    
+    public void setPrivilegesId(int id) {
+        this.privilege.setId(id);
+    }
 
     public int getId() {
         return id;
@@ -198,7 +214,7 @@ public class Employees {
 
     public void delete() throws Exception {
         EmployeesDAO eDAO = new EmployeesDAO();
-        eDAO.delete(this.id);
+        eDAO.delete(this);
     }
 
     public ArrayList<Employees> list() throws Exception {

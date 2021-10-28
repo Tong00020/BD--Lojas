@@ -53,7 +53,7 @@ public class Privileges {
 
     public void delete() throws Exception {
         PrivilegesDAO pDAO = new PrivilegesDAO();
-        pDAO.delete(this.id);
+        pDAO.delete(this);
     }
 
     public ArrayList<Privileges> list() throws Exception {
