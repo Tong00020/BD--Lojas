@@ -122,7 +122,7 @@ public class VehiclesDAO {
 
                 Clients c = new Clients();
                 c.setId(rs.getInt("id"));
-                c.setName(rs.getString("name"));
+//                c.setName(rs.getString("name"));
                 v.setClient(c);
 
                 vehicles.add(v);

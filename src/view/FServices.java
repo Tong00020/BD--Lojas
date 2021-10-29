@@ -4,13 +4,16 @@
  * and open the template in the editor.
  */
 package view;
+
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableRowSorter;
 import model.bean.Services;
 import model.dao.ServicesDAO;
+
 /**
  *
  * @author Tong
@@ -22,7 +25,10 @@ public class FServices extends javax.swing.JFrame {
      */
     public FServices() {
         initComponents();
-        jButton4.setEnabled(false);
+        DefaultTableModel modelo = (DefaultTableModel) jTServices.getModel();
+        jTServices.setRowSorter(new TableRowSorter(modelo));
+
+        readJTable();
     }
 
     /**
@@ -193,13 +199,13 @@ public class FServices extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void readJTable() throws SQLException {
-        
+    public void readJTable() {
+
         DefaultTableModel modelo = (DefaultTableModel) jTServices.getModel();
         modelo.setNumRows(0);
         ServicesDAO pdao = new ServicesDAO();
 
-        for (Services p : pdao.read()) {
+        for (Services p : pdao.list()) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -208,15 +214,14 @@ public class FServices extends javax.swing.JFrame {
             });
         }
     }
-    
-    
-    public void readJTableForDesc(String desc) throws SQLException {
-        
+
+    public void readJTableForDesc(int id) {
+
         DefaultTableModel modelo = (DefaultTableModel) jTServices.getModel();
         modelo.setNumRows(0);
         ServicesDAO pdao = new ServicesDAO();
 
-        for (Services p : pdao.readForDesc(desc)) {
+        for (Services p : pdao.loadById(id)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -225,14 +230,14 @@ public class FServices extends javax.swing.JFrame {
             });
         }
     }
-    
+
     private void jTServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTServicesMouseClicked
         if (jTServices.getSelectedRow() != -1) {
 
             txtIdServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 1).toString());
             txtNomeServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 2).toString());
             txtDescricaoServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 3).toString());
-            
+
         }
     }//GEN-LAST:event_jTServicesMouseClicked
 
@@ -246,47 +251,29 @@ public class FServices extends javax.swing.JFrame {
     }//GEN-LAST:event_jTServicesKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            Services p = new Services();
-            ServicesDAO dao = new ServicesDAO();
-
-            p.setId(Integer.parseInt(txtIdServices.getText()));
-            p.setName(txtNomeServices.getText());
-            p.setDescription(txtDescricaoServices.getText());
-            dao.create(p);
-
-            txtIdServices.setText("");
-            txtNomeServices.setText("");
-            txtDescricaoServices.setText("");
-
-            readJTable();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(FServices.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Services p = new Services();
+        ServicesDAO dao = new ServicesDAO();
+        p.setId(Integer.parseInt(txtIdServices.getText()));
+        p.setName(txtNomeServices.getText());
+        p.setDescription(txtDescricaoServices.getText());
+        dao.create(p);
+        txtIdServices.setText("");
+        txtNomeServices.setText("");
+        txtDescricaoServices.setText("");
+        readJTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jTServices.getSelectedRow() != -1) {
 
-            try {
-
-                Services p = new Services();
-                ServicesDAO dao = new ServicesDAO();
-
-                p.setId((int) jTServices.getValueAt(jTServices.getSelectedRow(), 0));
-
-                dao.delete(p);
-
-                txtIdServices.setText("");
-                txtNomeServices.setText("");
-                txtDescricaoServices.setText("");
-
-                readJTable();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FServices.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Services p = new Services();
+            ServicesDAO dao = new ServicesDAO();
+            p.setId((int) jTServices.getValueAt(jTServices.getSelectedRow(), 0));
+            dao.delete(p);
+            txtIdServices.setText("");
+            txtNomeServices.setText("");
+            txtDescricaoServices.setText("");
+            readJTable();
 
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um serviço para excluir.");
@@ -296,32 +283,21 @@ public class FServices extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (jTServices.getSelectedRow() != -1) {
 
+            Services p = new Services();
+            ServicesDAO dao = new ServicesDAO();
+            p.setId(Integer.parseInt(txtIdServices.getText()));
+            p.setName(txtNomeServices.getText());
+            p.setDescription(txtDescricaoServices.getText());
+            p.setId((int) jTServices.getValueAt(jTServices.getSelectedRow(), 0));
             try {
-
-                Services p = new Services();
-                ServicesDAO dao = new ServicesDAO();
-
-                p.setId(Integer.parseInt(txtIdServices.getText()));
-                p.setName(txtNomeServices.getText());
-                p.setDescription(txtDescricaoServices.getText());
-                p.setId((int) jTServices.getValueAt(jTServices.getSelectedRow(), 0));
-
-                try {
-                    dao.alter(p);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FServices.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(FServices.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                txtIdServices.setText("");
-                txtNomeServices.setText("");
-                txtDescricaoServices.setText("");
-                readJTable();
-
-            } catch (SQLException ex) {
+                dao.alter(p);
+            } catch (Exception ex) {
                 Logger.getLogger(FServices.class.getName()).log(Level.SEVERE, null, ex);
             }
+            txtIdServices.setText("");
+            txtNomeServices.setText("");
+            txtDescricaoServices.setText("");
+            readJTable();
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -332,11 +308,7 @@ public class FServices extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        try {
-            readJTableForDesc(txtBuscaServices.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(FServices.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        readJTableForDesc(txtBuscaServices.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

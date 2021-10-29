@@ -32,8 +32,8 @@ public class BudgetsDAO {
         PreparedStatement stmt = null;
 
         try {
-            String sql = "INSERT INTO budgets (date,price_services,total_items,total,id_vehicle,"
-                    + "id_service,id_client) VALUES (now(),?,?,?,?,?,?)";
+            String sql = "INSERT INTO budget (date,price_services,total_items,total,vehicles_id,"
+                    + "services_id,clients_id) VALUES (now(),?,?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
             stmt.setDouble(1, b.getPrice_services());
             stmt.setDouble(2, b.getTotal_items());
@@ -58,9 +58,9 @@ public class BudgetsDAO {
         PreparedStatement stmt = null;
 
         try {
-            String sql = "UPDATE budgets SET date = now(),price_services = ?,"
-                    + "total_items = ?,total = ?,id_vehicle = ?,id_service = ?,"
-                    + "id_client = ? WHERE id = ?";
+            String sql = "UPDATE budget SET date = now(),price_services = ?,"
+                    + "total_items = ?,total = ?,vehicles_id = ?,services_id = ?,"
+                    + "clients_id = ? WHERE id = ?";
             stmt = con.prepareStatement(sql);
             stmt.setDouble(1, b.getPrice_services());
             stmt.setDouble(2, b.getTotal_items());
@@ -108,7 +108,7 @@ public class BudgetsDAO {
         List<Budgets> budgets = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM budgets";
+            String sql = "SELECT * FROM budget";
             stmt = con.prepareStatement(sql);
             /*
             ResultSet é uma interface utilizada pra guardar dados vindos 
@@ -129,18 +129,15 @@ public class BudgetsDAO {
                 b.setTotal(rs.getDouble("total"));
 
                 Vehicles v = new Vehicles();
-                v.setId(rs.getInt("id_vehicle"));
-                v.setPlate(rs.getString("plate"));
+                v.setId(rs.getInt("vehicles_id"));
                 b.setVehicle(v);
 
                 Services s = new Services();
-                s.setId(rs.getInt("id_service"));
-                s.setName(rs.getString("name"));
+                s.setId(rs.getInt("services_id"));
                 b.setService(s);
 
                 Clients c = new Clients();
-                c.setId(rs.getInt("id_client"));
-                c.setName(rs.getString("name"));
+                c.setId(rs.getInt("clients_id"));
                 b.setClient(c);
 
                 budgets.add(b);
@@ -161,7 +158,7 @@ public class BudgetsDAO {
         List<Budgets> budgets = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM orders WHERE id=?";
+            String sql = "SELECT * FROM budget WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -174,17 +171,17 @@ public class BudgetsDAO {
                 b.setTotal(rs.getDouble("total"));
 
                 Vehicles v = new Vehicles();
-                v.setId(rs.getInt("id_vehicle"));
+                v.setId(rs.getInt("vehicles_id"));
                 v.setPlate(rs.getString("plate"));
                 b.setVehicle(v);
 
                 Services s = new Services();
-                s.setId(rs.getInt("id_service"));
+                s.setId(rs.getInt("services_id"));
                 s.setName(rs.getString("name"));
                 b.setService(s);
 
                 Clients c = new Clients();
-                c.setId(rs.getInt("id_client"));
+                c.setId(rs.getInt("clients_id"));
                 c.setName(rs.getString("name"));
                 b.setClient(c);
 
@@ -220,9 +217,9 @@ public class BudgetsDAO {
                 b.setPrice_services(rs.getDouble("price_services"));
                 b.setTotal_items(rs.getDouble("total_items"));
                 b.setTotal(rs.getDouble("total"));
-                b.setVehiclesId(rs.getInt("id_vehicle"));
-                b.setClientsId(rs.getInt("id_client"));
-                b.setServicesId(rs.getInt("id_service"));
+                b.setVehiclesId(rs.getInt("vehicles_id"));
+                b.setClientsId(rs.getInt("clients_id"));
+                b.setServicesId(rs.getInt("services_id"));
                 produtos.add(b);
                 
                 
@@ -261,9 +258,9 @@ public class BudgetsDAO {
                 b.setPrice_services(rs.getDouble("price_services"));
                 b.setTotal_items(rs.getDouble("total_items"));
                 b.setTotal(rs.getDouble("total"));
-                b.setVehiclesId(rs.getInt("id_vehicle"));
-                b.setClientsId(rs.getInt("id_client"));
-                b.setServicesId(rs.getInt("id_service"));
+                b.setVehiclesId(rs.getInt("vehicles_id"));
+                b.setClientsId(rs.getInt("clients_id"));
+                b.setServicesId(rs.getInt("services_id"));
                 produtos.add(b);
             }
 

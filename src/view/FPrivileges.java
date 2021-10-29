@@ -10,6 +10,7 @@ import model.dao.PrivilegesDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableRowSorter;
 import model.bean.Privileges;
 /**
  *
@@ -21,9 +22,11 @@ public class FPrivileges extends javax.swing.JFrame {
      * Creates new form Privileges
      */
     public FPrivileges() {
-        initComponents();
-        
-        jButton4.setEnabled(false);
+       initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) jTPrivileges.getModel();
+        jTPrivileges.setRowSorter(new TableRowSorter(modelo));
+
+        readJTable();
     }
 
     /**
@@ -194,13 +197,13 @@ public class FPrivileges extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void readJTable() throws SQLException {
+    public void readJTable() {
         
         DefaultTableModel modelo = (DefaultTableModel) jTPrivileges.getModel();
         modelo.setNumRows(0);
         PrivilegesDAO pdao = new PrivilegesDAO();
 
-        for (Privileges p : pdao.read()) {
+        for (Privileges p : pdao.list()) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -213,13 +216,13 @@ public class FPrivileges extends javax.swing.JFrame {
     }
     
     
-    public void readJTableForDesc(String desc) throws SQLException {
+    public void readJTableForDesc(int id) throws SQLException {
         
         DefaultTableModel modelo = (DefaultTableModel) jTPrivileges.getModel();
         modelo.setNumRows(0);
         PrivilegesDAO pdao = new PrivilegesDAO();
 
-        for (Privileges p : pdao.readForDesc(desc)) {
+        for (Privileges p : pdao.loadById(id)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -250,47 +253,29 @@ public class FPrivileges extends javax.swing.JFrame {
     }//GEN-LAST:event_jTPrivilegesKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            Privileges p = new Privileges();
-            PrivilegesDAO dao = new PrivilegesDAO();
-
-            p.setId(Integer.parseInt(txtIdPrivileges.getText()));
-            p.setName(txtNomePrivileges.getText());
-            p.setIs_superadmin(Boolean.parseBoolean(txtIsAdminPrivileges.getText()));
-            dao.create(p);
-
-            txtIdPrivileges.setText("");
-            txtNomePrivileges.setText("");
-            txtIsAdminPrivileges.setText("");
-
-            readJTable();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(FPrivileges.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Privileges p = new Privileges();
+        PrivilegesDAO dao = new PrivilegesDAO();
+        p.setId(Integer.parseInt(txtIdPrivileges.getText()));
+        p.setName(txtNomePrivileges.getText());
+        p.setIs_superadmin(Boolean.parseBoolean(txtIsAdminPrivileges.getText()));
+        dao.create(p);
+        txtIdPrivileges.setText("");
+        txtNomePrivileges.setText("");
+        txtIsAdminPrivileges.setText("");
+        readJTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jTPrivileges.getSelectedRow() != -1) {
 
-            try {
-
-                Privileges p = new Privileges();
-                PrivilegesDAO dao = new PrivilegesDAO();
-
-                p.setId((int) jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 0));
-
-                dao.delete(p);
-
-                txtIdPrivileges.setText("");
-                txtNomePrivileges.setText("");
-                txtIsAdminPrivileges.setText("");
-
-                readJTable();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FPrivileges.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Privileges p = new Privileges();
+            PrivilegesDAO dao = new PrivilegesDAO();
+            p.setId((int) jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 0));
+            dao.delete(p);
+            txtIdPrivileges.setText("");
+            txtNomePrivileges.setText("");
+            txtIsAdminPrivileges.setText("");
+            readJTable();
 
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um privilegio para excluir.");
@@ -300,32 +285,21 @@ public class FPrivileges extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (jTPrivileges.getSelectedRow() != -1) {
 
+            Privileges p = new Privileges();
+            PrivilegesDAO dao = new PrivilegesDAO();
+            p.setId(Integer.parseInt(txtIdPrivileges.getText()));
+            p.setName(txtNomePrivileges.getText());
+            p.setIs_superadmin(Boolean.parseBoolean(txtIsAdminPrivileges.getText()));
+            p.setId((int) jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 0));
             try {
-
-                Privileges p = new Privileges();
-                PrivilegesDAO dao = new PrivilegesDAO();
-
-                p.setId(Integer.parseInt(txtIdPrivileges.getText()));
-                p.setName(txtNomePrivileges.getText());
-                p.setIs_superadmin(Boolean.parseBoolean(txtIsAdminPrivileges.getText()));
-                p.setId((int) jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 0));
-
-                try {
-                    dao.alter(p);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FPrivileges.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(FPrivileges.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                txtIdPrivileges.setText("");
-                txtNomePrivileges.setText("");
-                txtIsAdminPrivileges.setText("");
-                readJTable();
-
-            } catch (SQLException ex) {
+                dao.alter(p);
+            } catch (Exception ex) {
                 Logger.getLogger(FPrivileges.class.getName()).log(Level.SEVERE, null, ex);
             }
+            txtIdPrivileges.setText("");
+            txtNomePrivileges.setText("");
+            txtIsAdminPrivileges.setText("");
+            readJTable();
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -336,11 +310,7 @@ public class FPrivileges extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        try {
-            readJTableForDesc(txtBuscaPrivileges.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(FPrivileges.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        readJTableForDesc(txtBuscaPrivileges.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

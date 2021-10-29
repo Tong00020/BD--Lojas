@@ -10,6 +10,7 @@ import model.dao.OrdersDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableRowSorter;
 import model.bean.Orders;
 /**
  *
@@ -21,9 +22,11 @@ public class Forders extends javax.swing.JFrame {
      * Creates new form Orders
      */
     public Forders() {
-        initComponents();
-        
-        jButton4.setEnabled(false);
+         initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) jTOrders.getModel();
+        jTOrders.setRowSorter(new TableRowSorter(modelo));
+
+        readJTable();
     }
 
     /**
@@ -265,13 +268,13 @@ public class Forders extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    public void readJTable() throws SQLException {
+    public void readJTable() {
         
         DefaultTableModel modelo = (DefaultTableModel) jTOrders.getModel();
         modelo.setNumRows(0);
         OrdersDAO pdao = new OrdersDAO();
 
-        for (Orders p : pdao.read()) {
+        for (Orders p : pdao.list()) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -289,13 +292,13 @@ public class Forders extends javax.swing.JFrame {
     }
     
     
-    public void readJTableForDesc(String desc) throws SQLException {
+    public void readJTableForDesc(int id) throws SQLException {
         
         DefaultTableModel modelo = (DefaultTableModel) jTOrders.getModel();
         modelo.setNumRows(0);
         OrdersDAO pdao = new OrdersDAO();
 
-        for (Orders p : pdao.readForDesc(desc)) {
+        for (Orders p : pdao.loadById(id)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -346,29 +349,39 @@ public class Forders extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        try {
-            readJTableForDesc(txtBuscaOrders.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(Forders.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        readJTableForDesc(txtBuscaOrders.getText());
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
+        Orders p = new Orders();
+        OrdersDAO dao = new OrdersDAO();
+        p.setId(Integer.parseInt(txtIdOrders.getText()));
+        p.setDiscount(Double.parseDouble(txtDescontoOrders.getText()));
+        p.setObservation(txtObservacoesOrders.getText());
+        p.setPayment(txtPrecoTotalOrders.getText());
+        p.setSituation(txtDataOrders.getText());
+        p.setEmployeesId(Integer.parseInt(txtIdEmpregadoOrders.getText()));
+        p.setBudgetsId(Integer.parseInt(txtIdBudgetOrders.getText()));
+        dao.create(p);
+        txtIdOrders.setText("");
+        txtDescontoOrders.setText("");
+        txtObservacoesOrders.setText("");
+        txtPrecoTotalOrders.setText("");
+        txtSituacaoOrders.setText("");
+        txtDataOrders.setText("");
+        txtIdEmpregadoOrders.setText("");
+        txtIdBudgetOrders.setText("");
+        readJTable();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (jTOrders.getSelectedRow() != -1) {
+
             Orders p = new Orders();
             OrdersDAO dao = new OrdersDAO();
-
-            p.setId(Integer.parseInt(txtIdOrders.getText()));
-            p.setDiscount(Double.parseDouble(txtDescontoOrders.getText()));
-            p.setObservation(txtObservacoesOrders.getText());
-            p.setPayment(txtPrecoTotalOrders.getText());
-            p.setSituation(txtDataOrders.getText());
-            p.setEmployeesId(Integer.parseInt(txtIdEmpregadoOrders.getText()));
-            p.setBudgetsId(Integer.parseInt(txtIdBudgetOrders.getText()));
-            dao.create(p);
-
-            
+            p.setId((int) jTOrders.getValueAt(jTOrders.getSelectedRow(), 0));
+            dao.delete(p);
             txtIdOrders.setText("");
             txtDescontoOrders.setText("");
             txtObservacoesOrders.setText("");
@@ -377,41 +390,7 @@ public class Forders extends javax.swing.JFrame {
             txtDataOrders.setText("");
             txtIdEmpregadoOrders.setText("");
             txtIdBudgetOrders.setText("");
-            
-
             readJTable();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Forders.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (jTOrders.getSelectedRow() != -1) {
-
-            try {
-
-                Orders p = new Orders();
-                OrdersDAO dao = new OrdersDAO();
-
-                p.setId((int) jTOrders.getValueAt(jTOrders.getSelectedRow(), 0));
-
-                dao.delete(p);
-
-                txtIdOrders.setText("");
-                txtDescontoOrders.setText("");
-                txtObservacoesOrders.setText("");
-                txtPrecoTotalOrders.setText("");
-                txtSituacaoOrders.setText("");
-                txtDataOrders.setText("");
-                txtIdEmpregadoOrders.setText("");
-                txtIdBudgetOrders.setText("");
-
-                readJTable();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Forders.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
         } else {
             JOptionPane.showMessageDialog(null, "Selecione uma ordem para excluir.");
@@ -421,41 +400,30 @@ public class Forders extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (jTOrders.getSelectedRow() != -1) {
 
+            Orders p = new Orders();
+            OrdersDAO dao = new OrdersDAO();
+            p.setId(Integer.parseInt(txtIdOrders.getText()));
+            p.setDiscount(Double.parseDouble(txtDescontoOrders.getText()));
+            p.setObservation(txtObservacoesOrders.getText());
+            p.setPayment(txtPrecoTotalOrders.getText());
+            p.setSituation(txtDataOrders.getText());
+            p.setEmployeesId(Integer.parseInt(txtIdEmpregadoOrders.getText()));
+            p.setBudgetsId(Integer.parseInt(txtIdBudgetOrders.getText()));
+            p.setId((int) jTOrders.getValueAt(jTOrders.getSelectedRow(), 0));
             try {
-
-                Orders p = new Orders();
-                OrdersDAO dao = new OrdersDAO();
-                
-                p.setId(Integer.parseInt(txtIdOrders.getText()));
-                p.setDiscount(Double.parseDouble(txtDescontoOrders.getText()));
-                p.setObservation(txtObservacoesOrders.getText());
-                p.setPayment(txtPrecoTotalOrders.getText());
-                p.setSituation(txtDataOrders.getText());
-                p.setEmployeesId(Integer.parseInt(txtIdEmpregadoOrders.getText()));
-                p.setBudgetsId(Integer.parseInt(txtIdBudgetOrders.getText()));
-                p.setId((int) jTOrders.getValueAt(jTOrders.getSelectedRow(), 0));
-
-                try {
-                    dao.alter(p);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Forders.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(Forders.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                txtIdOrders.setText("");
-                txtDescontoOrders.setText("");
-                txtObservacoesOrders.setText("");
-                txtPrecoTotalOrders.setText("");
-                txtSituacaoOrders.setText("");
-                txtDataOrders.setText("");
-                txtIdEmpregadoOrders.setText("");
-                txtIdBudgetOrders.setText("");
-                readJTable();
-
-            } catch (SQLException ex) {
+                dao.alter(p);
+            } catch (Exception ex) {
                 Logger.getLogger(Forders.class.getName()).log(Level.SEVERE, null, ex);
             }
+            txtIdOrders.setText("");
+            txtDescontoOrders.setText("");
+            txtObservacoesOrders.setText("");
+            txtPrecoTotalOrders.setText("");
+            txtSituacaoOrders.setText("");
+            txtDataOrders.setText("");
+            txtIdEmpregadoOrders.setText("");
+            txtIdBudgetOrders.setText("");
+            readJTable();
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed

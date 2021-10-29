@@ -31,8 +31,8 @@ public class BudgetsDetailsDAO {
         PreparedStatement stmt = null;
 
         try {
-            String sql = "INSERT INTO budgets_details (price,amount,subtotal,"
-                    + "id_budget,id_product) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO budget_details (price,amount,subtotal,"
+                    + "budget_id,id_product) VALUES (?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
             stmt.setDouble(1, bd.getPrice());
             stmt.setDouble(2, bd.getAmount());
@@ -56,8 +56,8 @@ public class BudgetsDetailsDAO {
         PreparedStatement stmt = null;
 
         try {
-            String sql = "UPDATE budgets_details SET price = ?,amount = ?,"
-                    + "subtotal = ?,id_budget = ?,id_product = ? WHERE id = ?";
+            String sql = "UPDATE budget_details SET price = ?,amount = ?,"
+                    + "subtotal = ?,budget_id = ?,id_product = ? WHERE id = ?";
             stmt = con.prepareStatement(sql);
             stmt.setDouble(1, bd.getPrice());
             stmt.setDouble(2, bd.getAmount());
@@ -81,7 +81,7 @@ public class BudgetsDetailsDAO {
         PreparedStatement stmt = null;
 
         try {
-            stmt = con.prepareStatement("DELETE FROM budgets_details WHERE id = ?");
+            stmt = con.prepareStatement("DELETE FROM budget_details WHERE id = ?");
             stmt.setInt(1, p.getId());
             stmt.executeUpdate();
 
@@ -101,7 +101,7 @@ public class BudgetsDetailsDAO {
         List<BudgetsDetails> budgetsDetails = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM budgets_details";
+            String sql = "SELECT * FROM budget_details";
             stmt = con.prepareStatement(sql);
             /*
             ResultSet é uma interface utilizada pra guardar dados vindos 
@@ -120,13 +120,11 @@ public class BudgetsDetailsDAO {
                 bd.setSubtotal(rs.getDouble("subtotal"));
 
                 Budgets b = new Budgets();
-                b.setId(rs.getInt("id_budget"));
-                b.setDate(rs.getDate("date"));
+                b.setId(rs.getInt("budget_id"));
                 bd.setBudget(b);
 
                 Products p = new Products();
-                p.setId(rs.getInt("id_client"));
-                p.setName(rs.getString("name"));
+                p.setId(rs.getInt("products_id"));
                 bd.setProduct(p);
 
                 budgetsDetails.add(bd);
@@ -147,7 +145,7 @@ public class BudgetsDetailsDAO {
         List<BudgetsDetails> budgetsDetails = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM budgets_details WHERE id=?";
+            String sql = "SELECT * FROM budget_details WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -159,12 +157,12 @@ public class BudgetsDetailsDAO {
                 bd.setSubtotal(rs.getDouble("subtotal"));
 
                 Budgets b = new Budgets();
-                b.setId(rs.getInt("id_budget"));
+                b.setId(rs.getInt("budget_id"));
                 b.setDate(rs.getDate("date"));
                 bd.setBudget(b);
 
                 Products p = new Products();
-                p.setId(rs.getInt("id_client"));
+                p.setId(rs.getInt("products_id"));
                 p.setName(rs.getString("name"));
                 bd.setProduct(p);
 
@@ -178,78 +176,78 @@ public class BudgetsDetailsDAO {
         return budgetsDetails;
     }
 
-    public List<BudgetsDetails> read() {
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
-
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        List<BudgetsDetails> produtos = new ArrayList<>();
-
-        try {
-            stmt = con.prepareStatement("SELECT * FROM budgets_details");
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-
-                BudgetsDetails bd = new BudgetsDetails();
-
-                bd.setId(rs.getInt("id"));
-                bd.setPrice(rs.getDouble("price"));
-                bd.setAmount(rs.getDouble("amount"));
-                bd.setSubtotal(rs.getDouble("subtotal"));
-                bd.setBudgetsId(rs.getInt("id_budget"));
-                bd.setProductsId(rs.getInt("id_product"));
-
-                produtos.add(bd);
-
-            }
-
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt);
-        }
-        return produtos;
-
-    }
-
-    public List<BudgetsDetails> readForDesc(String desc) {
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
-
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        List<BudgetsDetails> produtos = new ArrayList<>();
-
-        try {
-            stmt = con.prepareStatement("SELECT * FROM budgets_details WHERE id LIKE ?");
-            stmt.setString(1, "%" + desc + "%");
-
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-
-                BudgetsDetails bd = new BudgetsDetails();
-
-                bd.setId(rs.getInt("id"));
-                bd.setPrice(rs.getDouble("price"));
-                bd.setAmount(rs.getDouble("amount"));
-                bd.setSubtotal(rs.getDouble("subtotal"));
-                bd.setBudgetsId(rs.getInt("id_budget"));
-                bd.setProductsId(rs.getInt("id_product"));
-                produtos.add(bd);
-            }
-
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt);
-        }
-
-        return produtos;
-
-    }
+//    public List<BudgetsDetails> read() {
+//
+//        Connection con = (Connection) ConnectionFactory.getConnection();
+//
+//        PreparedStatement stmt = null;
+//        ResultSet rs = null;
+//
+//        List<BudgetsDetails> produtos = new ArrayList<>();
+//
+//        try {
+//            stmt = con.prepareStatement("SELECT * FROM budget_details");
+//            rs = stmt.executeQuery();
+//
+//            while (rs.next()) {
+//
+//                BudgetsDetails bd = new BudgetsDetails();
+//
+//                bd.setId(rs.getInt("id"));
+//                bd.setPrice(rs.getDouble("price"));
+//                bd.setAmount(rs.getDouble("amount"));
+//                bd.setSubtotal(rs.getDouble("subtotal"));
+//                bd.setBudgetsId(rs.getInt("budget_id"));
+//                bd.setProductsId(rs.getInt("id_product"));
+//
+//                produtos.add(bd);
+//
+//            }
+//
+//        } catch (SQLException ex) {
+//            System.out.println(ex);
+//        } finally {
+//            ConnectionFactory.closeConnection(con, stmt);
+//        }
+//        return produtos;
+//
+//    }
+//
+//    public List<BudgetsDetails> readForDesc(String desc) {
+//
+//        Connection con = (Connection) ConnectionFactory.getConnection();
+//
+//        PreparedStatement stmt = null;
+//        ResultSet rs = null;
+//
+//        List<BudgetsDetails> produtos = new ArrayList<>();
+//
+//        try {
+//            stmt = con.prepareStatement("SELECT * FROM budget_details WHERE id LIKE ?");
+//            stmt.setString(1, "%" + desc + "%");
+//
+//            rs = stmt.executeQuery();
+//
+//            while (rs.next()) {
+//
+//                BudgetsDetails bd = new BudgetsDetails();
+//
+//                bd.setId(rs.getInt("id"));
+//                bd.setPrice(rs.getDouble("price"));
+//                bd.setAmount(rs.getDouble("amount"));
+//                bd.setSubtotal(rs.getDouble("subtotal"));
+//                bd.setBudgetsId(rs.getInt("budget_id"));
+//                bd.setProductsId(rs.getInt("id_product"));
+//                produtos.add(bd);
+//            }
+//
+//        } catch (SQLException ex) {
+//            System.out.println(ex);
+//        } finally {
+//            ConnectionFactory.closeConnection(con, stmt);
+//        }
+//
+//        return produtos;
+//
+//    }
 }

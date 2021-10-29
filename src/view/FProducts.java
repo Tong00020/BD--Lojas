@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import model.bean.Products;
 
 /**
@@ -26,12 +27,10 @@ public class FProducts extends javax.swing.JFrame {
      */
     public FProducts() throws SQLException {
         initComponents();
-
-        jButton4.setEnabled(false);
-        /*DefaultTableModel modelo = (DefaultTableModel) jTProducts.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) jTProducts.getModel();
         jTProducts.setRowSorter(new TableRowSorter(modelo));
 
-        readJTable();*/
+        readJTable();
     }
 
     /**
@@ -261,13 +260,13 @@ public class FProducts extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void readJTableForDesc(String desc) throws SQLException {
+    public void readJTableForDesc(int id) throws SQLException {
 
         DefaultTableModel modelo = (DefaultTableModel) jTProducts.getModel();
         modelo.setNumRows(0);
         ProductsDAO pdao = new ProductsDAO();
 
-        for (Products p : pdao.readForDesc(desc)) {
+        for (Products p : pdao.loadById(id)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -284,13 +283,13 @@ public class FProducts extends javax.swing.JFrame {
 
     }
 
-    public void readJTable() throws SQLException {
+    public void readJTable() {
 
         DefaultTableModel modelo = (DefaultTableModel) jTProducts.getModel();
         modelo.setNumRows(0);
         ProductsDAO pdao = new ProductsDAO();
 
-        for (Products p : pdao.read()) {
+        for (Products p : pdao.list()) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -308,11 +307,7 @@ public class FProducts extends javax.swing.JFrame {
     }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        try {
-            readJTableForDesc(txtBuscaProducts.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        readJTableForDesc(txtBuscaProducts.getText());
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -346,20 +341,36 @@ public class FProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jTProductsKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
+        Products p = new Products();
+        ProductsDAO dao = new ProductsDAO();
+        p.setId(Integer.parseInt(txtIdProdutos.getText()));
+        p.setName(txtNomeProdutos.getText());
+        p.setDescription(txtDescProdutos.getText());
+        p.setProvidersId(Integer.parseInt(txtIdProvedorProdutos.getText()));
+        p.setPrice(Double.parseDouble(txtPrecoProdutos.getText()));
+        p.setBarcode(Integer.parseInt(txtQtdProdutos.getText()));
+        p.setQuantity(Integer.parseInt(txtQtdProdutos.getText()));
+        p.setCategory(txtCategoriaProdutos.getText());
+        dao.create(p);
+        txtDescProdutos.setText("");
+        txtQtdProdutos.setText("");
+        txtPrecoProdutos.setText("");
+        txtNomeProdutos.setText("");
+        txtIdProdutos.setText("");
+        txtBarCodeProdutos.setText("");
+        txtIdProvedorProdutos.setText("");
+        txtCategoriaProdutos.setText("");
+        readJTable();
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (jTProducts.getSelectedRow() != -1) {
+
             Products p = new Products();
             ProductsDAO dao = new ProductsDAO();
-
-            p.setId(Integer.parseInt(txtIdProdutos.getText()));
-            p.setName(txtNomeProdutos.getText());
-            p.setDescription(txtDescProdutos.getText());
-            p.setProvidersId(Integer.parseInt(txtIdProvedorProdutos.getText()));
-            p.setPrice(Double.parseDouble(txtPrecoProdutos.getText()));
-            p.setBarcode(Integer.parseInt(txtQtdProdutos.getText()));
-            p.setQuantity(Integer.parseInt(txtQtdProdutos.getText()));
-            p.setCategory(txtCategoriaProdutos.getText());
-            dao.create(p);
-
+            p.setId((int) jTProducts.getValueAt(jTProducts.getSelectedRow(), 0));
+            dao.delete(p);
             txtDescProdutos.setText("");
             txtQtdProdutos.setText("");
             txtPrecoProdutos.setText("");
@@ -370,39 +381,6 @@ public class FProducts extends javax.swing.JFrame {
             txtCategoriaProdutos.setText("");
             readJTable();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (jTProducts.getSelectedRow() != -1) {
-
-            try {
-
-                Products p = new Products();
-                ProductsDAO dao = new ProductsDAO();
-
-                p.setId((int) jTProducts.getValueAt(jTProducts.getSelectedRow(), 0));
-
-                dao.delete(p);
-
-                txtDescProdutos.setText("");
-                txtQtdProdutos.setText("");
-                txtPrecoProdutos.setText("");
-                txtNomeProdutos.setText("");
-                txtIdProdutos.setText("");
-                txtBarCodeProdutos.setText("");
-                txtIdProvedorProdutos.setText("");
-                txtCategoriaProdutos.setText("");
-
-                readJTable();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um produto para excluir.");
         }
@@ -411,42 +389,31 @@ public class FProducts extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (jTProducts.getSelectedRow() != -1) {
 
+            Products p = new Products();
+            ProductsDAO dao = new ProductsDAO();
+            p.setId(Integer.parseInt(txtIdProdutos.getText()));
+            p.setName(txtNomeProdutos.getText());
+            p.setDescription(txtDescProdutos.getText());
+            p.setProvidersId(Integer.parseInt(txtIdProvedorProdutos.getText()));
+            p.setPrice(Double.parseDouble(txtPrecoProdutos.getText()));
+            p.setBarcode(Integer.parseInt(txtQtdProdutos.getText()));
+            p.setQuantity(Integer.parseInt(txtQtdProdutos.getText()));
+            p.setCategory(txtCategoriaProdutos.getText());
+            p.setId((int) jTProducts.getValueAt(jTProducts.getSelectedRow(), 0));
             try {
-
-                Products p = new Products();
-                ProductsDAO dao = new ProductsDAO();
-
-                p.setId(Integer.parseInt(txtIdProdutos.getText()));
-                p.setName(txtNomeProdutos.getText());
-                p.setDescription(txtDescProdutos.getText());
-                p.setProvidersId(Integer.parseInt(txtIdProvedorProdutos.getText()));
-                p.setPrice(Double.parseDouble(txtPrecoProdutos.getText()));
-                p.setBarcode(Integer.parseInt(txtQtdProdutos.getText()));
-                p.setQuantity(Integer.parseInt(txtQtdProdutos.getText()));
-                p.setCategory(txtCategoriaProdutos.getText());
-                p.setId((int) jTProducts.getValueAt(jTProducts.getSelectedRow(), 0));
-
-                try {
-                    dao.alter(p);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                txtDescProdutos.setText("");
-                txtQtdProdutos.setText("");
-                txtPrecoProdutos.setText("");
-                txtNomeProdutos.setText("");
-                txtIdProdutos.setText("");
-                txtBarCodeProdutos.setText("");
-                txtIdProvedorProdutos.setText("");
-                txtCategoriaProdutos.setText("");
-                readJTable();
-
-            } catch (SQLException ex) {
+                dao.alter(p);
+            } catch (Exception ex) {
                 Logger.getLogger(FProducts.class.getName()).log(Level.SEVERE, null, ex);
             }
+            txtDescProdutos.setText("");
+            txtQtdProdutos.setText("");
+            txtPrecoProdutos.setText("");
+            txtNomeProdutos.setText("");
+            txtIdProdutos.setText("");
+            txtBarCodeProdutos.setText("");
+            txtIdProvedorProdutos.setText("");
+            txtCategoriaProdutos.setText("");
+            readJTable();
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed

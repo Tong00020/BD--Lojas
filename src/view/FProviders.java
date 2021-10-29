@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Tong
@@ -23,8 +25,10 @@ public class FProviders extends javax.swing.JFrame {
      */
     public FProviders() {
         initComponents();
-        
-        jButton4.setEnabled(false);
+        DefaultTableModel modelo = (DefaultTableModel) jTProviders.getModel();
+        jTProviders.setRowSorter(new TableRowSorter(modelo));
+
+        readJTable();
     }
 
     /**
@@ -304,13 +308,13 @@ public class FProviders extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void readJTable() throws SQLException {
-        
+    public void readJTable() {
+
         DefaultTableModel modelo = (DefaultTableModel) jTProviders.getModel();
         modelo.setNumRows(0);
         ProvidersDAO pdao = new ProvidersDAO();
 
-        for (Providers p : pdao.read()) {
+        for (Providers p : pdao.list()) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -328,15 +332,14 @@ public class FProviders extends javax.swing.JFrame {
             });
         }
     }
-    
-    
-    public void readJTableForDesc(String desc) throws SQLException {
-        
+
+    public void readJTableForDesc(int id) {
+
         DefaultTableModel modelo = (DefaultTableModel) jTProviders.getModel();
         modelo.setNumRows(0);
         ProvidersDAO pdao = new ProvidersDAO();
 
-        for (Providers p : pdao.readForDesc(desc)) {
+        for (Providers p : pdao.loadID(id)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -355,7 +358,7 @@ public class FProviders extends javax.swing.JFrame {
 
         }
     }
-    
+
     private void jTProvidersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProvidersMouseClicked
         if (jTProviders.getSelectedRow() != -1) {
 
@@ -370,7 +373,7 @@ public class FProviders extends javax.swing.JFrame {
             txtComplementoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 9).toString());
             txtEnderecoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 10).toString());
             txtSiteProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 11).toString());
-            txtTelefoneProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 12).toString()); 
+            txtTelefoneProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 12).toString());
         }
     }//GEN-LAST:event_jTProvidersMouseClicked
 
@@ -388,39 +391,30 @@ public class FProviders extends javax.swing.JFrame {
             txtComplementoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 9).toString());
             txtEnderecoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 10).toString());
             txtSiteProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 11).toString());
-            txtTelefoneProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 12).toString()); 
+            txtTelefoneProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 12).toString());
         }
     }//GEN-LAST:event_jTProvidersKeyReleased
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jTProviders.getSelectedRow() != -1) {
 
-            try {
-
-                Providers p = new Providers();
-                ProvidersDAO dao = new ProvidersDAO();
-
-                p.setId((int) jTProviders.getValueAt(jTProviders.getSelectedRow(), 0));
-
-                dao.delete(p);
-
-                txtIdProviders.setText("");
-                txtNomeProviders.setText("");
-                txtEnderecoProviders.setText("");
-                txtComplementoProviders.setText("");
-                txtEstadoProviders.setText("");
-                txtCidadeProviders.setText("");
-                txtCepProviders.setText("");
-                txtCnpjProviders.setText("");
-                txtCelularProviders.setText("");
-                txtNumEnderecoProviders.setText("");
-                txtSiteProviders.setText(""); 
-                txtTelefoneProviders.setText("");  
-                readJTable();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FProviders.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Providers p = new Providers();
+            ProvidersDAO dao = new ProvidersDAO();
+            p.setId((int) jTProviders.getValueAt(jTProviders.getSelectedRow(), 0));
+            dao.delete(p);
+            txtIdProviders.setText("");
+            txtNomeProviders.setText("");
+            txtEnderecoProviders.setText("");
+            txtComplementoProviders.setText("");
+            txtEstadoProviders.setText("");
+            txtCidadeProviders.setText("");
+            txtCepProviders.setText("");
+            txtCnpjProviders.setText("");
+            txtCelularProviders.setText("");
+            txtNumEnderecoProviders.setText("");
+            txtSiteProviders.setText("");
+            txtTelefoneProviders.setText("");
+            readJTable();
 
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um cliente para excluir.");
@@ -430,49 +424,38 @@ public class FProviders extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (jTProviders.getSelectedRow() != -1) {
 
+            Providers p = new Providers();
+            ProvidersDAO dao = new ProvidersDAO();
+            p.setId(Integer.parseInt(txtIdProviders.getText()));
+            p.setName(txtNomeProviders.getText());
+            p.setCell_phone(txtCelularProviders.getText());
+            p.setCnpj(txtCnpjProviders.getText());
+            p.setCep(txtCepProviders.getText());
+            p.setAddress_number(Integer.parseInt(txtNumEnderecoProviders.getText()));
+            p.setState(txtEstadoProviders.getText());
+            p.setCity(txtCidadeProviders.getText());
+            p.setComplement(txtComplementoProviders.getText());
+            p.setAddress(txtEnderecoProviders.getText());
+            p.setUrl_site(txtSiteProviders.getText());
+            p.setId((int) jTProviders.getValueAt(jTProviders.getSelectedRow(), 0));
             try {
-
-                Providers p = new Providers();
-                ProvidersDAO dao = new ProvidersDAO();
-
-                p.setId(Integer.parseInt(txtIdProviders.getText()));
-                p.setName(txtNomeProviders.getText());
-                p.setCell_phone(txtCelularProviders.getText());
-                p.setCnpj(txtCnpjProviders.getText());
-                p.setCep(txtCepProviders.getText());
-                p.setAddress_number(Integer.parseInt(txtNumEnderecoProviders.getText()));
-                p.setState(txtEstadoProviders.getText());
-                p.setCity(txtCidadeProviders.getText());
-                p.setComplement(txtComplementoProviders.getText());
-                p.setAddress(txtEnderecoProviders.getText());
-                p.setUrl_site(txtSiteProviders.getText());
-                p.setId((int) jTProviders.getValueAt(jTProviders.getSelectedRow(), 0));
-
-                try {
-                    dao.alter(p);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FProviders.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(FProviders.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                txtIdProviders.setText("");
-                txtNomeProviders.setText("");
-                txtEnderecoProviders.setText("");
-                txtComplementoProviders.setText("");
-                txtEstadoProviders.setText("");
-                txtCidadeProviders.setText("");
-                txtCepProviders.setText("");
-                txtCnpjProviders.setText("");
-                txtCelularProviders.setText("");
-                txtNumEnderecoProviders.setText("");
-                txtSiteProviders.setText(""); 
-                txtTelefoneProviders.setText("");  
-                readJTable();
-
-            } catch (SQLException ex) {
+                dao.alter(p);
+            } catch (Exception ex) {
                 Logger.getLogger(FProviders.class.getName()).log(Level.SEVERE, null, ex);
             }
+            txtIdProviders.setText("");
+            txtNomeProviders.setText("");
+            txtEnderecoProviders.setText("");
+            txtComplementoProviders.setText("");
+            txtEstadoProviders.setText("");
+            txtCidadeProviders.setText("");
+            txtCepProviders.setText("");
+            txtCnpjProviders.setText("");
+            txtCelularProviders.setText("");
+            txtNumEnderecoProviders.setText("");
+            txtSiteProviders.setText("");
+            txtTelefoneProviders.setText("");
+            readJTable();
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -503,14 +486,12 @@ public class FProviders extends javax.swing.JFrame {
             txtCidadeProviders.setText("");
             txtCepProviders.setText("");
             txtCnpjProviders.setText("");
-            txtCelularProviders  .setText("");
+            txtCelularProviders.setText("");
             txtNumEnderecoProviders.setText("");
-            txtSiteProviders.setText("");    
-            txtTelefoneProviders.setText("");    
+            txtSiteProviders.setText("");
+            txtTelefoneProviders.setText("");
             readJTable();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(FProviders.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(FProviders.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -522,11 +503,7 @@ public class FProviders extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        try {
-            readJTableForDesc(txtBuscaProviders.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(FProviders.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        readJTableForDesc(txtBuscaProviders.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

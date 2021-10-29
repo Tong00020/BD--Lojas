@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 package view;
+
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import model.dao.VehiclesDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableRowSorter;
 import model.bean.Vehicles;
 
 /**
@@ -23,7 +25,10 @@ public class FVehicles extends javax.swing.JFrame {
      */
     public FVehicles() {
         initComponents();
-        jButton4.setEnabled(false);
+        DefaultTableModel modelo = (DefaultTableModel) jTVehicles.getModel();
+        jTVehicles.setRowSorter(new TableRowSorter(modelo));
+
+        readJTable();
     }
 
     /**
@@ -278,13 +283,13 @@ public class FVehicles extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-     public void readJTable() throws SQLException {
-        
+    public void readJTable() {
+
         DefaultTableModel modelo = (DefaultTableModel) jTVehicles.getModel();
         modelo.setNumRows(0);
         VehiclesDAO pdao = new VehiclesDAO();
 
-        for (Vehicles p : pdao.read()) {
+        for (Vehicles p : pdao.list()) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -302,15 +307,14 @@ public class FVehicles extends javax.swing.JFrame {
         }
 
     }
-    
-    
-    public void readJTableForDesc(String desc) throws SQLException {
-        
+
+    public void readJTableForDesc(int id) {
+
         DefaultTableModel modelo = (DefaultTableModel) jTVehicles.getModel();
         modelo.setNumRows(0);
         VehiclesDAO pdao = new VehiclesDAO();
 
-        for (Vehicles p : pdao.readForDesc(desc)) {
+        for (Vehicles p : pdao.loadById(id)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -327,7 +331,7 @@ public class FVehicles extends javax.swing.JFrame {
 
         }
     }
-    
+
     private void jTVehiclesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTVehiclesMouseClicked
         if (jTVehicles.getSelectedRow() != -1) {
 
@@ -382,11 +386,9 @@ public class FVehicles extends javax.swing.JFrame {
             txtPlacaVehicles.setText("");
             txtCombusVehicles.setText("");
             txtMarcaVehicles.setText("");
-            txtIdClienteVehicles.setText("");       
+            txtIdClienteVehicles.setText("");
             readJTable();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(FVehicles.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(FVehicles.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -395,30 +397,20 @@ public class FVehicles extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jTVehicles.getSelectedRow() != -1) {
 
-            try {
-
-                Vehicles p = new Vehicles();
-                VehiclesDAO dao = new VehiclesDAO();
-
-                p.setId((int) jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 0));
-
-                dao.delete(p);
-
-                txtIdVehicles.setText("");
-                txtAnoVehicles.setText("");
-                txtCorVehicles.setText("");
-                txtKmVehicles.setText("");
-                txtModeloVehicles.setText("");
-                txtPlacaVehicles.setText("");
-                txtCombusVehicles.setText("");
-                txtMarcaVehicles.setText("");
-                txtIdClienteVehicles.setText(""); 
-
-                readJTable();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FVehicles.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Vehicles p = new Vehicles();
+            VehiclesDAO dao = new VehiclesDAO();
+            p.setId((int) jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 0));
+            dao.delete(p);
+            txtIdVehicles.setText("");
+            txtAnoVehicles.setText("");
+            txtCorVehicles.setText("");
+            txtKmVehicles.setText("");
+            txtModeloVehicles.setText("");
+            txtPlacaVehicles.setText("");
+            txtCombusVehicles.setText("");
+            txtMarcaVehicles.setText("");
+            txtIdClienteVehicles.setText("");
+            readJTable();
 
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um veículo para excluir.");
@@ -428,44 +420,33 @@ public class FVehicles extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (jTVehicles.getSelectedRow() != -1) {
 
+            Vehicles p = new Vehicles();
+            VehiclesDAO dao = new VehiclesDAO();
+            p.setId(Integer.parseInt(txtIdVehicles.getText()));
+            p.setYear(Integer.parseInt(txtAnoVehicles.getText()));
+            p.setColor(txtCorVehicles.getText());
+            p.setType_fuel(txtCombusVehicles.getText());
+            p.setKm_current(Double.parseDouble(txtKmVehicles.getText()));
+            p.setModel(txtModeloVehicles.getText());
+            p.setPlate(txtPlacaVehicles.getText());
+            p.setClientId(Integer.parseInt(txtIdClienteVehicles.getText()));
+            p.setBrand(txtMarcaVehicles.getText());
+            p.setId((int) jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 0));
             try {
-
-                Vehicles p = new Vehicles();
-                VehiclesDAO dao = new VehiclesDAO();
-
-                p.setId(Integer.parseInt(txtIdVehicles.getText()));
-                p.setYear(Integer.parseInt(txtAnoVehicles.getText()));
-                p.setColor(txtCorVehicles.getText());
-                p.setType_fuel(txtCombusVehicles.getText());
-                p.setKm_current(Double.parseDouble(txtKmVehicles.getText()));
-                p.setModel(txtModeloVehicles.getText());
-                p.setPlate(txtPlacaVehicles.getText());
-                p.setClientId(Integer.parseInt(txtIdClienteVehicles.getText()));
-                p.setBrand(txtMarcaVehicles.getText());
-                p.setId((int) jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 0));
-
-                try {
-                    dao.alter(p);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FVehicles.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(FVehicles.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                txtIdVehicles.setText("");
-                txtAnoVehicles.setText("");
-                txtCorVehicles.setText("");
-                txtKmVehicles.setText("");
-                txtModeloVehicles.setText("");
-                txtPlacaVehicles.setText("");
-                txtCombusVehicles.setText("");
-                txtMarcaVehicles.setText("");
-                txtIdClienteVehicles.setText("");
-                readJTable();
-
-            } catch (SQLException ex) {
+                dao.alter(p);
+            } catch (Exception ex) {
                 Logger.getLogger(FVehicles.class.getName()).log(Level.SEVERE, null, ex);
             }
+            txtIdVehicles.setText("");
+            txtAnoVehicles.setText("");
+            txtCorVehicles.setText("");
+            txtKmVehicles.setText("");
+            txtModeloVehicles.setText("");
+            txtPlacaVehicles.setText("");
+            txtCombusVehicles.setText("");
+            txtMarcaVehicles.setText("");
+            txtIdClienteVehicles.setText("");
+            readJTable();
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -476,11 +457,7 @@ public class FVehicles extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        try {
-            readJTableForDesc(txtBuscaVehicles.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(FVehicles.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        readJTableForDesc(txtBuscaVehicles.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

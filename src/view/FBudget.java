@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package view;
+
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.bean.Budgets;
 import model.dao.BudgetsDAO;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -24,8 +26,11 @@ public class FBudget extends javax.swing.JFrame {
      */
     public FBudget() {
         initComponents();
-        
-        jButton4.setEnabled(false);
+
+        DefaultTableModel modelo = (DefaultTableModel) jTBudget.getModel();
+        jTBudget.setRowSorter(new TableRowSorter(modelo));
+
+        readJTable();
     }
 
     /**
@@ -287,14 +292,13 @@ public class FBudget extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public void readJTable() throws SQLException {
-        
+    public void readJTable() {
+
         DefaultTableModel modelo = (DefaultTableModel) jTBudget.getModel();
         modelo.setNumRows(0);
         BudgetsDAO pdao = new BudgetsDAO();
 
-        for (Budgets p : pdao.read()) {
+        for (Budgets p : pdao.list()) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -310,15 +314,14 @@ public class FBudget extends javax.swing.JFrame {
         }
 
     }
-    
-    
-    public void readJTableForDesc(String desc) throws SQLException {
-        
+
+    public void readJTableForDesc(int id) throws SQLException {
+
         DefaultTableModel modelo = (DefaultTableModel) jTBudget.getModel();
         modelo.setNumRows(0);
         BudgetsDAO pdao = new BudgetsDAO();
 
-        for (Budgets p : pdao.readForDesc(desc)) {
+        for (Budgets p : pdao.loadById(id)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -334,7 +337,7 @@ public class FBudget extends javax.swing.JFrame {
         }
 
     }
-    
+
     private void jTBudgetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTBudgetMouseClicked
         if (jTBudget.getSelectedRow() != -1) {
 
@@ -389,8 +392,6 @@ public class FBudget extends javax.swing.JFrame {
 
             readJTable();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(FBudget.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(FBudget.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -399,31 +400,19 @@ public class FBudget extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (jTBudget.getSelectedRow() != -1) {
 
-            try {
-
-                Budgets p = new Budgets();
-                BudgetsDAO dao = new BudgetsDAO();
-
-                p.setId((int) jTBudget.getValueAt(jTBudget.getSelectedRow(), 0));
-
-                dao.delete(p);
-
-                txtIdBudget.setText("");
-                txtPrecoBudget.setText("");
-                txttotalItensBudget.setText("");
-                txtSubtotalBudget.setText("");
-                txtDateBudget.setText("");
-                txtIdVeiculosBudget.setText("");
-                txtIdServicosBudget.setText("");
-                txtIdClientesBudget.setText("");
-
-
-
-                readJTable();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FBudget.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Budgets p = new Budgets();
+            BudgetsDAO dao = new BudgetsDAO();
+            p.setId((int) jTBudget.getValueAt(jTBudget.getSelectedRow(), 0));
+            dao.delete(p);
+            txtIdBudget.setText("");
+            txtPrecoBudget.setText("");
+            txttotalItensBudget.setText("");
+            txtSubtotalBudget.setText("");
+            txtDateBudget.setText("");
+            txtIdVeiculosBudget.setText("");
+            txtIdServicosBudget.setText("");
+            txtIdClientesBudget.setText("");
+            readJTable();
 
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um cliente para excluir.");
@@ -433,43 +422,31 @@ public class FBudget extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (jTBudget.getSelectedRow() != -1) {
 
+            Budgets p = new Budgets();
+            BudgetsDAO dao = new BudgetsDAO();
+            p.setId(Integer.parseInt(txtIdBudget.getText()));
+            p.setPrice_services(Integer.parseInt(txtPrecoBudget.getText()));
+            p.setTotal_items(Integer.parseInt(txttotalItensBudget.getText()));
+            p.setTotal(Double.parseDouble(txtSubtotalBudget.getText()));
+            p.setDate(Date.valueOf(txtDateBudget.getText()));
+            p.setVehiclesId(Integer.parseInt(txtIdVeiculosBudget.getText()));
+            p.setServicesId(Integer.parseInt(txtIdServicosBudget.getText()));
+            p.setClientsId(Integer.parseInt(txtIdClientesBudget.getText()));
+            p.setId((int) jTBudget.getValueAt(jTBudget.getSelectedRow(), 0));
             try {
-
-                Budgets p = new Budgets();
-                BudgetsDAO dao = new BudgetsDAO();
-
-                p.setId(Integer.parseInt(txtIdBudget.getText()));
-                p.setPrice_services(Integer.parseInt(txtPrecoBudget.getText()));
-                p.setTotal_items(Integer.parseInt(txttotalItensBudget.getText()));
-                p.setTotal(Double.parseDouble(txtSubtotalBudget.getText()));
-                p.setDate(Date.valueOf(txtDateBudget.getText()));
-                p.setVehiclesId(Integer.parseInt(txtIdVeiculosBudget.getText()));
-                p.setServicesId(Integer.parseInt(txtIdServicosBudget.getText()));
-                p.setClientsId(Integer.parseInt(txtIdClientesBudget.getText()));
-                p.setId((int) jTBudget.getValueAt(jTBudget.getSelectedRow(), 0));
-
-                try {
-                    dao.alter(p);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FBudget.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(FBudget.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                txtIdBudget.setText("");
-                txtPrecoBudget.setText("");
-                txttotalItensBudget.setText("");
-                txtSubtotalBudget.setText("");
-                txtDateBudget.setText("");
-                txtIdVeiculosBudget.setText("");
-                txtIdServicosBudget.setText("");
-                txtIdClientesBudget.setText("");
-
-                readJTable();
-
-            } catch (SQLException ex) {
+                dao.alter(p);
+            } catch (Exception ex) {
                 Logger.getLogger(FBudget.class.getName()).log(Level.SEVERE, null, ex);
             }
+            txtIdBudget.setText("");
+            txtPrecoBudget.setText("");
+            txttotalItensBudget.setText("");
+            txtSubtotalBudget.setText("");
+            txtDateBudget.setText("");
+            txtIdVeiculosBudget.setText("");
+            txtIdServicosBudget.setText("");
+            txtIdClientesBudget.setText("");
+            readJTable();
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -480,11 +457,7 @@ public class FBudget extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        try {
-            readJTableForDesc(txtBuscaBudget.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(FBudget.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        readJTableForDesc(txtBuscaBudget.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void txtIdServicosBudgetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdServicosBudgetActionPerformed
