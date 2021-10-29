@@ -31,24 +31,8 @@ public class Employees {
     private String login;
     private String password;
     private String job_title;
-    private Employees report_to;
+    private Employees reports_to;
     private Privileges privilege;
-    
-    public int getEmployeesId() {
-        return report_to.getId();
-    }
-    
-    public void setEmployeesId(int id) {
-        this.report_to.setId(id);
-    }
-    
-    public int getPrivilegesId() {
-        return privilege.getId();
-    }
-    
-    public void setPrivilegesId(int id) {
-        this.privilege.setId(id);
-    }
 
     public int getId() {
         return id;
@@ -186,12 +170,12 @@ public class Employees {
         this.job_title = job_title;
     }
 
-    public Employees getReport_to() {
-        return report_to;
+    public Employees getReports_to() {
+        return reports_to;
     }
 
-    public void setReport_to(Employees report_to) {
-        this.report_to = report_to;
+    public void setReports_to(Employees reports_to) {
+        this.reports_to = reports_to;
     }
 
     public Privileges getPrivilege() {
@@ -200,49 +184,6 @@ public class Employees {
 
     public void setPrivilege(Privileges privilege) {
         this.privilege = privilege;
-    }
-
-    public void create() throws Exception {
-        EmployeesDAO eDAO = new EmployeesDAO();
-        eDAO.create(this);
-    }
-
-    public void alter() throws Exception {
-        EmployeesDAO eDAO = new EmployeesDAO();
-        eDAO.alter(this);
-    }
-
-    public void delete() throws Exception {
-        EmployeesDAO eDAO = new EmployeesDAO();
-        eDAO.delete(this);
-    }
-
-    public ArrayList<Employees> list() throws Exception {
-        EmployeesDAO eDAO = new EmployeesDAO();
-        return eDAO.list();
-    }
-
-    public void load() throws Exception {
-        EmployeesDAO eDAO = new EmployeesDAO();
-        this.id = eDAO.loadById(this.id).getId();
-        this.cpf = eDAO.loadById(this.id).getCpf();
-        this.name = eDAO.loadById(this.id).getName();
-        this.address_number = eDAO.loadById(this.id).getAddress_number();
-        this.fixed_phone = eDAO.loadById(this.id).getFixed_phone();
-        this.cell_phone = eDAO.loadById(this.id).getCell_phone();
-        this.email = eDAO.loadById(this.id).getEmail();
-        this.cep = eDAO.loadById(this.id).getCep();
-        this.state = eDAO.loadById(this.id).getState();
-        this.city = eDAO.loadById(this.id).getCity();
-        this.complement = eDAO.loadById(this.id).getComplement();
-        this.address = eDAO.loadById(this.id).getAddress();
-        this.status = eDAO.loadById(this.id).getStatus();
-        this.job_title = eDAO.loadById(this.id).getJob_title();
-        this.login = eDAO.loadById(this.id).getLogin();
-        this.password = eDAO.loadById(this.id).getPassword();
-        this.photo = eDAO.loadById(this.id).getPhoto();
-        this.report_to = eDAO.loadById(this.id).getReport_to();
-        this.privilege = eDAO.loadById(this.id).getPrivilege();
     }
 
 }

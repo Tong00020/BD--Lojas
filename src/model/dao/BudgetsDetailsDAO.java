@@ -14,10 +14,9 @@ import java.sql.ResultSet;
 import java.util.List;
 import model.bean.Budgets;
 import model.bean.BudgetsDetails;
-import model.bean.Clients;
 import model.bean.Products;
-import model.bean.Services;
-import model.bean.Vehicles;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,9 +24,9 @@ import model.bean.Vehicles;
  */
 public class BudgetsDetailsDAO {
 
-    public void create(BudgetsDetails bd) throws SQLException {
+    public void create(BudgetsDetails bd) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -51,8 +50,8 @@ public class BudgetsDetailsDAO {
 
     }
 
-    public void alter(BudgetsDetails bd) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void alter(BudgetsDetails bd) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -68,16 +67,16 @@ public class BudgetsDetailsDAO {
             stmt.setInt(6, bd.getId());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
 
-    public void delete(BudgetsDetails p) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void delete(BudgetsDetails p) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -94,12 +93,12 @@ public class BudgetsDetailsDAO {
         }
     }
 
-    public ArrayList<BudgetsDetails> list() throws Exception {
-        ArrayList<BudgetsDetails> lista = new ArrayList<BudgetsDetails>();
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<BudgetsDetails> list() {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<BudgetsDetails> budgetsDetails = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM budgets_details";
@@ -112,7 +111,7 @@ public class BudgetsDetailsDAO {
             de dados que pode ser percorrida, de forma que você possa ler os 
             dados do banco.
              */
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 BudgetsDetails bd = new BudgetsDetails();
                 bd.setId(rs.getInt("id"));
@@ -122,38 +121,38 @@ public class BudgetsDetailsDAO {
 
                 Budgets b = new Budgets();
                 b.setId(rs.getInt("id_budget"));
-                b.load();
+                b.setDate(rs.getDate("date"));
                 bd.setBudget(b);
 
                 Products p = new Products();
                 p.setId(rs.getInt("id_client"));
-                p.load();
+                p.setName(rs.getString("name"));
                 bd.setProduct(p);
 
-                lista.add(bd);
+                budgetsDetails.add(bd);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(BudgetsDetailsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return lista;
+        return budgetsDetails;
     }
 
-    public BudgetsDetails loadById(int id) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<BudgetsDetails> loadById(int id) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
-
-        BudgetsDetails bd = new BudgetsDetails();
+        ResultSet rs = null;
+        List<BudgetsDetails> budgetsDetails = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM budgets_details WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
+                BudgetsDetails bd = new BudgetsDetails();
                 bd.setId(rs.getInt("id"));
                 bd.setPrice(rs.getDouble("price"));
                 bd.setAmount(rs.getDouble("amount"));
@@ -161,27 +160,28 @@ public class BudgetsDetailsDAO {
 
                 Budgets b = new Budgets();
                 b.setId(rs.getInt("id_budget"));
-                b.load();
+                b.setDate(rs.getDate("date"));
                 bd.setBudget(b);
 
                 Products p = new Products();
                 p.setId(rs.getInt("id_client"));
-                p.load();
+                p.setName(rs.getString("name"));
                 bd.setProduct(p);
+
+                budgetsDetails.add(bd);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(BudgetsDetailsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return bd;
+        return budgetsDetails;
     }
-    
-     public List<BudgetsDetails> read() throws SQLException {
+
+    public List<BudgetsDetails> read() {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
-        
+
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -201,10 +201,9 @@ public class BudgetsDetailsDAO {
                 bd.setSubtotal(rs.getDouble("subtotal"));
                 bd.setBudgetsId(rs.getInt("id_budget"));
                 bd.setProductsId(rs.getInt("id_product"));
-                
+
                 produtos.add(bd);
-                
-                
+
             }
 
         } catch (SQLException ex) {
@@ -215,11 +214,11 @@ public class BudgetsDetailsDAO {
         return produtos;
 
     }
-     
-     public List<BudgetsDetails> readForDesc(String desc) throws SQLException {
+
+    public List<BudgetsDetails> readForDesc(String desc) {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
-        
+
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -227,8 +226,8 @@ public class BudgetsDetailsDAO {
 
         try {
             stmt = con.prepareStatement("SELECT * FROM budgets_details WHERE id LIKE ?");
-            stmt.setString(1, "%"+desc+"%");
-            
+            stmt.setString(1, "%" + desc + "%");
+
             rs = stmt.executeQuery();
 
             while (rs.next()) {

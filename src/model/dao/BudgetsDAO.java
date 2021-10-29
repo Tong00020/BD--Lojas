@@ -16,6 +16,8 @@ import model.bean.Budgets;
 import model.bean.Clients;
 import model.bean.Services;
 import model.bean.Vehicles;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,9 +25,9 @@ import model.bean.Vehicles;
  */
 public class BudgetsDAO {
 
-    public void create(Budgets b) throws SQLException {
+    public void create(Budgets b) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -50,8 +52,8 @@ public class BudgetsDAO {
 
     }
 
-    public void alter(Budgets b) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void alter(Budgets b) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -69,18 +71,18 @@ public class BudgetsDAO {
             stmt.setInt(7, b.getId());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
 
-    public void delete(Budgets p) throws SQLException {
+    public void delete(Budgets p) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
-        
+        Connection con = ConnectionFactory.getConnection();
+
         PreparedStatement stmt = null;
 
         try {
@@ -98,12 +100,12 @@ public class BudgetsDAO {
 
     }
 
-    public ArrayList<Budgets> list() throws Exception {
-        ArrayList<Budgets> lista = new ArrayList<Budgets>();
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Budgets> list() {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Budgets> budgets = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM budgets";
@@ -116,7 +118,7 @@ public class BudgetsDAO {
             de dados que pode ser percorrida, de forma que você possa ler os 
             dados do banco.
              */
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
 
                 Budgets b = new Budgets();
@@ -128,43 +130,43 @@ public class BudgetsDAO {
 
                 Vehicles v = new Vehicles();
                 v.setId(rs.getInt("id_vehicle"));
-                v.load();
+                v.setPlate(rs.getString("plate"));
                 b.setVehicle(v);
 
                 Services s = new Services();
                 s.setId(rs.getInt("id_service"));
-                s.load();
+                s.setName(rs.getString("name"));
                 b.setService(s);
 
                 Clients c = new Clients();
                 c.setId(rs.getInt("id_client"));
-                c.load();
+                c.setName(rs.getString("name"));
                 b.setClient(c);
 
-                lista.add(b);
+                budgets.add(b);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(BudgetsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return lista;
+        return budgets;
     }
 
-    public Budgets loadById(int id) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Budgets> loadById(int id) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
-
-        Budgets b = new Budgets();
+        ResultSet rs = null;
+        List<Budgets> budgets = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM orders WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
+                Budgets b = new Budgets();
                 b.setId(rs.getInt("id"));
                 b.setDate(rs.getDate("date"));
                 b.setPrice_services(rs.getDouble("price_services"));
@@ -173,29 +175,30 @@ public class BudgetsDAO {
 
                 Vehicles v = new Vehicles();
                 v.setId(rs.getInt("id_vehicle"));
-                v.load();
+                v.setPlate(rs.getString("plate"));
                 b.setVehicle(v);
 
                 Services s = new Services();
                 s.setId(rs.getInt("id_service"));
-                s.load();
+                s.setName(rs.getString("name"));
                 b.setService(s);
 
                 Clients c = new Clients();
                 c.setId(rs.getInt("id_client"));
-                c.load();
+                c.setName(rs.getString("name"));
                 b.setClient(c);
+
+                budgets.add(b);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(BudgetsDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return b;
+        return budgets;
     }
-    
-    public List<Budgets> read() throws SQLException {
+
+    /*  public List<Budgets> read()  {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
         
@@ -234,7 +237,7 @@ public class BudgetsDAO {
 
     }
     
-    public List<Budgets> readForDesc(String desc) throws SQLException {
+    public List<Budgets> readForDesc(String desc)  {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
         
@@ -272,6 +275,5 @@ public class BudgetsDAO {
 
         return produtos;
 
-    }
-     
+    } */
 }

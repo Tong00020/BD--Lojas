@@ -5,7 +5,6 @@
 package model.dao;
 
 import connection.ConnectionFactory;
-import java.lang.System.Logger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
@@ -14,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.bean.Providers;
-import view.FProviders;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,8 +22,8 @@ import view.FProviders;
  */
 public class ProvidersDAO {
 
-    public void create(Providers p) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void create(Providers p) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -53,8 +53,8 @@ public class ProvidersDAO {
         }
     }
 
-    public void alter(Providers p) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void alter(Providers p) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -76,19 +76,18 @@ public class ProvidersDAO {
             stmt.setString(11, p.getUrl_site());
             stmt.setInt(12, p.getId());
             stmt.executeUpdate();
-
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
 
-    public void delete(Providers p) throws SQLException {
+    public void delete(Providers p) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
-        
+        Connection con = ConnectionFactory.getConnection();
+
         PreparedStatement stmt = null;
 
         try {
@@ -96,7 +95,6 @@ public class ProvidersDAO {
             stmt.setInt(1, p.getId());
 
             stmt.executeUpdate();
-
             JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
@@ -106,18 +104,17 @@ public class ProvidersDAO {
 
     }
 
-    public ArrayList<Providers> list() throws Exception {
-        ArrayList<Providers> lista = new ArrayList<Providers>();
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Providers> list() {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
-
+        ResultSet rs = null;
+        List<Providers> providers = new ArrayList<>();
         try {
             String sql = "SELECT * FROM providers";
             stmt = con.prepareStatement(sql);
 
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 Providers p = new Providers();
                 p.setId(rs.getInt("id"));
@@ -132,29 +129,29 @@ public class ProvidersDAO {
                 p.setCity(rs.getString("city"));
                 p.setState(rs.getString("state"));
                 p.setUrl_site(rs.getString("url_site"));
-                lista.add(p);
+                providers.add(p);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(ProvidersDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return lista;
+        return providers;
     }
 
-    public Providers loadID(int id) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Providers> loadID(int id) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
-
-        Providers p = new Providers();
+        ResultSet rs = null;
+        List<Providers> providers = new ArrayList<>();
         try {
             String sql = "SELECT * FROM providers WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
+                Providers p = new Providers();
                 p.setId(rs.getInt("id"));
                 p.setName(rs.getString("name"));
                 p.setCnpj(rs.getString("cnpj"));
@@ -167,16 +164,16 @@ public class ProvidersDAO {
                 p.setCity(rs.getString("city"));
                 p.setState(rs.getString("state"));
                 p.setUrl_site(rs.getString("url_site"));
+                providers.add(p);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(ProvidersDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return p;
+        return providers;
     }
-    public List<Providers> read() throws SQLException {
+    /*  public List<Providers> read()  {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
         
@@ -215,7 +212,7 @@ public class ProvidersDAO {
 
     }
      
-    public List<Providers> readForDesc(String desc) throws SQLException {
+    public List<Providers> readForDesc(String desc)  {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
         
@@ -255,5 +252,5 @@ public class ProvidersDAO {
 
         return produtos;
 
-    }
+    } */
 }

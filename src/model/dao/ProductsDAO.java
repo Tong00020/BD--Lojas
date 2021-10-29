@@ -24,9 +24,9 @@ import model.bean.Providers;
  */
 public class ProductsDAO {
 
-    public void create(Products p) throws SQLException {
+    public void create(Products p) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -52,8 +52,8 @@ public class ProductsDAO {
 
     }
 
-    public void alter(Products p) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void alter(Products p) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -72,17 +72,16 @@ public class ProductsDAO {
             stmt.setInt(8, p.getId());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
 
-    public void delete(Products p) throws SQLException {
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void delete(Products p) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -101,12 +100,12 @@ public class ProductsDAO {
 
     }
 
-    public ArrayList<Products> list() throws Exception {
-        ArrayList<Products> lista = new ArrayList<Products>();
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Products> list() {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Products> products = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM products";
@@ -119,7 +118,7 @@ public class ProductsDAO {
             de dados que pode ser percorrida, de forma que você possa ler os 
             dados do banco.
              */
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
 
                 Products p = new Products();
@@ -133,33 +132,34 @@ public class ProductsDAO {
 
                 Providers pv = new Providers();
                 pv.setId(rs.getInt("id"));
-                pv.load();
+                pv.setName(rs.getString("name"));
                 p.setProvider(pv);
 
-                lista.add(p);
+                products.add(p);
             }
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(EmployeesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return lista;
+        return products;
     }
 
-    public Products loadById(int id) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Products> loadById(int id) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
-
-        Products p = new Products();
+        ResultSet rs = null;
+        List<Products> products = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM products WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
+                Products p = new Products();
                 p.setId(rs.getInt("id"));
                 p.setName(rs.getString("name"));
                 p.setDescription(rs.getString("description"));
@@ -170,19 +170,20 @@ public class ProductsDAO {
 
                 Providers pv = new Providers();
                 pv.setId(rs.getInt("id"));
-                pv.load();
+                pv.setName(rs.getString("name"));
                 p.setProvider(pv);
+
+                products.add(p);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(EmployeesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return p;
+        return products;
     }
 
-    public List<Products> read() throws SQLException {
+    /* public List<Products> read() throws SQLException {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
 
@@ -258,6 +259,5 @@ public class ProductsDAO {
         }
         return produtos;
 
-    }
-
+    } */
 }

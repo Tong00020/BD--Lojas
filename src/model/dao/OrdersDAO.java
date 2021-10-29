@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.util.List;
 import model.bean.Budgets;
 import model.bean.Employees;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,9 +24,9 @@ import model.bean.Employees;
  */
 public class OrdersDAO {
 
-    public void create(Orders o) throws SQLException {
+    public void create(Orders o) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -50,8 +52,8 @@ public class OrdersDAO {
 
     }
 
-    public void alter(Orders o) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void alter(Orders o) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -69,20 +71,19 @@ public class OrdersDAO {
             stmt.setInt(7, o.getId());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
 
-    public void delete(Orders p) throws SQLException {
+    public void delete(Orders p) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
-        
+        Connection con = ConnectionFactory.getConnection();
+
         PreparedStatement stmt = null;
-
         try {
             stmt = con.prepareStatement("DELETE FROM ordens WHERE id = ?");
             stmt.setInt(1, p.getId());
@@ -98,12 +99,12 @@ public class OrdersDAO {
 
     }
 
-    public ArrayList<Orders> list() throws Exception {
-        ArrayList<Orders> lista = new ArrayList<Orders>();
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Orders> list() {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Orders> orders = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM orders";
@@ -116,7 +117,7 @@ public class OrdersDAO {
             de dados que pode ser percorrida, de forma que você possa ler os 
             dados do banco.
              */
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 Orders o = new Orders();
                 o.setId(rs.getInt("id"));
@@ -128,38 +129,37 @@ public class OrdersDAO {
 
                 Employees e = new Employees();
                 e.setId(rs.getInt("id_employees"));
-                e.load();
+                e.setName(rs.getString("name"));
                 o.setEmployees(e);
 
                 Budgets b = new Budgets();
                 b.setId(rs.getInt("id_budget"));
-                b.load();
                 o.setBudget(b);
 
-                lista.add(o);
+                orders.add(o);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(EmployeesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return lista;
+        return orders;
     }
 
-    public Orders loadById(int id) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Orders> loadById(int id) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
-
-        Orders o = new Orders();
+        ResultSet rs = null;
+        List<Orders> orders = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM orders WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
+                Orders o = new Orders();
                 o.setId(rs.getInt("id"));
                 o.setDate(rs.getDate("date"));
                 o.setDiscount(rs.getDouble("discount"));
@@ -169,24 +169,24 @@ public class OrdersDAO {
 
                 Employees e = new Employees();
                 e.setId(rs.getInt("id_employees"));
-                e.load();
+                e.setName(rs.getString("name"));
                 o.setEmployees(e);
 
                 Budgets b = new Budgets();
                 b.setId(rs.getInt("id_budget"));
-                b.load();
                 o.setBudget(b);
+
+                orders.add(o);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(EmployeesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return o;
+        return orders;
     }
-    
-     public List<Orders> read() throws SQLException {
+
+    /*      public List<Orders> read()  {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
         
@@ -224,7 +224,7 @@ public class OrdersDAO {
 
     }
      
-     public List<Orders> readForDesc(String desc) throws SQLException {
+     public List<Orders> readForDesc(String desc)  {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
         
@@ -262,5 +262,5 @@ public class OrdersDAO {
 
         return produtos;
 
-    }
+    } */
 }

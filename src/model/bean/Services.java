@@ -41,35 +41,4 @@ public class Services {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public void create() throws Exception {
-        ServicesDAO sDAO = new ServicesDAO();
-        sDAO.create(this);
-    }
-
-    public void alter() throws Exception {
-        ServicesDAO sDAO = new ServicesDAO();
-        sDAO.alter(this);
-    }
-
-    public void delete() throws Exception {
-        ServicesDAO sDAO = new ServicesDAO();
-        sDAO.delete(this);
-    }
-
-    public ArrayList<Services> list() throws Exception {
-        ServicesDAO sDAO = new ServicesDAO();
-        return sDAO.list();
-    }
-    
-    public List<Services> read() throws Exception {
-        ServicesDAO sDAO = new ServicesDAO();
-        return sDAO.read();
-    }
-    public void load() throws Exception {
-        ServicesDAO sDAO = new ServicesDAO();
-        this.id = sDAO.loadById(this.id).getId();
-        this.name = sDAO.loadById(this.id).getName();
-        this.description = sDAO.loadById(this.id).getDescription();
-    }
 }

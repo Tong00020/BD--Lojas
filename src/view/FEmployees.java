@@ -12,6 +12,9 @@ import javax.swing.table.DefaultTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author Tong
@@ -21,10 +24,78 @@ public class FEmployees extends javax.swing.JFrame {
     /**
      * Creates new form Employees
      */
-    public FEmployees() {
+    public FEmployees() throws Exception {
         initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
+        jTEmployees.setRowSorter(new TableRowSorter(modelo));
         
-        jButton4.setEnabled(false);
+        readJTable();
+    }
+    
+    public void readJTable() {
+        
+        DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
+        modelo.setNumRows(0);
+        EmployeesDAO pdao = new EmployeesDAO();
+        
+        for (Employees p : pdao.list()) {
+            
+            modelo.addRow(new Object[]{
+                p.getId(),
+                p.getName(),
+                p.getEmail(),
+                p.getCpf(),
+                p.getCell_phone(),
+                p.getFixed_phone(),
+                p.getCep(),
+                p.getAddress(),
+                p.getAddress_number(),
+                p.getComplement(),
+                p.getCity(),
+                p.getState(),
+                p.getStatus(),
+                p.getLogin(),
+                p.getPassword(),
+                p.getJob_title(),
+                p.getReports_to(),
+                p.getPrivilege()
+            
+            });
+            
+        }
+        
+    }
+    
+    public void readJTableForId(int id) {
+        DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
+        modelo.setNumRows(0);
+        EmployeesDAO pdao = new EmployeesDAO();
+        
+        for (Employees p : pdao.loadById(id)) {
+            
+            modelo.addRow(new Object[]{
+                p.getId(),
+                p.getName(),
+                p.getEmail(),
+                p.getCpf(),
+                p.getCell_phone(),
+                p.getFixed_phone(),
+                p.getCep(),
+                p.getAddress(),
+                p.getAddress_number(),
+                p.getComplement(),
+                p.getCity(),
+                p.getState(),
+                p.getStatus(),
+                p.getLogin(),
+                p.getPassword(),
+                p.getJob_title(),
+                p.getReports_to(),
+                p.getPrivilege()
+            
+            });
+            
+        }
     }
 
     /**
@@ -62,7 +133,7 @@ public class FEmployees extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtEmailEmployees = new javax.swing.JTextField();
-        txtTrabalhoEmployees = new javax.swing.JTextField();
+        txtFUNÇÃOEmployees = new javax.swing.JTextField();
         txtStatusEmployees = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -107,14 +178,14 @@ public class FEmployees extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOME", "EMAIL", "CPF", "CELULAR", "TELEFONE FIXO", "CEP", "ENDEREÇO", "Nº ENDEREÇO", "COMPLEMENTO", "CIDADE", "ESTADO", "STATUS", "LOGIN", "SENHA", "TRABALHO", "REPORTA PARA (ID)", "ID PRIVILEGIO"
+                "ID", "NOME", "EMAIL", "CPF", "CELULAR", "TELEFONE FIXO", "CEP", "ENDEREÇO", "Nº ENDEREÇO", "COMPLEMENTO", "CIDADE", "ESTADO", "STATUS", "LOGIN", "SENHA", "FUNÇÃO", "REPORTA PARA (ID)", "ID PRIVILEGIO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -141,7 +212,7 @@ public class FEmployees extends javax.swing.JFrame {
 
         jLabel12.setText("STATUS");
 
-        jLabel13.setText("TRABALHO");
+        jLabel13.setText("FUNÇÃO");
 
         jButton1.setText("Cadastrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -258,7 +329,7 @@ public class FEmployees extends javax.swing.JFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtTrabalhoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtFUNÇÃOEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel13)
                                     .addComponent(jLabel17)
                                     .addComponent(txtReportaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -340,7 +411,7 @@ public class FEmployees extends javax.swing.JFrame {
                             .addComponent(txtTelefoFixoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCelularEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNumEnderecoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTrabalhoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtFUNÇÃOEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -376,73 +447,38 @@ public class FEmployees extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void readJTable() throws SQLException {
-        
-        DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
-        modelo.setNumRows(0);
-        EmployeesDAO pdao = new EmployeesDAO();
-
-        for (Employees p : pdao.read()) {
-
-            modelo.addRow(new Object[]{
-                p.getId(),
-                p.getName(),
-                p.getEmail(),
-                p.getCpf(),
-                p.getCell_phone(),
-                p.getFixed_phone(),
-                p.getCep(),
-                p.getAddress(),
-                p.getAddress_number(),
-                p.getComplement(),
-                p.getCity(),
-                p.getState(),
-                p.getStatus(),
-                p.getLogin(),
-                p.getPassword(),
-                p.getJob_title(),
-                p.getReport_to(),
-                p.getPrivilegesId()
-                
-            });
-
-        }
-
-    }
-    
-    
-    public void readJTableForDesc(String desc) throws SQLException {
-        
-        DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
-        modelo.setNumRows(0);
-        EmployeesDAO pdao = new EmployeesDAO();
-
-        for (Employees p : pdao.readForDesc(desc)) {
-
-            modelo.addRow(new Object[]{
-                p.getId(),
-                p.getName(),
-                p.getEmail(),
-                p.getCpf(),
-                p.getCell_phone(),
-                p.getFixed_phone(),
-                p.getCep(),
-                p.getAddress(),
-                p.getAddress_number(),
-                p.getComplement(),
-                p.getCity(),
-                p.getState(),
-                p.getStatus(),
-                p.getLogin(),
-                p.getPassword(),
-                p.getJob_title(),
-                p.getReport_to(),
-                p.getPrivilegesId()
-            });
-
-        }
-
-    }
+//    public void readJTableForDesc(String desc) throws SQLException {
+//
+//        DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
+//        modelo.setNumRows(0);
+//        EmployeesDAO pdao = new EmployeesDAO();
+//
+//        for (Employees p : pdao.readForDesc(desc)) {
+//
+//            modelo.addRow(new Object[]{
+//                p.getId(),
+//                p.getName(),
+//                p.getEmail(),
+//                p.getCpf(),
+//                p.getCell_phone(),
+//                p.getFixed_phone(),
+//                p.getCep(),
+//                p.getAddress(),
+//                p.getAddress_number(),
+//                p.getComplement(),
+//                p.getCity(),
+//                p.getState(),
+//                p.getStatus(),
+//                p.getLogin(),
+//                p.getPassword(),
+//                p.getJob_title(),
+//                p.getReport_to(),
+//                p.getPrivilegesId()
+//            });
+//
+//        }
+//
+//    }
     private void jTEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTEmployeesMouseClicked
         if (jTEmployees.getSelectedRow() != -1) {
             
@@ -452,7 +488,7 @@ public class FEmployees extends javax.swing.JFrame {
             txtCpfEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 4).toString());
             txtCelularEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 5).toString());
             txtTelefoFixoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 6).toString());
-            txtCepEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 7).toString()); 
+            txtCepEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 7).toString());
             txtEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 8).toString());
             txtNumEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 9).toString());
             txtComplementoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 10).toString());
@@ -461,23 +497,23 @@ public class FEmployees extends javax.swing.JFrame {
             txtStatusEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
             txtLoginEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 14).toString());
             txtSenhaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
-            txtTrabalhoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
+            txtFUNÇÃOEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
             txtReportaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17).toString());
             txtIdPrivEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 18).toString());
-
+            
         }
     }//GEN-LAST:event_jTEmployeesMouseClicked
 
     private void jTEmployeesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEmployeesKeyReleased
         if (jTEmployees.getSelectedRow() != -1) {
-
+            
             txtIdEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 1).toString());
             txtNomeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 2).toString());
             txtEmailEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 3).toString());
             txtCpfEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 4).toString());
             txtCelularEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 5).toString());
             txtTelefoFixoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 6).toString());
-            txtCepEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 7).toString()); 
+            txtCepEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 7).toString());
             txtEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 8).toString());
             txtNumEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 9).toString());
             txtComplementoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 10).toString());
@@ -486,167 +522,136 @@ public class FEmployees extends javax.swing.JFrame {
             txtStatusEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
             txtLoginEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 14).toString());
             txtSenhaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
-            txtTrabalhoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
+            txtFUNÇÃOEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
             txtReportaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17).toString());
             txtIdPrivEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 18).toString());
-
+            
         }
     }//GEN-LAST:event_jTEmployeesKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            Employees p = new Employees();
-            EmployeesDAO dao = new EmployeesDAO();
-            
-            p.setId(Integer.parseInt(txtIdEmployees.getText()));
-            p.setName(txtNomeEmployees.getText());
-            p.setCpf(txtCpfEmployees.getText());
-            p.setAddress_number(Integer.parseInt(txtNumEnderecoEmployees.getText()));
-            p.setAddress(txtEnderecoEmployees.getText());
-            p.setComplement(txtComplementoEmployees.getText());
-            p.setState(txtEstadoEmployees.getText());
-            p.setCity(txtCidadeEmployees.getText());
-            p.setCep(txtCepEmployees.getText());
-            p.setFixed_phone(txtTelefoFixoEmployees.getText());
-            p.setCell_phone(txtCelularEmployees.getText());
-            p.setEmail(txtEmailEmployees.getText());
-            p.setStatus(txtStatusEmployees.getText());
-            p.setLogin(txtLoginEmployees.getText());
-            p.setPassword(txtSenhaEmployees.getText());
-            p.setEmployeesId(Integer.parseInt(txtReportaEmployees.getText()));
-            p.setPrivilegesId(Integer.parseInt(txtIdPrivEmployees.getText()));
-            dao.create(p);
-            
-            txtIdEmployees.setText("");
-            txtNomeEmployees.setText("");
-            txtEmailEmployees.setText("");
-            txtCpfEmployees.setText("");
-            txtCelularEmployees.setText("");
-            txtTelefoFixoEmployees.setText("");
-            txtCepEmployees.setText(""); 
-            txtEnderecoEmployees.setText("");
-            txtNumEnderecoEmployees.setText("");
-            txtComplementoEmployees.setText("");
-            txtCidadeEmployees.setText("");
-            txtEstadoEmployees.setText("");
-            txtStatusEmployees.setText("");
-            txtLoginEmployees.setText("");
-            txtSenhaEmployees.setText("");
-            txtTrabalhoEmployees.setText("");
-            txtReportaEmployees.setText("");
-            txtIdPrivEmployees.setText("");
-
-
-            
-            readJTable();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        Employees p = new Employees();
+//        EmployeesDAO dao = new EmployeesDAO();
+//        p.setId(Integer.parseInt(txtIdEmployees.getText()));
+//        p.setName(txtNomeEmployees.getText());
+//        p.setCpf(txtCpfEmployees.getText());
+//        p.setAddress_number(Integer.parseInt(txtNumEnderecoEmployees.getText()));
+//        p.setAddress(txtEnderecoEmployees.getText());
+//        p.setComplement(txtComplementoEmployees.getText());
+//        p.setState(txtEstadoEmployees.getText());
+//        p.setCity(txtCidadeEmployees.getText());
+//        p.setCep(txtCepEmployees.getText());
+//        p.setFixed_phone(txtTelefoFixoEmployees.getText());
+//        p.setCell_phone(txtCelularEmployees.getText());
+//        p.setEmail(txtEmailEmployees.getText());
+//        p.setStatus(txtStatusEmployees.getText());
+//        p.setLogin(txtLoginEmployees.getText());
+//        p.setPassword(txtSenhaEmployees.getText());
+//        p.setReports_to(Integer.parseInt(txtReportaEmployees.getText()));
+//        p.setPrivilegesId(Integer.parseInt(txtIdPrivEmployees.getText()));
+//        dao.create(p);
+//        txtIdEmployees.setText("");
+//        txtNomeEmployees.setText("");
+//        txtEmailEmployees.setText("");
+//        txtCpfEmployees.setText("");
+//        txtCelularEmployees.setText("");
+//        txtTelefoFixoEmployees.setText("");
+//        txtCepEmployees.setText("");
+//        txtEnderecoEmployees.setText("");
+//        txtNumEnderecoEmployees.setText("");
+//        txtComplementoEmployees.setText("");
+//        txtCidadeEmployees.setText("");
+//        txtEstadoEmployees.setText("");
+//        txtStatusEmployees.setText("");
+//        txtLoginEmployees.setText("");
+//        txtSenhaEmployees.setText("");
+//        txtFUNÇÃOEmployees.setText("");
+//        txtReportaEmployees.setText("");
+//        txtIdPrivEmployees.setText("");
+//        readJTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (jTEmployees.getSelectedRow() != -1) {
-
-            try {
-
-                Employees p = new Employees();
-                EmployeesDAO dao = new EmployeesDAO();
-
-                p.setId((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
-
-                dao.delete(p);
-
-                txtIdEmployees.setText("");
-                txtNomeEmployees.setText("");
-                txtEmailEmployees.setText("");
-                txtCpfEmployees.setText("");
-                txtCelularEmployees.setText("");
-                txtTelefoFixoEmployees.setText("");
-                txtCepEmployees.setText(""); 
-                txtEnderecoEmployees.setText("");
-                txtNumEnderecoEmployees.setText("");
-                txtComplementoEmployees.setText("");
-                txtCidadeEmployees.setText("");
-                txtEstadoEmployees.setText("");
-                txtStatusEmployees.setText("");
-                txtLoginEmployees.setText("");
-                txtSenhaEmployees.setText("");
-                txtTrabalhoEmployees.setText("");
-                txtReportaEmployees.setText("");
-                txtIdPrivEmployees.setText("");
-
-                readJTable();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione um empregado para excluir.");
-        }
+//        if (jTEmployees.getSelectedRow() != -1) {
+//
+//            Employees p = new Employees();
+//            EmployeesDAO dao = new EmployeesDAO();
+//            p.setId((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
+//            dao.delete(p);
+//            txtIdEmployees.setText("");
+//            txtNomeEmployees.setText("");
+//            txtEmailEmployees.setText("");
+//            txtCpfEmployees.setText("");
+//            txtCelularEmployees.setText("");
+//            txtTelefoFixoEmployees.setText("");
+//            txtCepEmployees.setText("");
+//            txtEnderecoEmployees.setText("");
+//            txtNumEnderecoEmployees.setText("");
+//            txtComplementoEmployees.setText("");
+//            txtCidadeEmployees.setText("");
+//            txtEstadoEmployees.setText("");
+//            txtStatusEmployees.setText("");
+//            txtLoginEmployees.setText("");
+//            txtSenhaEmployees.setText("");
+//            txtFUNÇÃOEmployees.setText("");
+//            txtReportaEmployees.setText("");
+//            txtIdPrivEmployees.setText("");
+//            readJTable();
+//
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Selecione um empregado para excluir.");
+//        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if (jTEmployees.getSelectedRow() != -1) {
-
-            try {
-
-                Employees p = new Employees();
-                EmployeesDAO dao = new EmployeesDAO();
-
-               p.setId(Integer.parseInt(txtIdEmployees.getText()));
-                p.setName(txtNomeEmployees.getText());
-                p.setCpf(txtCpfEmployees.getText());
-                p.setAddress_number(Integer.parseInt(txtNumEnderecoEmployees.getText()));
-                p.setAddress(txtEnderecoEmployees.getText());
-                p.setComplement(txtComplementoEmployees.getText());
-                p.setState(txtEstadoEmployees.getText());
-                p.setCity(txtCidadeEmployees.getText());
-                p.setCep(txtCepEmployees.getText());
-                p.setFixed_phone(txtTelefoFixoEmployees.getText());
-                p.setCell_phone(txtCelularEmployees.getText());
-                p.setEmail(txtEmailEmployees.getText());
-                p.setStatus(txtStatusEmployees.getText());
-                p.setLogin(txtLoginEmployees.getText());
-                p.setPassword(txtSenhaEmployees.getText());
-                p.setEmployeesId(Integer.parseInt(txtReportaEmployees.getText()));
-                p.setPrivilegesId(Integer.parseInt(txtIdPrivEmployees.getText()));
-                p.setId((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
-
-                try {
-                    dao.alter(p);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                txtIdEmployees.setText("");
-                txtNomeEmployees.setText("");
-                txtEmailEmployees.setText("");
-                txtCpfEmployees.setText("");
-                txtCelularEmployees.setText("");
-                txtTelefoFixoEmployees.setText("");
-                txtCepEmployees.setText(""); 
-                txtEnderecoEmployees.setText("");
-                txtNumEnderecoEmployees.setText("");
-                txtComplementoEmployees.setText("");
-                txtCidadeEmployees.setText("");
-                txtEstadoEmployees.setText("");
-                txtStatusEmployees.setText("");
-                txtLoginEmployees.setText("");
-                txtSenhaEmployees.setText("");
-                txtTrabalhoEmployees.setText("");
-                txtReportaEmployees.setText("");
-                txtIdPrivEmployees.setText("");
-                readJTable();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
+//        if (jTEmployees.getSelectedRow() != -1) {
+//
+//            Employees p = new Employees();
+//            EmployeesDAO dao = new EmployeesDAO();
+//            p.setId(Integer.parseInt(txtIdEmployees.getText()));
+//            p.setName(txtNomeEmployees.getText());
+//            p.setCpf(txtCpfEmployees.getText());
+//            p.setAddress_number(Integer.parseInt(txtNumEnderecoEmployees.getText()));
+//            p.setAddress(txtEnderecoEmployees.getText());
+//            p.setComplement(txtComplementoEmployees.getText());
+//            p.setState(txtEstadoEmployees.getText());
+//            p.setCity(txtCidadeEmployees.getText());
+//            p.setCep(txtCepEmployees.getText());
+//            p.setFixed_phone(txtTelefoFixoEmployees.getText());
+//            p.setCell_phone(txtCelularEmployees.getText());
+//            p.setEmail(txtEmailEmployees.getText());
+//            p.setStatus(txtStatusEmployees.getText());
+//            p.setLogin(txtLoginEmployees.getText());
+//            p.setPassword(txtSenhaEmployees.getText());
+//            p.setEmployeesId(Integer.parseInt(txtReportaEmployees.getText()));
+//            p.setPrivilegesId(Integer.parseInt(txtIdPrivEmployees.getText()));
+//            p.setId((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
+//            try {
+//                dao.alter(p);
+//            } catch (Exception ex) {
+//                Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            txtIdEmployees.setText("");
+//            txtNomeEmployees.setText("");
+//            txtEmailEmployees.setText("");
+//            txtCpfEmployees.setText("");
+//            txtCelularEmployees.setText("");
+//            txtTelefoFixoEmployees.setText("");
+//            txtCepEmployees.setText("");
+//            txtEnderecoEmployees.setText("");
+//            txtNumEnderecoEmployees.setText("");
+//            txtComplementoEmployees.setText("");
+//            txtCidadeEmployees.setText("");
+//            txtEstadoEmployees.setText("");
+//            txtStatusEmployees.setText("");
+//            txtLoginEmployees.setText("");
+//            txtSenhaEmployees.setText("");
+//            txtFUNÇÃOEmployees.setText("");
+//            txtReportaEmployees.setText("");
+//            txtIdPrivEmployees.setText("");
+//            readJTable();
+//
+//        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtBuscaEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaEmployeesActionPerformed
@@ -654,12 +659,12 @@ public class FEmployees extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscaEmployeesActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
-        try {
-            readJTableForDesc(txtBuscaEmployees.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//
+//        try {
+//            readJTableForDesc(txtBuscaEmployees.getText());
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -693,7 +698,11 @@ public class FEmployees extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FEmployees().setVisible(true);
+                try {
+                    new FEmployees().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -741,6 +750,6 @@ public class FEmployees extends javax.swing.JFrame {
     private javax.swing.JTextField txtSenhaEmployees;
     private javax.swing.JTextField txtStatusEmployees;
     private javax.swing.JTextField txtTelefoFixoEmployees;
-    private javax.swing.JTextField txtTrabalhoEmployees;
+    private javax.swing.JTextField txtFUNÇÃOEmployees;
     // End of variables declaration//GEN-END:variables
 }

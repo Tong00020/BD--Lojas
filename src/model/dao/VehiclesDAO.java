@@ -14,6 +14,8 @@ import model.bean.Vehicles;
 import java.sql.ResultSet;
 import java.util.List;
 import model.bean.Clients;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,8 +23,8 @@ import model.bean.Clients;
  */
 public class VehiclesDAO {
 
-    public void create(Vehicles v) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void create(Vehicles v) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -40,7 +42,6 @@ public class VehiclesDAO {
             stmt.setString(7, v.getType_fuel());
             stmt.setInt(8, v.getClient().getId());
             stmt.executeUpdate();
-
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -49,8 +50,8 @@ public class VehiclesDAO {
         }
     }
 
-    public void alter(Vehicles v) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void alter(Vehicles v) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -70,18 +71,18 @@ public class VehiclesDAO {
             stmt.setInt(9, v.getId());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
 
-    public void delete(Vehicles p) throws SQLException {
+    public void delete(Vehicles p) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
-        
+        Connection con = ConnectionFactory.getConnection();
+
         PreparedStatement stmt = null;
 
         try {
@@ -89,27 +90,25 @@ public class VehiclesDAO {
             stmt.setInt(1, p.getId());
 
             stmt.executeUpdate();
-
             JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
-
     }
 
-    public ArrayList<Vehicles> list() throws Exception {
-        ArrayList<Vehicles> lista = new ArrayList<Vehicles>();
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Vehicles> list() {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Vehicles> vehicles = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM vehicles";
             stmt = con.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 Vehicles v = new Vehicles();
                 v.setId(rs.getInt("id"));
@@ -123,33 +122,33 @@ public class VehiclesDAO {
 
                 Clients c = new Clients();
                 c.setId(rs.getInt("id"));
-                c.load();
+                c.setName(rs.getString("name"));
                 v.setClient(c);
 
-                lista.add(v);
+                vehicles.add(v);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(VehiclesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return lista;
+        return vehicles;
     }
 
-    public Vehicles loadById(int id) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Vehicles> loadById(int id) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
-
-        Vehicles v = new Vehicles();
+        ResultSet rs = null;
+        List<Vehicles> vehicles = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM clients WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
+                Vehicles v = new Vehicles();
                 v.setId(rs.getInt("id"));
                 v.setModel(rs.getString("model"));
                 v.setBrand(rs.getString("brand"));
@@ -161,19 +160,20 @@ public class VehiclesDAO {
 
                 Clients c = new Clients();
                 c.setId(rs.getInt("id"));
-                c.load();
+                c.setName(rs.getString("name"));
                 v.setClient(c);
+
+                vehicles.add(v);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(VehiclesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return v;
+        return vehicles;
     }
-    
-    public List<Vehicles> read() throws SQLException {
+
+    /* public List<Vehicles> read()  {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
         
@@ -213,7 +213,7 @@ public class VehiclesDAO {
         return produtos;
 
     }
-    public List<Vehicles> readForDesc(String desc) throws SQLException {
+    public List<Vehicles> readForDesc(String desc)  {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
         
@@ -253,5 +253,5 @@ public class VehiclesDAO {
         
         return produtos;
 
-    }
+    } */
 }

@@ -5,8 +5,6 @@
 package model.dao;
 
 import connection.ConnectionFactory;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -15,7 +13,8 @@ import javax.swing.JOptionPane;
 import model.bean.Services;
 import java.sql.ResultSet;
 import java.util.List;
-import view.FServices;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,9 +22,9 @@ import view.FServices;
  */
 public class ServicesDAO {
 
-    public void create(Services s) throws SQLException {
+    public void create(Services s) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -45,8 +44,8 @@ public class ServicesDAO {
 
     }
 
-    public void alter(Services s) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void alter(Services s) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -58,18 +57,18 @@ public class ServicesDAO {
             stmt.setInt(3, s.getId());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
 
-    public void delete(Services p) throws SQLException {
+    public void delete(Services p) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
-        
+        Connection con = ConnectionFactory.getConnection();
+
         PreparedStatement stmt = null;
 
         try {
@@ -87,13 +86,12 @@ public class ServicesDAO {
 
     }
 
-    public ArrayList<Services> list() throws Exception {
-        ArrayList<Services> lista = new ArrayList<Services>();
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Services> list() {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
-
+        ResultSet rs = null;
+        List<Services> services = new ArrayList<>();
         try {
             String sql = "SELECT * FROM services";
             stmt = con.prepareStatement(sql);
@@ -105,50 +103,51 @@ public class ServicesDAO {
             de dados que pode ser percorrida, de forma que você possa ler os 
             dados do banco.
              */
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 Services s = new Services();
                 s.setId(rs.getInt("id"));
                 s.setName(rs.getString("name"));
                 s.setDescription(rs.getString("description"));
-                lista.add(s);
+                services.add(s);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(ServicesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return lista;
+        return services;
     }
 
-    public Services loadById(int id) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Services> loadById(int id) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
-
-        Services s = new Services();
+        ResultSet rs = null;
+        List<Services> services = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM services WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
+                Services s = new Services();
                 s.setId(rs.getInt("id"));
                 s.setName(rs.getString("name"));
                 s.setDescription(rs.getString("description"));
+                services.add(s);
             }
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(ServicesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return s;
+        return services;
     }
-    
-    public List<Services> read() throws SQLException {
+
+    /*     public List<Services> read()  {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
         
@@ -182,7 +181,7 @@ public class ServicesDAO {
 
     }
     
-    public List<Services> readForDesc(String desc) throws SQLException {
+    public List<Services> readForDesc(String desc)  {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
         
@@ -215,5 +214,5 @@ public class ServicesDAO {
 
         return produtos;
 
-    }
+    } */
 }

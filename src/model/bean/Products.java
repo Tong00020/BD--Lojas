@@ -97,36 +97,4 @@ public class Products {
         this.provider.setId(id);
     }
 
-    public void create() throws Exception {
-        ProductsDAO pDAO = new ProductsDAO();
-        pDAO.create(this);
-    }
-
-    public void alter() throws Exception {
-        ProductsDAO pDAO = new ProductsDAO();
-        pDAO.alter(this);
-    }
-
-    public void delete() throws Exception {
-        ProductsDAO pDAO = new ProductsDAO();
-        pDAO.delete(this);
-    }
-
-    public ArrayList<Products> list() throws Exception {
-        ProductsDAO pDAO = new ProductsDAO();
-        return pDAO.list();
-    }
-
-    public void load() throws Exception {
-        ProductsDAO pDAO = new ProductsDAO();
-        this.id = pDAO.loadById(this.id).getId();
-        this.name = pDAO.loadById(this.id).getName();
-        this.description = pDAO.loadById(this.id).getDescription();
-        this.category = pDAO.loadById(this.id).getCategory();
-        this.price = pDAO.loadById(this.id).getPrice();
-        this.barcode = pDAO.loadById(this.id).getBarcode();
-        this.quantity = pDAO.loadById(this.id).getQuantity();
-        this.provider = pDAO.loadById(this.id).getProvider();
-    }
-
 }

@@ -22,27 +22,27 @@ public class Budgets {
     private Vehicles vehicle;
     private Clients client;
     private Services service;
-    
+
     public int getVehiclesId() {
         return vehicle.getId();
     }
-    
+
     public void setVehiclesId(int id) {
         this.vehicle.setId(id);
     }
-    
+
     public int getClientsId() {
         return client.getId();
     }
-    
+
     public void setClientsId(int id) {
         this.client.setId(id);
     }
-    
+
     public int getServicesId() {
         return service.getId();
     }
-    
+
     public void setServicesId(int id) {
         this.service.setId(id);
     }
@@ -109,38 +109,6 @@ public class Budgets {
 
     public void setService(Services service) {
         this.service = service;
-    }
-
-    public void create() throws Exception {
-        BudgetsDAO bDAO = new BudgetsDAO();
-        bDAO.create(this);
-    }
-
-    public void alter() throws Exception {
-        BudgetsDAO bDAO = new BudgetsDAO();
-        bDAO.alter(this);
-    }
-
-    public void delete() throws Exception {
-        BudgetsDAO bDAO = new BudgetsDAO();
-        bDAO.delete(this);
-    }
-
-    public ArrayList<Budgets> list() throws Exception {
-        BudgetsDAO bDAO = new BudgetsDAO();
-        return bDAO.list();
-    }
-
-    public void load() throws Exception {
-        BudgetsDAO bDAO = new BudgetsDAO();
-        this.id = bDAO.loadById(this.id).getId();
-        this.date = bDAO.loadById(this.id).getDate();
-        this.price_services = bDAO.loadById(this.id).getPrice_services();
-        this.total_items = bDAO.loadById(this.id).getTotal_items();
-        this.total = bDAO.loadById(this.id).getTotal();
-        this.vehicle = bDAO.loadById(this.id).getVehicle();
-        this.client = bDAO.loadById(this.id).getClient();
-        this.service = bDAO.loadById(this.id).getService();
     }
 
 }

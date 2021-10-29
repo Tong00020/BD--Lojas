@@ -23,9 +23,9 @@ import java.util.logging.Logger;
  */
 public class EmployeesDAO {
 
-    public void create(Employees e) throws SQLException {
+    public void create(Employees e) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -33,7 +33,7 @@ public class EmployeesDAO {
             String sql = "INSERT INTO employees (name,photo,email,cpf,"
                     + "cell_phone,fixed_phone,cep,address,address_number,"
                     + "complement,city,state,status,login,password,job_title,"
-                    + "report_to,id_privilege) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,"
+                    + "reports_to,privileges_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,"
                     + "?,?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, e.getName());
@@ -52,7 +52,7 @@ public class EmployeesDAO {
             stmt.setString(14, e.getLogin());
             stmt.setString(15, e.getPassword());
             stmt.setString(16, e.getJob_title());
-            stmt.setInt(17, e.getReport_to().getId());
+            stmt.setInt(17, e.getReports_to().getId());
             stmt.setInt(18, e.getPrivilege().getId());
             stmt.executeUpdate();
 
@@ -65,8 +65,8 @@ public class EmployeesDAO {
 
     }
 
-    public void alter(Employees e) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void alter(Employees e) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -75,7 +75,7 @@ public class EmployeesDAO {
                     + "cpf = ?,cell_phone = ?,fixed_phone = ?,cep = ?,address = ?,"
                     + "address_number = ?,complement = ?,city = ?,state = ?,"
                     + "status = ?,login = ?,password = ?,job_title = ?,"
-                    + "report_to = ?,id_privilege = ? WHERE id = ?";
+                    + "reports_to = ?,privileges_id = ? WHERE id = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, e.getName());
             stmt.setString(2, e.getPhoto());
@@ -93,22 +93,22 @@ public class EmployeesDAO {
             stmt.setString(14, e.getLogin());
             stmt.setString(15, e.getPassword());
             stmt.setString(16, e.getJob_title());
-            stmt.setInt(17, e.getReport_to().getId());
+            stmt.setInt(17, e.getReports_to().getId());
             stmt.setInt(18, e.getPrivilege().getId());
             stmt.setInt(19, e.getId());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
 
-    public void delete(Employees p) throws SQLException {
+    public void delete(Employees p) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -127,13 +127,13 @@ public class EmployeesDAO {
 
     }
 
-    public ArrayList<Employees> list() throws Exception {
-        ArrayList<Employees> lista = new ArrayList<Employees>();
+    public List<Employees> list() {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
-
+        ResultSet rs = null;
+        List<Employees> employees = new ArrayList<>();
         try {
             String sql = "SELECT * FROM employees";
             stmt = con.prepareStatement(sql);
@@ -145,198 +145,200 @@ public class EmployeesDAO {
             de dados que pode ser percorrida, de forma que você possa ler os 
             dados do banco.
              */
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
 
-                Employees e = new Employees();
-                e.setId(rs.getInt("id"));
-                e.setName(rs.getString("name"));
-                e.setPhoto(rs.getString("photo"));
-                e.setEmail(rs.getString("email"));
-                e.setCpf(rs.getString("cpf"));
-                e.setCell_phone(rs.getString("cell_phone"));
-                e.setFixed_phone(rs.getString("fixed_phone"));
-                e.setCep(rs.getString("cep"));
-                e.setAddress(rs.getString("address"));
-                e.setAddress_number(rs.getInt("address_number"));
-                e.setComplement(rs.getString("complement"));
-                e.setCity(rs.getString("city"));
-                e.setState(rs.getString("state"));
-                e.setStatus(rs.getString("status"));
-                e.setLogin(rs.getString("login"));
-                e.setPassword(rs.getString("password"));
-                e.setJob_title(rs.getString("job_title"));
+                Employees employee = new Employees();
+                employee.setId(rs.getInt("id"));
+                employee.setName(rs.getString("name"));
+                employee.setPhoto(rs.getString("photo"));
+                employee.setEmail(rs.getString("email"));
+                employee.setCpf(rs.getString("cpf"));
+                employee.setCell_phone(rs.getString("cell_phone"));
+                employee.setFixed_phone(rs.getString("fixed_phone"));
+                employee.setCep(rs.getString("cep"));
+                employee.setAddress(rs.getString("address"));
+                employee.setAddress_number(rs.getInt("address_number"));
+                employee.setComplement(rs.getString("complement"));
+                employee.setCity(rs.getString("city"));
+                employee.setState(rs.getString("state"));
+                employee.setStatus(rs.getString("status"));
+                employee.setLogin(rs.getString("login"));
+                employee.setPassword(rs.getString("password"));
+                employee.setJob_title(rs.getString("job_title"));
 
                 Employees em = new Employees();
-                em.setId(rs.getInt("report_to"));
-                em.load();
-                e.setReport_to(em);
+                em.setId(rs.getInt("reports_to"));
+                em.setName(rs.getString("name"));
+                employee.setReports_to(em);
 
                 Privileges p = new Privileges();
-                p.setId(rs.getInt("id_privilege"));
-                p.load();
-                e.setPrivilege(p);
+                p.setId(rs.getInt("privileges_id"));
+                p.setName(rs.getString("name"));
+                employee.setPrivilege(p);
 
-                lista.add(e);
+                employees.add(employee);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(EmployeesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return lista;
+
+        return employees;
     }
 
-    public Employees loadById(int id) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Employees> loadById(int id) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
-
-        Employees e = new Employees();
+        ResultSet rs = null;
+        List<Employees> employees = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM employees WHERE id = ?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
-                e.setId(rs.getInt("id"));
-                e.setName(rs.getString("name"));
-                e.setPhoto(rs.getString("photo"));
-                e.setEmail(rs.getString("email"));
-                e.setCpf(rs.getString("cpf"));
-                e.setCell_phone(rs.getString("cell_phone"));
-                e.setFixed_phone(rs.getString("fixed_phone"));
-                e.setCep(rs.getString("cep"));
-                e.setAddress(rs.getString("address"));
-                e.setAddress_number(rs.getInt("address_number"));
-                e.setComplement(rs.getString("complement"));
-                e.setCity(rs.getString("city"));
-                e.setState(rs.getString("state"));
-                e.setStatus(rs.getString("status"));
-                e.setLogin(rs.getString("login"));
-                e.setPassword(rs.getString("password"));
-                e.setJob_title(rs.getString("job_title"));
+
+                Employees employee = new Employees();
+                employee.setId(rs.getInt("id"));
+                employee.setName(rs.getString("name"));
+                employee.setPhoto(rs.getString("photo"));
+                employee.setEmail(rs.getString("email"));
+                employee.setCpf(rs.getString("cpf"));
+                employee.setCell_phone(rs.getString("cell_phone"));
+                employee.setFixed_phone(rs.getString("fixed_phone"));
+                employee.setCep(rs.getString("cep"));
+                employee.setAddress(rs.getString("address"));
+                employee.setAddress_number(rs.getInt("address_number"));
+                employee.setComplement(rs.getString("complement"));
+                employee.setCity(rs.getString("city"));
+                employee.setState(rs.getString("state"));
+                employee.setStatus(rs.getString("status"));
+                employee.setLogin(rs.getString("login"));
+                employee.setPassword(rs.getString("password"));
+                employee.setJob_title(rs.getString("job_title"));
 
                 Employees em = new Employees();
-                em.setId(rs.getInt("report_to"));
-                em.load();
-                e.setReport_to(em);
+                em.setId(rs.getInt("reports_to"));
+                em.setName(rs.getString("name"));
+                employee.setReports_to(em);
 
                 Privileges p = new Privileges();
-                p.setId(rs.getInt("id_privilege"));
-                p.load();
-                e.setPrivilege(p);
-            }
+                p.setId(rs.getInt("privileges_id"));
+                p.setName(rs.getString("name"));
+                employee.setPrivilege(p);
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt);
-        }
-        return e;
-    }
-
-    public List<Employees> read() throws SQLException {
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
-
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        List<Employees> produtos = new ArrayList<>();
-
-        try {
-            stmt = con.prepareStatement("SELECT * FROM employees");
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Employees e = new Employees();
-
-                e.setId(rs.getInt("id"));
-                e.setName(rs.getString("name"));
-                e.setPhoto(rs.getString("photo"));
-                e.setEmail(rs.getString("email"));
-                e.setCpf(rs.getString("cpf"));
-                e.setCell_phone(rs.getString("cell_phone"));
-                e.setFixed_phone(rs.getString("fixed_phone"));
-                e.setCep(rs.getString("cep"));
-                e.setAddress(rs.getString("address"));
-                e.setAddress_number(rs.getInt("address_number"));
-                e.setComplement(rs.getString("complement"));
-                e.setCity(rs.getString("city"));
-                e.setState(rs.getString("state"));
-                e.setStatus(rs.getString("status"));
-                e.setLogin(rs.getString("login"));
-                e.setPassword(rs.getString("password"));
-                e.setJob_title(rs.getString("job_title"));
-                e.setEmployeesId(rs.getInt("report_to"));
-                e.setPrivilegesId(rs.getInt("id_privilege"));
-                produtos.add(e);
-
+                employees.add(employee);
             }
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(EmployeesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return produtos;
 
+        return employees;
     }
 
-    public List<Employees> readForDesc(String desc) throws SQLException {
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
-
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
-        List<Employees> produtos = new ArrayList<>();
-
-        try {
-            stmt = con.prepareStatement("SELECT * FROM employees WHERE id LIKE ?");
-            stmt.setString(1, "%" + desc + "%");
-
-            rs = stmt.executeQuery();
-
-            while (rs.next()) {
-
-                Employees e = new Employees();
-
-                e.setId(rs.getInt("id"));
-                e.setName(rs.getString("name"));
-                e.setPhoto(rs.getString("photo"));
-                e.setEmail(rs.getString("email"));
-                e.setCpf(rs.getString("cpf"));
-                e.setCell_phone(rs.getString("cell_phone"));
-                e.setFixed_phone(rs.getString("fixed_phone"));
-                e.setCep(rs.getString("cep"));
-                e.setAddress(rs.getString("address"));
-                e.setAddress_number(rs.getInt("address_number"));
-                e.setComplement(rs.getString("complement"));
-                e.setCity(rs.getString("city"));
-                e.setState(rs.getString("state"));
-                e.setStatus(rs.getString("status"));
-                e.setLogin(rs.getString("login"));
-                e.setPassword(rs.getString("password"));
-                e.setJob_title(rs.getString("job_title"));
-                e.setEmployeesId(rs.getInt("report_to"));
-                e.setPrivilegesId(rs.getInt("id_privilege"));
-                produtos.add(e);
-            }
-
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt);
-        }
-        return produtos;
-
-    }
-
+//    public List<Employees> read() {
+//
+//        Connection con = ConnectionFactory.getConnection();
+//
+//        PreparedStatement stmt = null;
+//        ResultSet rs = null;
+//
+//        List<Employees> produtos = new ArrayList<>();
+//
+//        try {
+//            stmt = con.prepareStatement("SELECT * FROM employees");
+//            rs = stmt.executeQuery();
+//
+//            while (rs.next()) {
+//                Employees e = new Employees();
+//
+//                e.setId(rs.getInt("id"));
+//                e.setName(rs.getString("name"));
+//                e.setPhoto(rs.getString("photo"));
+//                e.setEmail(rs.getString("email"));
+//                e.setCpf(rs.getString("cpf"));
+//                e.setCell_phone(rs.getString("cell_phone"));
+//                e.setFixed_phone(rs.getString("fixed_phone"));
+//                e.setCep(rs.getString("cep"));
+//                e.setAddress(rs.getString("address"));
+//                e.setAddress_number(rs.getInt("address_number"));
+//                e.setComplement(rs.getString("complement"));
+//                e.setCity(rs.getString("city"));
+//                e.setState(rs.getString("state"));
+//                e.setStatus(rs.getString("status"));
+//                e.setLogin(rs.getString("login"));
+//                e.setPassword(rs.getString("password"));
+//                e.setJob_title(rs.getString("job_title"));
+//                e.setReports_to(rs.getInt("reports_to"));
+//                e.setPrivilege(rs.getInt("privileges_id"));
+//                produtos.add(e);
+//
+//            }
+//
+//        } catch (SQLException ex) {
+//            System.out.println(ex);
+//        } finally {
+//            ConnectionFactory.closeConnection(con, stmt);
+//        }
+//        return produtos;
+//
+//    }
+//    public List<Employees> readForDesc(String desc) {
+//
+//        Connection con = ConnectionFactory.getConnection();
+//
+//        PreparedStatement stmt = null;
+//        ResultSet rs = null;
+//
+//        List<Employees> produtos = new ArrayList<>();
+//
+//        try {
+//            stmt = con.prepareStatement("SELECT * FROM employees WHERE id LIKE ?");
+//            stmt.setString(1, "%" + desc + "%");
+//
+//            rs = stmt.executeQuery();
+//
+//            while (rs.next()) {
+//
+//                Employees e = new Employees();
+//
+//                e.setId(rs.getInt("id"));
+//                e.setName(rs.getString("name"));
+//                e.setPhoto(rs.getString("photo"));
+//                e.setEmail(rs.getString("email"));
+//                e.setCpf(rs.getString("cpf"));
+//                e.setCell_phone(rs.getString("cell_phone"));
+//                e.setFixed_phone(rs.getString("fixed_phone"));
+//                e.setCep(rs.getString("cep"));
+//                e.setAddress(rs.getString("address"));
+//                e.setAddress_number(rs.getInt("address_number"));
+//                e.setComplement(rs.getString("complement"));
+//                e.setCity(rs.getString("city"));
+//                e.setState(rs.getString("state"));
+//                e.setStatus(rs.getString("status"));
+//                e.setLogin(rs.getString("login"));
+//                e.setPassword(rs.getString("password"));
+//                e.setJob_title(rs.getString("job_title"));
+//                e.setEmployeesId(rs.getInt("reports_to"));
+//                e.setPrivilegesId(rs.getInt("privileges_id"));
+//                produtos.add(e);
+//            }
+//
+//        } catch (SQLException ex) {
+//            System.out.println(ex);
+//        } finally {
+//            ConnectionFactory.closeConnection(con, stmt);
+//        }
+//        return produtos;
+//
+//    }
     public boolean checkLogin(String login, String password) {
 
         Connection con = ConnectionFactory.getConnection();

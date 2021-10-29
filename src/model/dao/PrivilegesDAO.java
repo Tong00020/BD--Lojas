@@ -6,13 +6,15 @@ package model.dao;
 
 import model.bean.Privileges;
 import connection.ConnectionFactory;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
 import java.sql.Connection;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,9 +22,9 @@ import java.util.List;
  */
 public class PrivilegesDAO {
 
-    public void create(Privileges p) throws SQLException {
+    public void create(Privileges p) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -42,8 +44,8 @@ public class PrivilegesDAO {
 
     }
 
-    public void alter(Privileges p) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public void alter(Privileges p) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
 
@@ -55,18 +57,18 @@ public class PrivilegesDAO {
             stmt.setInt(3, p.getId());
             stmt.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
         } finally {
             ConnectionFactory.closeConnection(con, stmt);
         }
     }
 
-    public void delete(Privileges p) throws SQLException {
+    public void delete(Privileges p) {
 
-        Connection con = (Connection) ConnectionFactory.getConnection();
-        
+        Connection con = ConnectionFactory.getConnection();
+
         PreparedStatement stmt = null;
 
         try {
@@ -84,12 +86,12 @@ public class PrivilegesDAO {
 
     }
 
-    public ArrayList<Privileges> list() throws Exception {
-        ArrayList<Privileges> lista = new ArrayList<Privileges>();
-
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Privileges> list() {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Privileges> privileges = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM privileges";
@@ -102,7 +104,7 @@ public class PrivilegesDAO {
             de dados que pode ser percorrida, de forma que você possa ler os 
             dados do banco.
              */
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
 
                 Privileges p = new Privileges();
@@ -110,44 +112,45 @@ public class PrivilegesDAO {
                 p.setName(rs.getString("name"));
                 p.setIs_superadmin(rs.getBoolean("is_superadmin"));
 
-                lista.add(p);
+                privileges.add(p);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(EmployeesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return lista;
+        return privileges;
     }
 
-    public Privileges loadById(int id) throws Exception {
-        Connection con = (Connection) ConnectionFactory.getConnection();
+    public List<Privileges> loadById(int id) {
+        Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
-
-        Privileges p = new Privileges();
+        ResultSet rs = null;
+        List<Privileges> privileges = new ArrayList<>();
 
         try {
             String sql = "SELECT * FROM privileges WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
+                Privileges p = new Privileges();
                 p.setId(rs.getInt("id"));
                 p.setName(rs.getString("name"));
                 p.setIs_superadmin(rs.getBoolean("is_superadmin"));
+
+                privileges.add(p);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
-            System.out.println(ex);
+            Logger.getLogger(PrivilegesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
-        return p;
+        return privileges;
     }
-    
-    public List<Privileges> read() throws SQLException {
+
+    /*     public List<Privileges> read() throws SQLException {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
         
@@ -213,5 +216,5 @@ public class PrivilegesDAO {
 
         return produtos;
 
-    }
+    } */
 }

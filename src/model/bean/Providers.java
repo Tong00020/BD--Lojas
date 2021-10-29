@@ -123,45 +123,4 @@ public class Providers {
     public void setUrl_site(String url_site) {
         this.url_site = url_site;
     }
-
-    public void create() throws Exception {
-        ProvidersDAO pDAO = new ProvidersDAO();
-        pDAO.create(this);
-    }
-
-    public void alter() throws Exception {
-        ProvidersDAO pDAO = new ProvidersDAO();
-        pDAO.alter(this);
-    }
-
-    public void delete() throws Exception {
-        ProvidersDAO pDAO = new ProvidersDAO();
-        pDAO.delete(this);
-    }
-
-    public ArrayList<Providers> list() throws Exception {
-        ProvidersDAO pDAO = new ProvidersDAO();
-        return pDAO.list();
-    }
-    
-    public List<Providers> read() throws Exception {
-        ProvidersDAO pDAO = new ProvidersDAO();
-        return pDAO.read();
-    }
-
-    public void load() throws Exception {
-        ProvidersDAO pDAO = new ProvidersDAO();
-        this.id = pDAO.loadID(this.id).getId();
-        this.name = pDAO.loadID(this.id).getName();
-        this.cnpj = pDAO.loadID(this.id).getCnpj();
-        this.cell_phone = pDAO.loadID(this.id).getCell_phone();
-        this.fixed_phone = pDAO.loadID(this.id).getFixed_phone();
-        this.cep = pDAO.loadID(this.id).getCep();
-        this.address = pDAO.loadID(this.id).getAddress();
-        this.address_number = pDAO.loadID(this.id).getAddress_number();
-        this.complement = pDAO.loadID(this.id).getComplement();
-        this.city = pDAO.loadID(this.id).getCity();
-        this.state = pDAO.loadID(this.id).getState();
-        this.url_site = pDAO.loadID(this.id).getUrl_site();
-    }
 }

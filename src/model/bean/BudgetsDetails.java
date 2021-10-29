@@ -19,20 +19,19 @@ public class BudgetsDetails {
     private double subtotal;
     private Budgets budget;
     private Products product;
-    
-    
+
     public int getBudgetsId() {
         return budget.getId();
     }
-    
+
     public void setBudgetsId(int id) {
         this.budget.setId(id);
     }
-    
+
     public int getProductsId() {
         return product.getId();
     }
-    
+
     public void setProductsId(int id) {
         this.product.setId(id);
     }
@@ -83,31 +82,5 @@ public class BudgetsDetails {
 
     public void setProduct(Products product) {
         this.product = product;
-    }
-
-    public void create() throws Exception {
-        BudgetsDetailsDAO bdDAO = new BudgetsDetailsDAO();
-        bdDAO.create(this);
-    }
-
-    public void alter() throws Exception {
-        BudgetsDetailsDAO bdDAO = new BudgetsDetailsDAO();
-        bdDAO.alter(this);
-    }
-
-    public void delete() throws Exception {
-        BudgetsDetailsDAO bdDAO = new BudgetsDetailsDAO();
-        bdDAO.delete(this);
-    }
-
-    public ArrayList<BudgetsDetails> list() throws Exception {
-        BudgetsDetailsDAO bdDAO = new BudgetsDetailsDAO();
-        this.id = bdDAO.loadById(this.id).getId();
-        this.price = bdDAO.loadById(this.id).getPrice();
-        this.amount = bdDAO.loadById(this.id).getAmount();
-        this.subtotal = bdDAO.loadById(this.id).getSubtotal();
-        this.budget = bdDAO.loadById(this.id).getBudget();
-        this.product = bdDAO.loadById(this.id).getProduct();
-        return bdDAO.list();
     }
 }

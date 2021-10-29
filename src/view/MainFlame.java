@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package view;
+
 import javax.swing.JOptionPane;
 import java.awt.*;
 import java.net.*;
@@ -11,12 +12,13 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+
 /**
  *
  * @author Tong
  */
 public class MainFlame extends javax.swing.JFrame {
-        
+
     /**
      * Creates new form MainFlame
      */
@@ -28,9 +30,9 @@ public class MainFlame extends javax.swing.JFrame {
         this.add(p);
         this.pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-    }   
-    
+
+    }
+
     class myCustomPanel extends JPanel {
 
         private Image background;
@@ -56,8 +58,9 @@ public class MainFlame extends javax.swing.JFrame {
         public int getHeight() {
             return background.getHeight(this);
         }
-    
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -220,11 +223,15 @@ public class MainFlame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProdutoMouseClicked
-        
+
     }//GEN-LAST:event_ProdutoMouseClicked
 
     private void FuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FuncionariosActionPerformed
-        new FEmployees().setVisible(true);
+        try {
+            new FEmployees().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(MainFlame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_FuncionariosActionPerformed
 
     private void VeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VeiculosActionPerformed
@@ -239,14 +246,14 @@ public class MainFlame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_SairActionPerformed
 
-    
+
     private void SairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SairMouseClicked
-       System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_SairMouseClicked
 
     private void SobreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SobreMouseClicked
-        JOptionPane.showMessageDialog(null,"Banco de dados de uma loja de que presta serviços auto-motivos.\n\n Obrigado pela preferência!");
-    
+        JOptionPane.showMessageDialog(null, "Banco de dados de uma loja de que presta serviços auto-motivos.\n\n Obrigado pela preferência!");
+
     }//GEN-LAST:event_SobreMouseClicked
 
     private void SobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SobreActionPerformed

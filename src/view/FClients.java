@@ -11,7 +11,9 @@ import model.dao.ClientsDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableRowSorter;
 import model.bean.Clients;
+
 /**
  *
  * @author Tong
@@ -22,12 +24,13 @@ public class FClients extends javax.swing.JFrame {
      * Creates new form Clients
      */
     public FClients() {
-        initComponents();
-        jButton4.setEnabled(false);
-        /*DefaultTableModel modelo = (DefaultTableModel)jTClients.getModel();
-       jTClients.setRowSorter(new TableRowSorter(modelo));
 
-        readJTable();*/
+        initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) jTClients.getModel();
+        jTClients.setRowSorter(new TableRowSorter(modelo));
+
+        readJTable();
+
     }
 
     /**
@@ -310,13 +313,13 @@ public class FClients extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    public void readJTable() throws SQLException {
-        
+    public void readJTable() {
+
         DefaultTableModel modelo = (DefaultTableModel) jTClients.getModel();
         modelo.setNumRows(0);
         ClientsDAO pdao = new ClientsDAO();
 
-        for (Clients p : pdao.read()) {
+        for (Clients p : pdao.list()) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -336,15 +339,14 @@ public class FClients extends javax.swing.JFrame {
         }
 
     }
-    
-    
-    public void readJTableForDesc(String desc) throws SQLException {
-        
+
+    public void readJTableForDesc(int id) throws SQLException {
+
         DefaultTableModel modelo = (DefaultTableModel) jTClients.getModel();
         modelo.setNumRows(0);
         ClientsDAO pdao = new ClientsDAO();
 
-        for (Clients p : pdao.readForDesc(desc)) {
+        for (Clients p : pdao.loadById(id)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -363,10 +365,10 @@ public class FClients extends javax.swing.JFrame {
 
         }
     }
-    
+
     private void jTClientsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTClientsMouseClicked
         if (jTClients.getSelectedRow() != -1) {
-            
+
             txtIdClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 1).toString());
             txtCpfClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 2).toString());
             txtNomeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 3).toString());
@@ -401,24 +403,43 @@ public class FClients extends javax.swing.JFrame {
     }//GEN-LAST:event_jTClientsKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
+        Clients p = new Clients();
+        ClientsDAO dao = new ClientsDAO();
+        p.setId(Integer.parseInt(txtIdClients.getText()));
+        p.setCpf(txtCpfClients.getText());
+        p.setName(txtNomeClients.getText());
+        p.setAddress(txtEnderecoClients.getText());
+        p.setAddress_number(txtNumEnderecoClients.getText());
+        p.setComplement(txtComplementoClients.getText());
+        p.setState(txtEstadoClients.getText());
+        p.setCity(txtCidadeClients.getText());
+        p.setCep(txtCepClients.getText());
+        p.setFixed_phone(txtTelFixoClients.getText());
+        p.setCell_phone(txtCelularClients.getText());
+        p.setEmail(txtEmailClients.getText());
+        dao.create(p);
+        txtCpfClients.setText("");
+        txtNomeClients.setText("");
+        txtEnderecoClients.setText("");
+        txtComplementoClients.setText("");
+        txtEstadoClients.setText("");
+        txtCidadeClients.setText("");
+        txtCepClients.setText("");
+        txtTelFixoClients.setText("");
+        txtCelularClients.setText("");
+        txtEmailClients.setText("");
+        txtComplementoClients.setText("");
+        txtIdClients.setText("");
+        readJTable();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (jTClients.getSelectedRow() != -1) {
+
             Clients p = new Clients();
             ClientsDAO dao = new ClientsDAO();
-
-            p.setId(Integer.parseInt(txtIdClients.getText()));
-            p.setCpf(txtCpfClients.getText());
-            p.setName(txtNomeClients.getText());
-            p.setAddress(txtEnderecoClients.getText());
-            p.setAddress_number(txtNumEnderecoClients.getText());
-            p.setComplement(txtComplementoClients.getText());
-            p.setState(txtEstadoClients.getText());
-            p.setCity(txtCidadeClients.getText());
-            p.setCep(txtCepClients.getText());
-            p.setFixed_phone(txtTelFixoClients.getText());
-            p.setCell_phone(txtCelularClients.getText());
-            p.setEmail(txtEmailClients.getText());
-            dao.create(p);
-
+            p.setId((int) jTClients.getValueAt(jTClients.getSelectedRow(), 0));
+            dao.delete(p);
             txtCpfClients.setText("");
             txtNomeClients.setText("");
             txtEnderecoClients.setText("");
@@ -433,42 +454,6 @@ public class FClients extends javax.swing.JFrame {
             txtIdClients.setText("");
             readJTable();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(FClients.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (jTClients.getSelectedRow() != -1) {
-
-            try {
-
-                Clients p = new Clients();
-                ClientsDAO dao = new ClientsDAO();
-
-                p.setId((int) jTClients.getValueAt(jTClients.getSelectedRow(), 0));
-
-                dao.delete(p);
-
-                txtCpfClients.setText("");
-                txtNomeClients.setText("");
-                txtEnderecoClients.setText("");
-                txtComplementoClients.setText("");
-                txtEstadoClients.setText("");
-                txtCidadeClients.setText("");
-                txtCepClients.setText("");
-                txtTelFixoClients.setText("");
-                txtCelularClients.setText("");
-                txtEmailClients.setText("");
-                txtComplementoClients.setText("");
-                txtIdClients.setText("");
-
-                readJTable();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(FClients.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um cliente para excluir.");
         }
@@ -477,61 +462,46 @@ public class FClients extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (jTClients.getSelectedRow() != -1) {
 
+            Clients p = new Clients();
+            ClientsDAO dao = new ClientsDAO();
+            p.setId(Integer.parseInt(txtIdClients.getText()));
+            p.setCpf(txtCpfClients.getText());
+            p.setName(txtNomeClients.getText());
+            p.setAddress(txtEnderecoClients.getText());
+            p.setAddress_number(txtNumEnderecoClients.getText());
+            p.setComplement(txtComplementoClients.getText());
+            p.setState(txtEstadoClients.getText());
+            p.setCity(txtCidadeClients.getText());
+            p.setCep(txtCepClients.getText());
+            p.setFixed_phone(txtTelFixoClients.getText());
+            p.setCell_phone(txtCelularClients.getText());
+            p.setEmail(txtEmailClients.getText());
+            p.setId((int) jTClients.getValueAt(jTClients.getSelectedRow(), 0));
             try {
-
-                Clients p = new Clients();
-                ClientsDAO dao = new ClientsDAO();
-
-                p.setId(Integer.parseInt(txtIdClients.getText()));
-                p.setCpf(txtCpfClients.getText());
-                p.setName(txtNomeClients.getText());
-                p.setAddress(txtEnderecoClients.getText());
-                p.setAddress_number(txtNumEnderecoClients.getText());
-                p.setComplement(txtComplementoClients.getText());
-                p.setState(txtEstadoClients.getText());
-                p.setCity(txtCidadeClients.getText());
-                p.setCep(txtCepClients.getText());
-                p.setFixed_phone(txtTelFixoClients.getText());
-                p.setCell_phone(txtCelularClients.getText());
-                p.setEmail(txtEmailClients.getText());
-                p.setId((int) jTClients.getValueAt(jTClients.getSelectedRow(), 0));
-
-                try {
-                    dao.alter(p);
-                } catch (SQLException ex) {
-                    Logger.getLogger(FClients.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex) {
-                    Logger.getLogger(FClients.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                txtCpfClients.setText("");
-                txtNomeClients.setText("");
-                txtEnderecoClients.setText("");
-                txtComplementoClients.setText("");
-                txtEstadoClients.setText("");
-                txtCidadeClients.setText("");
-                txtCepClients.setText("");
-                txtTelFixoClients.setText("");
-                txtCelularClients.setText("");
-                txtEmailClients.setText("");
-                txtComplementoClients.setText("");
-                txtIdClients.setText("");
-                readJTable();
-
-            } catch (SQLException ex) {
+                dao.alter(p);
+            } catch (Exception ex) {
                 Logger.getLogger(FClients.class.getName()).log(Level.SEVERE, null, ex);
             }
+            txtCpfClients.setText("");
+            txtNomeClients.setText("");
+            txtEnderecoClients.setText("");
+            txtComplementoClients.setText("");
+            txtEstadoClients.setText("");
+            txtCidadeClients.setText("");
+            txtCepClients.setText("");
+            txtTelFixoClients.setText("");
+            txtCelularClients.setText("");
+            txtEmailClients.setText("");
+            txtComplementoClients.setText("");
+            txtIdClients.setText("");
+            readJTable();
 
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-        try {
-            readJTableForDesc(txtBuscaClients.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(FClients.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        readJTableForDesc(txtBuscaClients.getText());
 
     }//GEN-LAST:event_jButton4ActionPerformed
 

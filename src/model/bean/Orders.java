@@ -22,19 +22,19 @@ public class Orders {
     private String situation;
     private Employees employees;
     private Budgets budget;
-    
+
     public int getEmployeesId() {
         return employees.getId();
     }
-    
+
     public void setEmployeesId(int id) {
         this.employees.setId(id);
     }
-    
+
     public int getBudgetsId() {
         return budget.getId();
     }
-    
+
     public void setBudgetsId(int id) {
         this.budget.setId(id);
     }
@@ -101,38 +101,6 @@ public class Orders {
 
     public void setBudget(Budgets budget) {
         this.budget = budget;
-    }
-
-    public void create() throws Exception {
-        OrdersDAO oDAO = new OrdersDAO();
-        oDAO.create(this);
-    }
-
-    public void alter() throws Exception {
-        OrdersDAO oDAO = new OrdersDAO();
-        oDAO.alter(this);
-    }
-
-    public void delete() throws Exception {
-        OrdersDAO oDAO = new OrdersDAO();
-        oDAO.delete(this);
-    }
-
-    public ArrayList<Orders> list() throws Exception {
-        OrdersDAO oDAO = new OrdersDAO();
-        return oDAO.list();
-    }
-
-    public void load() throws Exception {
-        OrdersDAO oDAO = new OrdersDAO();
-        this.id = oDAO.loadById(this.id).getId();
-        this.date = oDAO.loadById(this.id).getDate();
-        this.discount = oDAO.loadById(this.id).getDiscount();
-        this.observation = oDAO.loadById(this.id).getObservation();
-        this.payment = oDAO.loadById(this.id).getPayment();
-        this.situation = oDAO.loadById(this.id).getSituation();
-        this.employees = oDAO.loadById(this.id).getEmployees();
-        this.budget = oDAO.loadById(this.id).getBudget();
     }
 
 }

@@ -14,6 +14,7 @@ import java.util.List;
  * @author Tong
  */
 public class Vehicles {
+
     private int id;
     private String model;
     private String brand;
@@ -95,52 +96,13 @@ public class Vehicles {
     public void setClient(Clients client) {
         this.client = client;
     }
-    
+
     public int getClientId() {
         return client.getId();
     }
-    
+
     public void setClientId(int id) {
         this.client.setId(id);
-    }
-    
-
-    public void create() throws Exception {
-        VehiclesDAO vDAO = new VehiclesDAO();
-        vDAO.create(this);
-    }
-
-    public void alter() throws Exception {
-        VehiclesDAO vDAO = new VehiclesDAO();
-        vDAO.alter(this);
-    }
-
-    public void delete() throws Exception {
-        VehiclesDAO vDAO = new VehiclesDAO();
-        vDAO.delete(this);
-    }
-
-    public ArrayList<Vehicles> list() throws Exception {
-        VehiclesDAO vDAO = new VehiclesDAO();
-        return vDAO.list();
-    }
-    
-    public List<Vehicles> read() throws Exception {
-        VehiclesDAO vDAO = new VehiclesDAO();
-        return vDAO.read();
-    }
-
-    public void load() throws Exception {
-        VehiclesDAO vDAO = new VehiclesDAO();
-        this.id = vDAO.loadById(this.id).getId();
-        this.model = vDAO.loadById(this.id).getModel();
-        this.brand = vDAO.loadById(this.id).getBrand();
-        this.plate = vDAO.loadById(this.id).getPlate();
-        this.year = vDAO.loadById(this.id).getYear();
-        this.km_current = vDAO.loadById(this.id).getKm_current();
-        this.color = vDAO.loadById(this.id).getColor();
-        this.client = vDAO.loadById(this.id).getClient();
-        this.type_fuel = vDAO.loadById(this.id).getType_fuel();
     }
 
 }

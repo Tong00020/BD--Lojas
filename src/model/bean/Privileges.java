@@ -40,32 +40,4 @@ public class Privileges {
     public void setIs_superadmin(boolean is_superadmin) {
         this.is_superadmin = is_superadmin;
     }
-
-    public void create() throws Exception {
-        PrivilegesDAO pDAO = new PrivilegesDAO();
-        pDAO.create(this);
-    }
-
-    public void alter() throws Exception {
-        PrivilegesDAO pDAO = new PrivilegesDAO();
-        pDAO.alter(this);
-    }
-
-    public void delete() throws Exception {
-        PrivilegesDAO pDAO = new PrivilegesDAO();
-        pDAO.delete(this);
-    }
-
-    public ArrayList<Privileges> list() throws Exception {
-        PrivilegesDAO pDAO = new PrivilegesDAO();
-        return pDAO.list();
-    }
-
-    public void load() throws Exception {
-        PrivilegesDAO pDAO = new PrivilegesDAO();
-        this.id = pDAO.loadById(this.id).getId();
-        this.name = pDAO.loadById(this.id).getName();
-        this.is_superadmin = pDAO.loadById(this.id).isIs_superadmin();
-
-    }
 }

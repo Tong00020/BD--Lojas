@@ -5,9 +5,6 @@
  */
 package model.bean;
 
-import model.dao.ClientsDAO;
-import java.util.ArrayList;
-
 /**
  *
  * @author Tong
@@ -121,42 +118,6 @@ public class Clients {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void create() throws Exception {
-        ClientsDAO cDAO = new ClientsDAO();
-        cDAO.create(this);
-    }
-
-    public void alter() throws Exception {
-        ClientsDAO cDAO = new ClientsDAO();
-        cDAO.alter(this);
-    }
-
-    public void delete() throws Exception {
-        ClientsDAO cDAO = new ClientsDAO();
-        cDAO.delete(this);
-    }
-
-    public ArrayList<Clients> list() throws Exception {
-        ClientsDAO cDAO = new ClientsDAO();
-        return cDAO.list();
-    }
-
-    public void load() throws Exception {
-        ClientsDAO cDAO = new ClientsDAO();
-        this.id = cDAO.loadById(this.id).getId();
-        this.cpf = cDAO.loadById(this.id).getCpf();
-        this.name = cDAO.loadById(this.id).getName();
-        this.address = cDAO.loadById(this.id).getAddress();
-        this.address_number = cDAO.loadById(this.id).getAddress_number();
-        this.complement = cDAO.loadById(this.id).getComplement();
-        this.state = cDAO.loadById(this.id).getState();
-        this.city = cDAO.loadById(this.id).getCity();
-        this.cep = cDAO.loadById(this.id).getCep();
-        this.fixed_phone = cDAO.loadById(this.id).getFixed_phone();
-        this.cell_phone = cDAO.loadById(this.id).getCell_phone();
-        this.email = cDAO.loadById(this.id).getEmail();
     }
 
 }
