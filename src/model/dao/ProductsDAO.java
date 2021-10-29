@@ -39,7 +39,7 @@ public class ProductsDAO {
             stmt.setString(3, p.getCategory());
             stmt.setDouble(4, p.getPrice());
             stmt.setInt(5, p.getBarcode());
-            stmt.setString(6, p.getQuantity());
+            stmt.setInt(6, p.getQuantity());
             stmt.setInt(7, p.getProvider().getId());
             stmt.executeUpdate();
 
@@ -67,7 +67,7 @@ public class ProductsDAO {
             stmt.setString(3, p.getCategory());
             stmt.setDouble(4, p.getPrice());
             stmt.setInt(5, p.getBarcode());
-            stmt.setString(6, p.getQuantity());
+            stmt.setInt(6, p.getQuantity());
             stmt.setInt(7, p.getProvider().getId());
             stmt.setInt(8, p.getId());
             stmt.executeUpdate();
@@ -83,7 +83,7 @@ public class ProductsDAO {
     public void delete(Products p) throws SQLException {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
-        
+
         PreparedStatement stmt = null;
 
         try {
@@ -129,7 +129,7 @@ public class ProductsDAO {
                 p.setCategory(rs.getString("category"));
                 p.setPrice(rs.getDouble("price"));
                 p.setBarcode(rs.getInt("barcode"));
-                p.setQuantity(rs.getString("quantity"));
+                p.setQuantity(rs.getInt("quantity"));
 
                 Providers pv = new Providers();
                 pv.setId(rs.getInt("id"));
@@ -166,7 +166,7 @@ public class ProductsDAO {
                 p.setCategory(rs.getString("category"));
                 p.setPrice(rs.getDouble("price"));
                 p.setBarcode(rs.getInt("barcode"));
-                p.setQuantity(rs.getString("quantity"));
+                p.setQuantity(rs.getInt("quantity"));
 
                 Providers pv = new Providers();
                 pv.setId(rs.getInt("id"));
@@ -181,11 +181,11 @@ public class ProductsDAO {
         }
         return p;
     }
-    
+
     public List<Products> read() throws SQLException {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
-        
+
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -205,12 +205,11 @@ public class ProductsDAO {
                 p.setCategory(rs.getString("category"));
                 p.setPrice(rs.getDouble("price"));
                 p.setBarcode(rs.getInt("barcode"));
-                p.setQuantity(rs.getString("quantity"));                
+                p.setQuantity(rs.getInt("quantity"));
                 p.setProvidersId(rs.getInt("id_provider"));
 
                 produtos.add(p);
-                
-                
+
             }
 
         } catch (SQLException ex) {
@@ -221,11 +220,11 @@ public class ProductsDAO {
         return produtos;
 
     }
-     
-      public List<Products> readForDesc(String desc) throws SQLException {
+
+    public List<Products> readForDesc(String desc) throws SQLException {
 
         Connection con = (Connection) ConnectionFactory.getConnection();
-        
+
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -233,8 +232,8 @@ public class ProductsDAO {
 
         try {
             stmt = con.prepareStatement("SELECT * FROM produto WHERE id LIKE ?");
-            stmt.setString(1, "%"+desc+"%");
-            
+            stmt.setString(1, "%" + desc + "%");
+
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -247,7 +246,7 @@ public class ProductsDAO {
                 p.setCategory(rs.getString("category"));
                 p.setPrice(rs.getDouble("price"));
                 p.setBarcode(rs.getInt("barcode"));
-                p.setQuantity(rs.getString("quantity"));         
+                p.setQuantity(rs.getInt("quantity"));
                 p.setProvidersId(rs.getInt("id_provider"));
                 produtos.add(p);
             }
