@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package view;
+
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import model.dao.PrivilegesDAO;
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableRowSorter;
 import model.bean.Privileges;
+
 /**
  *
  * @author Tong
@@ -22,11 +24,46 @@ public class FPrivileges extends javax.swing.JFrame {
      * Creates new form Privileges
      */
     public FPrivileges() {
-       initComponents();
+        initComponents();
         DefaultTableModel modelo = (DefaultTableModel) jTPrivileges.getModel();
         jTPrivileges.setRowSorter(new TableRowSorter(modelo));
 
         readJTable();
+    }
+
+    public void readJTable() {
+
+        DefaultTableModel modelo = (DefaultTableModel) jTPrivileges.getModel();
+        modelo.setNumRows(0);
+        PrivilegesDAO pdao = new PrivilegesDAO();
+
+        for (Privileges p : pdao.list()) {
+
+            modelo.addRow(new Object[]{
+                p.getId(),
+                p.getName(),
+                p.isIs_superadmin()
+            });
+
+        }
+
+    }
+
+    public void readJTableForDesc(int id) {
+
+        DefaultTableModel modelo = (DefaultTableModel) jTPrivileges.getModel();
+        modelo.setNumRows(0);
+        PrivilegesDAO pdao = new PrivilegesDAO();
+
+        for (Privileges p : pdao.loadById(id)) {
+
+            modelo.addRow(new Object[]{
+                p.getId(),
+                p.getName(),
+                p.isIs_superadmin()
+            });
+
+        }
     }
 
     /**
@@ -39,8 +76,8 @@ public class FPrivileges extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
-        txtNomePrivileges = new javax.swing.JTextField();
         txtIdPrivileges = new javax.swing.JTextField();
+        txtNomePrivileges = new javax.swing.JTextField();
         txtIsAdminPrivileges = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -138,16 +175,16 @@ public class FPrivileges extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(txtNomePrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtIdPrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIsAdminPrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(34, 34, 34)
+                            .addComponent(jLabel5)
+                            .addComponent(txtNomePrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtIdPrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)))
+                            .addComponent(jLabel2)
+                            .addComponent(txtIsAdminPrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jButton1)
@@ -166,17 +203,17 @@ public class FPrivileges extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel5))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNomePrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtIsAdminPrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIdPrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtIdPrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNomePrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
@@ -197,58 +234,23 @@ public class FPrivileges extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void readJTable() {
-        
-        DefaultTableModel modelo = (DefaultTableModel) jTPrivileges.getModel();
-        modelo.setNumRows(0);
-        PrivilegesDAO pdao = new PrivilegesDAO();
 
-        for (Privileges p : pdao.list()) {
-
-            modelo.addRow(new Object[]{
-                p.getId(),
-                p.getName(),
-                p.isIs_superadmin()
-            });
-
-        }
-
-    }
-    
-    
-    public void readJTableForDesc(int id) throws SQLException {
-        
-        DefaultTableModel modelo = (DefaultTableModel) jTPrivileges.getModel();
-        modelo.setNumRows(0);
-        PrivilegesDAO pdao = new PrivilegesDAO();
-
-        for (Privileges p : pdao.loadById(id)) {
-
-            modelo.addRow(new Object[]{
-                p.getId(),
-                p.getName(),
-                p.isIs_superadmin()
-            });
-
-        }
-    }
-    
     private void jTPrivilegesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTPrivilegesMouseClicked
         if (jTPrivileges.getSelectedRow() != -1) {
 
-            txtIdPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 1).toString());
-            txtNomePrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 2).toString());
-            txtIsAdminPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 3).toString());
-            
+            txtIdPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 0).toString());
+            txtNomePrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 1).toString());
+            txtIsAdminPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 2).toString());
+
         }
     }//GEN-LAST:event_jTPrivilegesMouseClicked
 
     private void jTPrivilegesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPrivilegesKeyReleased
         if (jTPrivileges.getSelectedRow() != -1) {
-
+            txtIdPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 0).toString());
+            txtNomePrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 1).toString());
+            txtIsAdminPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 2).toString());
             txtIdPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 1).toString());
-            txtNomePrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 2).toString());
-            txtIsAdminPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 3).toString());
         }
     }//GEN-LAST:event_jTPrivilegesKeyReleased
 

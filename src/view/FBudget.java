@@ -93,11 +93,11 @@ public class FBudget extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "PREÇO DE SERVIÇO", "TOTAL", "DATA", "DESCRIÇÃO", "ID VEICULOS", "ID SERVIÇOS", "ID CLIENTES"
+                "ID", "PREÇO DE SERVIÇO", "TOTAL DOS ITENS", "TOTAL", "DATA", "VEICULO", "SERVIÇO", "CLIENTE"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false
@@ -341,28 +341,28 @@ public class FBudget extends javax.swing.JFrame {
     private void jTBudgetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTBudgetMouseClicked
         if (jTBudget.getSelectedRow() != -1) {
 
-            txtIdBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 1).toString());
-            txtPrecoBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 2).toString());
-            txttotalItensBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 3).toString());
-            txtSubtotalBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 4).toString());
-            txtDateBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 5).toString());
-            txtIdVeiculosBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 6).toString());
-            txtIdServicosBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 7).toString());
-            txtIdClientesBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 8).toString());
+            txtIdBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 0).toString());
+            txtPrecoBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 1).toString());
+            txttotalItensBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 2).toString());
+            txtSubtotalBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 3).toString());
+            txtDateBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 4).toString());
+            txtIdVeiculosBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 5).toString());
+            txtIdServicosBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 6).toString());
+            txtIdClientesBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 7).toString());
         }
     }//GEN-LAST:event_jTBudgetMouseClicked
 
     private void jTBudgetKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTBudgetKeyReleased
         if (jTBudget.getSelectedRow() != -1) {
 
-            txtIdBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 1).toString());
-            txtPrecoBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 2).toString());
-            txttotalItensBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 3).toString());
-            txtSubtotalBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 4).toString());
-            txtDateBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 5).toString());
-            txtIdVeiculosBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 6).toString());
-            txtIdServicosBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 7).toString());
-            txtIdClientesBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 8).toString());
+            txtIdBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 0).toString());
+            txtPrecoBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 1).toString());
+            txttotalItensBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 2).toString());
+            txtSubtotalBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 3).toString());
+            txtDateBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 4).toString());
+            txtIdVeiculosBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 5).toString());
+            txtIdServicosBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 6).toString());
+            txtIdClientesBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 7).toString());
         }
     }//GEN-LAST:event_jTBudgetKeyReleased
 

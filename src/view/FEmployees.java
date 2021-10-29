@@ -479,24 +479,24 @@ public class FEmployees extends javax.swing.JFrame {
     private void jTEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTEmployeesMouseClicked
         if (jTEmployees.getSelectedRow() != -1) {
 
-            txtIdEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 1).toString());
-            txtNomeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 2).toString());
-            txtEmailEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 3).toString());
-            txtCpfEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 4).toString());
-            txtCelularEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 5).toString());
-            txtTelefoFixoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 6).toString());
-            txtCepEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 7).toString());
-            txtEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 8).toString());
-            txtNumEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 9).toString());
-            txtComplementoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 10).toString());
-            txtCidadeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 11).toString());
-            txtEstadoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 12).toString());
-            txtStatusEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
-            txtLoginEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 14).toString());
-            txtSenhaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
-            txtFUNÇÃOEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
-            txtReportaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17).toString());
-            txtIdPrivEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 18).toString());
+            txtIdEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0).toString());
+            txtNomeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 1).toString());
+            txtEmailEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 2).toString());
+            txtCpfEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 3).toString());
+            txtCelularEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 4).toString());
+            txtTelefoFixoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 5).toString());
+            txtCepEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 6).toString());
+            txtEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 7).toString());
+            txtNumEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 8).toString());
+            txtComplementoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 9).toString());
+            txtCidadeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 10).toString());
+            txtEstadoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 11).toString());
+            txtStatusEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 12).toString());
+            txtLoginEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
+            txtSenhaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 14).toString());
+            txtFUNÇÃOEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
+            txtReportaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
+            txtIdPrivEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17).toString());
 
         }
     }//GEN-LAST:event_jTEmployeesMouseClicked
@@ -504,24 +504,24 @@ public class FEmployees extends javax.swing.JFrame {
     private void jTEmployeesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEmployeesKeyReleased
         if (jTEmployees.getSelectedRow() != -1) {
 
-            txtIdEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 1).toString());
-            txtNomeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 2).toString());
-            txtEmailEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 3).toString());
-            txtCpfEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 4).toString());
-            txtCelularEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 5).toString());
-            txtTelefoFixoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 6).toString());
-            txtCepEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 7).toString());
-            txtEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 8).toString());
-            txtNumEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 9).toString());
-            txtComplementoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 10).toString());
-            txtCidadeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 11).toString());
-            txtEstadoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 12).toString());
-            txtStatusEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
-            txtLoginEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 14).toString());
-            txtSenhaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
-            txtFUNÇÃOEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
-            txtReportaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17).toString());
-            txtIdPrivEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 18).toString());
+            txtIdEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0).toString());
+            txtNomeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 1).toString());
+            txtEmailEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 2).toString());
+            txtCpfEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 3).toString());
+            txtCelularEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 4).toString());
+            txtTelefoFixoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 5).toString());
+            txtCepEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 6).toString());
+            txtEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 7).toString());
+            txtNumEnderecoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 8).toString());
+            txtComplementoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 9).toString());
+            txtCidadeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 10).toString());
+            txtEstadoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 11).toString());
+            txtStatusEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 12).toString());
+            txtLoginEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
+            txtSenhaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 14).toString());
+            txtFUNÇÃOEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
+            txtReportaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
+            txtIdPrivEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17).toString());
 
         }
     }//GEN-LAST:event_jTEmployeesKeyReleased

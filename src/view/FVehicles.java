@@ -300,7 +300,6 @@ public class FVehicles extends javax.swing.JFrame {
                 p.getColor(),
                 p.getType_fuel(),
                 p.getKm_current(),
-                p.getColor(),
                 p.getClient().getName()
             });
 
@@ -325,7 +324,6 @@ public class FVehicles extends javax.swing.JFrame {
                 p.getColor(),
                 p.getType_fuel(),
                 p.getKm_current(),
-                p.getColor(),
                 p.getClient().getName()
             });
 
@@ -335,30 +333,30 @@ public class FVehicles extends javax.swing.JFrame {
     private void jTVehiclesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTVehiclesMouseClicked
         if (jTVehicles.getSelectedRow() != -1) {
 
-            txtIdVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 1).toString());
-            txtAnoVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 5).toString());
-            txtCorVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 6).toString());
-            txtKmVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 8).toString());
-            txtModeloVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 2).toString());
-            txtPlacaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 4).toString());
-            txtCombusVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 7).toString());
-            txtMarcaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 3).toString());
-            txtIdClienteVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 9).toString());
+            txtIdVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 0).toString());
+            txtModeloVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 1).toString());
+            txtMarcaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 2).toString());
+            txtPlacaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 3).toString());
+            txtAnoVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 4).toString());
+            txtCorVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 5).toString());
+            txtCombusVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 6).toString());
+            txtKmVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 7).toString());
+            txtIdClienteVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 8).toString());
         }
     }//GEN-LAST:event_jTVehiclesMouseClicked
 
     private void jTVehiclesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTVehiclesKeyReleased
         if (jTVehicles.getSelectedRow() != -1) {
 
-            txtIdVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 1).toString());
-            txtAnoVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 5).toString());
-            txtCorVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 6).toString());
-            txtKmVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 8).toString());
-            txtModeloVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 2).toString());
-            txtPlacaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 4).toString());
-            txtCombusVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 7).toString());
-            txtMarcaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 3).toString());
-            txtIdClienteVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 9).toString());
+            txtIdVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 0).toString());
+            txtModeloVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 1).toString());
+            txtMarcaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 2).toString());
+            txtPlacaVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 3).toString());
+            txtAnoVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 4).toString());
+            txtCorVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 5).toString());
+            txtCombusVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 6).toString());
+            txtKmVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 7).toString());
+            txtIdClienteVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 8).toString());
         }
     }//GEN-LAST:event_jTVehiclesKeyReleased
 

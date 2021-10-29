@@ -289,15 +289,15 @@
               <Table columnCount="12" rowCount="0">
                 <Column editable="false" title="ID" type="java.lang.Integer"/>
                 <Column editable="false" title="NOME" type="java.lang.String"/>
+                <Column editable="false" title="ENDERE&#xc7;O" type="java.lang.String"/>
+                <Column editable="false" title="COMPLEMENTO" type="java.lang.String"/>
+                <Column editable="false" title="ESTADO" type="java.lang.String"/>
+                <Column editable="false" title="CIDADE" type="java.lang.String"/>
+                <Column editable="false" title="CEP" type="java.lang.String"/>
                 <Column editable="false" title="CNPJ" type="java.lang.String"/>
                 <Column editable="false" title="CELULAR" type="java.lang.String"/>
-                <Column editable="true" title="TELEFONE FIXO" type="java.lang.String"/>
-                <Column editable="false" title="CEP" type="java.lang.String"/>
-                <Column editable="false" title="ENDERE&#xc7;O" type="java.lang.String"/>
+                <Column editable="false" title="TELEFONE FIXO" type="java.lang.String"/>
                 <Column editable="false" title="N&#xba; DE ENDERE&#xc7;O" type="java.lang.String"/>
-                <Column editable="false" title="COMPLEMENTO" type="java.lang.String"/>
-                <Column editable="false" title="CIDADE" type="java.lang.String"/>
-                <Column editable="false" title="ESTADO" type="java.lang.String"/>
                 <Column editable="false" title="URL DO SITE" type="java.lang.String"/>
               </Table>
             </Property>

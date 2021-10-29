@@ -369,36 +369,36 @@ public class FClients extends javax.swing.JFrame {
     private void jTClientsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTClientsMouseClicked
         if (jTClients.getSelectedRow() != -1) {
 
-            txtIdClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 1).toString());
-            txtCpfClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 2).toString());
-            txtNomeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 3).toString());
-            txtEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 4).toString());
-            txtNumEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 5).toString());
-            txtComplementoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 6).toString());
-            txtEstadoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 7).toString());
-            txtCidadeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 8).toString());
-            txtCepClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 9).toString());
-            txtCelularClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 10).toString());
-            txtTelFixoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 11).toString());
-            txtEmailClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 12).toString());
+            txtIdClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 0).toString());
+            txtCpfClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 1).toString());
+            txtNomeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 2).toString());
+            txtEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 3).toString());
+            txtNumEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 4).toString());
+            txtComplementoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 5).toString());
+            txtEstadoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 6).toString());
+            txtCidadeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 7).toString());
+            txtCepClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 8).toString());
+            txtCelularClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 9).toString());
+            txtTelFixoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 10).toString());
+            txtEmailClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 11).toString());
         }
     }//GEN-LAST:event_jTClientsMouseClicked
 
     private void jTClientsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTClientsKeyReleased
         if (jTClients.getSelectedRow() != -1) {
 
-            txtIdClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 1).toString());
-            txtCpfClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 2).toString());
-            txtNomeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 3).toString());
-            txtEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 4).toString());
-            txtNumEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 5).toString());
-            txtComplementoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 6).toString());
-            txtEstadoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 7).toString());
-            txtCidadeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 8).toString());
-            txtCepClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 9).toString());
-            txtCelularClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 10).toString());
-            txtTelFixoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 11).toString());
-            txtEmailClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 12).toString());
+            txtIdClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 0).toString());
+            txtCpfClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 1).toString());
+            txtNomeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 2).toString());
+            txtEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 3).toString());
+            txtNumEnderecoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 4).toString());
+            txtComplementoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 5).toString());
+            txtEstadoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 6).toString());
+            txtCidadeClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 7).toString());
+            txtCepClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 8).toString());
+            txtCelularClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 9).toString());
+            txtTelFixoClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 10).toString());
+            txtEmailClients.setText(jTClients.getValueAt(jTClients.getSelectedRow(), 11).toString());
         }
     }//GEN-LAST:event_jTClientsKeyReleased
 

@@ -287,12 +287,12 @@ public class FBudgetsDetails extends javax.swing.JFrame {
     private void jTBudgetDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTBudgetDetailsMouseClicked
         if (jTBudgetDetails.getSelectedRow() != -1) {
 
-            txtIdBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 1).toString());
-            txtPrecoBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 2).toString());
-            txtQtBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 3).toString());
-            txtSubtotalBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 4).toString());
-            txtIdBudgetBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 5).toString());
-            txtIdProdutosBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 6).toString());
+            txtIdBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 0).toString());
+            txtPrecoBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 1).toString());
+            txtQtBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 2).toString());
+            txtSubtotalBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 3).toString());
+            txtIdBudgetBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 4).toString());
+            txtIdProdutosBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 5).toString());
 
         }
     }//GEN-LAST:event_jTBudgetDetailsMouseClicked
@@ -300,12 +300,12 @@ public class FBudgetsDetails extends javax.swing.JFrame {
     private void jTBudgetDetailsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTBudgetDetailsKeyReleased
         if (jTBudgetDetails.getSelectedRow() != -1) {
 
-            txtIdBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 1).toString());
-            txtPrecoBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 2).toString());
-            txtQtBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 3).toString());
-            txtSubtotalBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 4).toString());
-            txtIdBudgetBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 5).toString());
-            txtIdProdutosBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 6).toString());
+            txtIdBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 0).toString());
+            txtPrecoBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 1).toString());
+            txtQtBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 2).toString());
+            txtSubtotalBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 3).toString());
+            txtIdBudgetBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 4).toString());
+            txtIdProdutosBudgetDetails.setText(jTBudgetDetails.getValueAt(jTBudgetDetails.getSelectedRow(), 5).toString());
         }
     }//GEN-LAST:event_jTBudgetDetailsKeyReleased
 

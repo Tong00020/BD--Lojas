@@ -101,14 +101,14 @@ public class FProviders extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOME", "CNPJ", "CELULAR", "TELEFONE FIXO", "CEP", "ENDEREÇO", "Nº DE ENDEREÇO", "COMPLEMENTO", "CIDADE", "ESTADO", "URL DO SITE"
+                "ID", "NOME", "ENDEREÇO", "COMPLEMENTO", "ESTADO", "CIDADE", "CEP", "CNPJ", "CELULAR", "TELEFONE FIXO", "Nº DE ENDEREÇO", "URL DO SITE"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -344,15 +344,15 @@ public class FProviders extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getName(),
+                p.getAddress(),
+                p.getComplement(),
+                p.getState(),
+                p.getCity(),
+                p.getCep(),
                 p.getCnpj(),
                 p.getCell_phone(),
                 p.getFixed_phone(),
-                p.getCep(),
-                p.getAddress(),
                 p.getAddress_number(),
-                p.getComplement(),
-                p.getCity(),
-                p.getState(),
                 p.getUrl_site()
             });
 
@@ -362,36 +362,37 @@ public class FProviders extends javax.swing.JFrame {
     private void jTProvidersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProvidersMouseClicked
         if (jTProviders.getSelectedRow() != -1) {
 
-            txtIdProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 1).toString());
-            txtNomeProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 2).toString());
-            txtCelularProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 3).toString());
-            txtCnpjProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 4).toString());
-            txtCepProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 5).toString());
-            txtNumEnderecoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 6).toString());
-            txtEstadoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 7).toString());
-            txtCidadeProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 8).toString());
-            txtComplementoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 9).toString());
-            txtEnderecoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 10).toString());
+            txtIdProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 0).toString());
+            txtNomeProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 1).toString());
+            txtEnderecoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 2).toString());
+            txtComplementoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 3).toString());
+            txtEstadoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 4).toString());
+            txtCidadeProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 5).toString());
+            txtCepProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 6).toString());
+            txtCnpjProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 7).toString());
+            txtCelularProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 8).toString());
+            txtTelefoneProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 9).toString());
+            txtNumEnderecoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 10).toString());
             txtSiteProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 11).toString());
-            txtTelefoneProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 12).toString());
+
         }
     }//GEN-LAST:event_jTProvidersMouseClicked
 
     private void jTProvidersKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProvidersKeyReleased
         if (jTProviders.getSelectedRow() != -1) {
 
-            txtIdProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 1).toString());
-            txtNomeProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 2).toString());
-            txtCelularProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 3).toString());
-            txtCnpjProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 4).toString());
-            txtCepProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 5).toString());
-            txtNumEnderecoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 6).toString());
-            txtEstadoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 7).toString());
-            txtCidadeProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 8).toString());
-            txtComplementoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 9).toString());
-            txtEnderecoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 10).toString());
+            txtIdProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 0).toString());
+            txtNomeProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 1).toString());
+            txtEnderecoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 2).toString());
+            txtComplementoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 3).toString());
+            txtEstadoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 4).toString());
+            txtCidadeProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 5).toString());
+            txtCepProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 6).toString());
+            txtCnpjProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 7).toString());
+            txtCelularProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 8).toString());
+            txtTelefoneProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 9).toString());
+            txtNumEnderecoProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 10).toString());
             txtSiteProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 11).toString());
-            txtTelefoneProviders.setText(jTProviders.getValueAt(jTProviders.getSelectedRow(), 12).toString());
         }
     }//GEN-LAST:event_jTProvidersKeyReleased
 

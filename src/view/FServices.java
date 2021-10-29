@@ -210,7 +210,7 @@ public class FServices extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getName(),
-                p.getDescription()
+                p.getDescription() == null ? "-" : p.getDescription()
             });
         }
     }
@@ -226,7 +226,7 @@ public class FServices extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getName(),
-                p.getDescription()
+                p.getDescription() == null ? "-" : p.getDescription()
             });
         }
     }
@@ -234,9 +234,9 @@ public class FServices extends javax.swing.JFrame {
     private void jTServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTServicesMouseClicked
         if (jTServices.getSelectedRow() != -1) {
 
-            txtIdServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 1).toString());
-            txtNomeServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 2).toString());
-            txtDescricaoServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 3).toString());
+            txtIdServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 0).toString());
+            txtNomeServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 1).toString());
+            txtDescricaoServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 2).toString());
 
         }
     }//GEN-LAST:event_jTServicesMouseClicked
@@ -244,9 +244,9 @@ public class FServices extends javax.swing.JFrame {
     private void jTServicesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTServicesKeyReleased
         if (jTServices.getSelectedRow() != -1) {
 
-            txtIdServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 1).toString());
-            txtNomeServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 2).toString());
-            txtDescricaoServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 3).toString());
+            txtIdServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 0).toString());
+            txtNomeServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 1).toString());
+            txtDescricaoServices.setText(jTServices.getValueAt(jTServices.getSelectedRow(), 2).toString());
         }
     }//GEN-LAST:event_jTServicesKeyReleased
 

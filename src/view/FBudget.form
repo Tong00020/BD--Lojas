@@ -231,12 +231,12 @@
               <Table columnCount="8" rowCount="0">
                 <Column editable="false" title="ID" type="java.lang.Integer"/>
                 <Column editable="false" title="PRE&#xc7;O DE SERVI&#xc7;O" type="java.lang.Double"/>
+                <Column editable="false" title="TOTAL DOS ITENS" type="java.lang.Double"/>
                 <Column editable="false" title="TOTAL" type="java.lang.Double"/>
                 <Column editable="false" title="DATA" type="java.lang.String"/>
-                <Column editable="false" title="DESCRI&#xc7;&#xc3;O" type="java.lang.Object"/>
-                <Column editable="false" title="ID VEICULOS" type="java.lang.Object"/>
-                <Column editable="false" title="ID SERVI&#xc7;OS" type="java.lang.Object"/>
-                <Column editable="false" title="ID CLIENTES" type="java.lang.Object"/>
+                <Column editable="false" title="VEICULO" type="java.lang.Object"/>
+                <Column editable="false" title="SERVI&#xc7;O" type="java.lang.Object"/>
+                <Column editable="false" title="CLIENTE" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

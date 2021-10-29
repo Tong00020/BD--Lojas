@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package view;
+
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import model.dao.OrdersDAO;
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableRowSorter;
 import model.bean.Orders;
+
 /**
  *
  * @author Tong
@@ -22,7 +24,7 @@ public class Forders extends javax.swing.JFrame {
      * Creates new form Orders
      */
     public Forders() {
-         initComponents();
+        initComponents();
         DefaultTableModel modelo = (DefaultTableModel) jTOrders.getModel();
         jTOrders.setRowSorter(new TableRowSorter(modelo));
 
@@ -267,9 +269,8 @@ public class Forders extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
     public void readJTable() {
-        
+
         DefaultTableModel modelo = (DefaultTableModel) jTOrders.getModel();
         modelo.setNumRows(0);
         OrdersDAO pdao = new OrdersDAO();
@@ -279,7 +280,7 @@ public class Forders extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getDiscount(),
-                p.getObservation(),
+                p.getObservation() == null ? "-" : p.getObservation(),
                 p.getPayment(),
                 p.getSituation(),
                 p.getDate(),
@@ -290,10 +291,9 @@ public class Forders extends javax.swing.JFrame {
         }
 
     }
-    
-    
+
     public void readJTableForDesc(int id) throws SQLException {
-        
+
         DefaultTableModel modelo = (DefaultTableModel) jTOrders.getModel();
         modelo.setNumRows(0);
         OrdersDAO pdao = new OrdersDAO();
@@ -303,7 +303,7 @@ public class Forders extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getDiscount(),
-                p.getObservation(),
+                p.getObservation() == null ? "-" : p.getObservation(),
                 p.getPayment(),
                 p.getSituation(),
                 p.getDate(),
@@ -313,33 +313,33 @@ public class Forders extends javax.swing.JFrame {
 
         }
     }
-    
+
     private void jTOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTOrdersMouseClicked
         if (jTOrders.getSelectedRow() != -1) {
 
-            txtIdOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 1).toString());
-            txtDescontoOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 2).toString());
-            txtObservacoesOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 3).toString());
-            txtPrecoTotalOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 4).toString());
-            txtSituacaoOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 5).toString());
-            txtDataOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 6).toString());
-            txtIdEmpregadoOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 7).toString());
-            txtIdBudgetOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 8).toString());
-            
+            txtIdOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 0).toString());
+            txtDescontoOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 1).toString());
+            txtObservacoesOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 2).toString());
+            txtPrecoTotalOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 3).toString());
+            txtSituacaoOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 4).toString());
+            txtDataOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 5).toString());
+            txtIdEmpregadoOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 6).toString());
+            txtIdBudgetOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 7).toString());
+
         }
     }//GEN-LAST:event_jTOrdersMouseClicked
 
     private void jTOrdersKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTOrdersKeyReleased
         if (jTOrders.getSelectedRow() != -1) {
 
-            txtIdOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 1).toString());
-            txtDescontoOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 2).toString());
-            txtObservacoesOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 3).toString());
-            txtPrecoTotalOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 4).toString());
-            txtSituacaoOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 5).toString());
-            txtDataOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 6).toString());
-            txtIdEmpregadoOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 7).toString());
-            txtIdBudgetOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 8).toString());
+            txtIdOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 0).toString());
+            txtDescontoOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 1).toString());
+            txtObservacoesOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 2).toString());
+            txtPrecoTotalOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 3).toString());
+            txtSituacaoOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 4).toString());
+            txtDataOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 5).toString());
+            txtIdEmpregadoOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 6).toString());
+            txtIdBudgetOrders.setText(jTOrders.getValueAt(jTOrders.getSelectedRow(), 7).toString());
         }
     }//GEN-LAST:event_jTOrdersKeyReleased
 
@@ -350,7 +350,7 @@ public class Forders extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
 //        readJTableForDesc(txtBuscaOrders.getText());
-        
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

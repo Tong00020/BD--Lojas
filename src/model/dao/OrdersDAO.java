@@ -32,7 +32,7 @@ public class OrdersDAO {
 
         try {
             String sql = "INSERT INTO orders (date,discount,observation,payment,"
-                    + "situation,id_employees,id_budget) "
+                    + "situation,employees_id,budget_id) "
                     + "VALUES (now(),?,?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
             stmt.setDouble(1, o.getDiscount());
@@ -60,7 +60,7 @@ public class OrdersDAO {
         try {
             String sql = "UPDATE orders SET date = now(),discount = ?,"
                     + "observation = ?,payment = ?,situation = ?,"
-                    + "id_employees = ?,id_budget = ? WHERE id = ?";
+                    + "employees_id = ?,budget_id = ? WHERE id = ?";
             stmt = con.prepareStatement(sql);
             stmt.setDouble(1, o.getDiscount());
             stmt.setString(2, o.getObservation());
@@ -128,12 +128,12 @@ public class OrdersDAO {
                 o.setSituation(rs.getString("situation"));
 
                 Employees e = new Employees();
-                e.setId(rs.getInt("id_employees"));
+                e.setId(rs.getInt("employees_id"));
                 e.setName(rs.getString("employees.name"));
                 o.setEmployees(e);
 
                 Budgets b = new Budgets();
-                b.setId(rs.getInt("id_budget"));
+                b.setId(rs.getInt("budget_id"));
                 b.setDate(rs.getDate("budget.date"));
                 o.setBudget(b);
 
@@ -169,12 +169,12 @@ public class OrdersDAO {
                 o.setSituation(rs.getString("situation"));
 
                 Employees e = new Employees();
-                e.setId(rs.getInt("id_employees"));
+                e.setId(rs.getInt("employees_id"));
                 e.setName(rs.getString("employees.name"));
                 o.setEmployees(e);
 
                 Budgets b = new Budgets();
-                b.setId(rs.getInt("id_budget"));
+                b.setId(rs.getInt("budget_id"));
                 b.setDate(rs.getDate("budget.date"));
                 o.setBudget(b);
 
@@ -210,8 +210,8 @@ public class OrdersDAO {
                 o.setObservation(rs.getString("observation"));
                 o.setPayment(rs.getString("payment"));
                 o.setSituation(rs.getString("situation"));
-                o.setEmployeesId(rs.getInt("id_employees"));
-                o.setBudgetsId(rs.getInt("id_budget"));
+                o.setEmployeesId(rs.getInt("employees_id"));
+                o.setBudgetsId(rs.getInt("budget_id"));
                 produtos.add(o);
                 
                 
@@ -251,8 +251,8 @@ public class OrdersDAO {
                 o.setObservation(rs.getString("observation"));
                 o.setPayment(rs.getString("payment"));
                 o.setSituation(rs.getString("situation"));
-                o.setEmployeesId(rs.getInt("id_employees"));
-                o.setBudgetsId(rs.getInt("id_budget"));
+                o.setEmployeesId(rs.getInt("employees_id"));
+                o.setBudgetsId(rs.getInt("budget_id"));
                 produtos.add(o);
             }
 

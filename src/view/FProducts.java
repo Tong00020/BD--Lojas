@@ -271,7 +271,7 @@ public class FProducts extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getName(),
-                p.getDescription(),
+                p.getDescription() == null ? "-" : p.getDescription(),
                 p.getCategory(),
                 p.getPrice(),
                 p.getBarcode(),
@@ -294,7 +294,7 @@ public class FProducts extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getName(),
-                p.getDescription(),
+                p.getDescription() == null ? "-" : p.getDescription(),
                 p.getCategory(),
                 p.getPrice(),
                 p.getBarcode(),
@@ -314,28 +314,29 @@ public class FProducts extends javax.swing.JFrame {
     private void jTProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProductsMouseClicked
         if (jTProducts.getSelectedRow() != -1) {
 
-            txtIdProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 1).toString());
+            txtIdProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 0).toString());
+            txtNomeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 1).toString());
             txtDescProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 2).toString());
-            txtQtdProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 3).toString());
+            txtCategoriaProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 3).toString());
             txtPrecoProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 4).toString());
-            txtNomeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 5).toString());
-            txtIdProvedorProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 8).toString());
-            txtBarCodeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 7).toString());
-            txtCategoriaProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 6).toString());
+            txtBarCodeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 5).toString());
+            txtQtdProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 6).toString());
+            txtIdProvedorProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 7).toString());
         }
     }//GEN-LAST:event_jTProductsMouseClicked
 
     private void jTProductsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProductsKeyReleased
         if (jTProducts.getSelectedRow() != -1) {
 
-            txtIdProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 1).toString());
+            txtIdProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 0).toString());
+            txtNomeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 1).toString());
             txtDescProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 2).toString());
-            txtQtdProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 3).toString());
+            txtCategoriaProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 3).toString());
             txtPrecoProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 4).toString());
-            txtNomeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 5).toString());
-            txtIdProvedorProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 8).toString());
-            txtBarCodeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 7).toString());
-            txtCategoriaProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 6).toString());
+            txtBarCodeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 5).toString());
+            txtQtdProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 6).toString());
+            txtIdProvedorProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 7).toString());
+
         }
 
     }//GEN-LAST:event_jTProductsKeyReleased
