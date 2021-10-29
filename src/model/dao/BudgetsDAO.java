@@ -108,7 +108,7 @@ public class BudgetsDAO {
         List<Budgets> budgets = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM budget";
+            String sql = "SELECT * FROM budget inner join vehicles on budget.vehicles_id = vehicles.id inner join services on budget.services_id = services.id inner join clients on budget.clients_id = clients.id";
             stmt = con.prepareStatement(sql);
             /*
             ResultSet é uma interface utilizada pra guardar dados vindos 
@@ -130,14 +130,17 @@ public class BudgetsDAO {
 
                 Vehicles v = new Vehicles();
                 v.setId(rs.getInt("vehicles_id"));
+                v.setPlate(rs.getString("plate"));
                 b.setVehicle(v);
 
                 Services s = new Services();
                 s.setId(rs.getInt("services_id"));
+                s.setName(rs.getString("name"));
                 b.setService(s);
 
                 Clients c = new Clients();
                 c.setId(rs.getInt("clients_id"));
+                c.setName(rs.getString("clients.name"));
                 b.setClient(c);
 
                 budgets.add(b);
@@ -158,7 +161,7 @@ public class BudgetsDAO {
         List<Budgets> budgets = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM budget WHERE id=?";
+            String sql = "SELECT * FROM budget inner join vehicles on budget.vehicles_id = vehicles.id inner join services on budget.services_id = services.id inner join clients on budget.clients_id = clients.id WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -182,7 +185,7 @@ public class BudgetsDAO {
 
                 Clients c = new Clients();
                 c.setId(rs.getInt("clients_id"));
-                c.setName(rs.getString("name"));
+                c.setName(rs.getString("clients.name"));
                 b.setClient(c);
 
                 budgets.add(b);

@@ -283,8 +283,8 @@ public class Forders extends javax.swing.JFrame {
                 p.getPayment(),
                 p.getSituation(),
                 p.getDate(),
-                p.getEmployeesId(),
-                p.getBudgetsId()
+                p.getEmployees().getName(),
+                p.getBudget().getDate()
             });
 
         }
@@ -307,8 +307,8 @@ public class Forders extends javax.swing.JFrame {
                 p.getPayment(),
                 p.getSituation(),
                 p.getDate(),
-                p.getEmployeesId(),
-                p.getBudgetsId()
+                p.getEmployees().getName(),
+                p.getBudget().getDate()
             });
 
         }

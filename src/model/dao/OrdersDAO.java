@@ -107,7 +107,7 @@ public class OrdersDAO {
         List<Orders> orders = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM orders";
+            String sql = "SELECT * FROM loja.orders inner join employees on orders.employees_id = employees.id inner join budget on orders.budget_id = budget.id";
             stmt = con.prepareStatement(sql);
             /*
             ResultSet é uma interface utilizada pra guardar dados vindos 
@@ -129,11 +129,12 @@ public class OrdersDAO {
 
                 Employees e = new Employees();
                 e.setId(rs.getInt("id_employees"));
-                e.setName(rs.getString("name"));
+                e.setName(rs.getString("employees.name"));
                 o.setEmployees(e);
 
                 Budgets b = new Budgets();
                 b.setId(rs.getInt("id_budget"));
+                b.setDate(rs.getDate("budget.date"));
                 o.setBudget(b);
 
                 orders.add(o);
@@ -154,7 +155,7 @@ public class OrdersDAO {
         List<Orders> orders = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM orders WHERE id=?";
+            String sql = "SELECT * FROM loja.orders inner join employees on orders.employees_id = employees.id inner join budget on orders.budget_id = budget.id WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -169,11 +170,12 @@ public class OrdersDAO {
 
                 Employees e = new Employees();
                 e.setId(rs.getInt("id_employees"));
-                e.setName(rs.getString("name"));
+                e.setName(rs.getString("employees.name"));
                 o.setEmployees(e);
 
                 Budgets b = new Budgets();
                 b.setId(rs.getInt("id_budget"));
+                b.setDate(rs.getDate("budget.date"));
                 o.setBudget(b);
 
                 orders.add(o);

@@ -276,7 +276,7 @@ public class FProducts extends javax.swing.JFrame {
                 p.getPrice(),
                 p.getBarcode(),
                 p.getQuantity(),
-                p.getProvidersId()
+                p.getProvider().getName()
             });
 
         }
@@ -299,7 +299,7 @@ public class FProducts extends javax.swing.JFrame {
                 p.getPrice(),
                 p.getBarcode(),
                 p.getQuantity(),
-                p.getProvidersId()
+                p.getProvider().getName()
             });
 
         }

@@ -108,7 +108,7 @@ public class ProductsDAO {
         List<Products> products = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM products";
+            String sql = "SELECT * FROM loja.products inner join providers on products.providers_id = providers.id";
             stmt = con.prepareStatement(sql);
             /*
             ResultSet é uma interface utilizada pra guardar dados vindos 
@@ -132,7 +132,7 @@ public class ProductsDAO {
 
                 Providers pv = new Providers();
                 pv.setId(rs.getInt("id"));
-                pv.setName(rs.getString("name"));
+                pv.setName(rs.getString("providers.name"));
                 p.setProvider(pv);
 
                 products.add(p);
@@ -154,7 +154,7 @@ public class ProductsDAO {
         List<Products> products = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM products WHERE id=?";
+            String sql = "SELECT * FROM loja.products inner join providers on products.providers_id = providers.id WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -170,7 +170,7 @@ public class ProductsDAO {
 
                 Providers pv = new Providers();
                 pv.setId(rs.getInt("id"));
-                pv.setName(rs.getString("name"));
+                pv.setName(rs.getString("providers.name"));
                 p.setProvider(pv);
 
                 products.add(p);

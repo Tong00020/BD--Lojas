@@ -135,7 +135,7 @@ public class EmployeesDAO {
         ResultSet rs = null;
         List<Employees> employees = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM employees";
+            String sql = "SELECT * FROM loja.employees inner join privileges on employees.privileges_id = privileges.id";
             stmt = con.prepareStatement(sql);
             /*
             ResultSet é uma interface utilizada pra guardar dados vindos 
@@ -174,7 +174,7 @@ public class EmployeesDAO {
 
                 Privileges p = new Privileges();
                 p.setId(rs.getInt("privileges_id"));
-                p.setName(rs.getString("name"));
+                p.setName(rs.getString("privileges.name"));
                 employee.setPrivilege(p);
 
                 employees.add(employee);
@@ -196,7 +196,7 @@ public class EmployeesDAO {
         List<Employees> employees = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM employees WHERE id = ?";
+            String sql = "SELECT * FROM loja.employees inner join privileges on employees.privileges_id = privileges.id WHERE id = ?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -228,7 +228,7 @@ public class EmployeesDAO {
 
                 Privileges p = new Privileges();
                 p.setId(rs.getInt("privileges_id"));
-                p.setName(rs.getString("name"));
+                p.setName(rs.getString("privileges.name"));
                 employee.setPrivilege(p);
 
                 employees.add(employee);

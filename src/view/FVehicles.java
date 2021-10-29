@@ -301,7 +301,7 @@ public class FVehicles extends javax.swing.JFrame {
                 p.getType_fuel(),
                 p.getKm_current(),
                 p.getColor(),
-                p.getClientId()
+                p.getClient().getName()
             });
 
         }
@@ -326,7 +326,7 @@ public class FVehicles extends javax.swing.JFrame {
                 p.getType_fuel(),
                 p.getKm_current(),
                 p.getColor(),
-                p.getClientId()
+                p.getClient().getName()
             });
 
         }

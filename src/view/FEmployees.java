@@ -7,11 +7,8 @@ package view;
 
 import model.bean.Employees;
 import model.dao.EmployeesDAO;
-import java.sql.SQLException;
-import javax.swing.table.DefaultTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -28,18 +25,18 @@ public class FEmployees extends javax.swing.JFrame {
         initComponents();
         DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
         jTEmployees.setRowSorter(new TableRowSorter(modelo));
-        
+
         readJTable();
     }
-    
+
     public void readJTable() {
-        
+
         DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
         modelo.setNumRows(0);
         EmployeesDAO pdao = new EmployeesDAO();
-        
+
         for (Employees p : pdao.list()) {
-            
+
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getName(),
@@ -57,22 +54,22 @@ public class FEmployees extends javax.swing.JFrame {
                 p.getLogin(),
                 p.getPassword(),
                 p.getJob_title(),
-                p.getReports_to(),
-                p.getPrivilege()
-            
+                p.getReports_to() == null ? "NÃO SE REPORTA A NINGUÉM" : p.getReports_to(),
+                p.getPrivilege().getName()
+
             });
-            
+
         }
-        
+
     }
-    
+
     public void readJTableForId(int id) {
         DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
         modelo.setNumRows(0);
         EmployeesDAO pdao = new EmployeesDAO();
-        
+
         for (Employees p : pdao.loadById(id)) {
-            
+
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getName(),
@@ -90,11 +87,11 @@ public class FEmployees extends javax.swing.JFrame {
                 p.getLogin(),
                 p.getPassword(),
                 p.getJob_title(),
-                p.getReports_to(),
-                p.getPrivilege()
-            
+                p.getReports_to() == null ? "NÃO SE REPORTA A NINGUÉM" : p.getReports_to(),
+                p.getPrivilege().getName()
+
             });
-            
+
         }
     }
 
@@ -481,7 +478,7 @@ public class FEmployees extends javax.swing.JFrame {
 //    }
     private void jTEmployeesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTEmployeesMouseClicked
         if (jTEmployees.getSelectedRow() != -1) {
-            
+
             txtIdEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 1).toString());
             txtNomeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 2).toString());
             txtEmailEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 3).toString());
@@ -500,13 +497,13 @@ public class FEmployees extends javax.swing.JFrame {
             txtFUNÇÃOEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
             txtReportaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17).toString());
             txtIdPrivEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 18).toString());
-            
+
         }
     }//GEN-LAST:event_jTEmployeesMouseClicked
 
     private void jTEmployeesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTEmployeesKeyReleased
         if (jTEmployees.getSelectedRow() != -1) {
-            
+
             txtIdEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 1).toString());
             txtNomeEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 2).toString());
             txtEmailEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 3).toString());
@@ -525,7 +522,7 @@ public class FEmployees extends javax.swing.JFrame {
             txtFUNÇÃOEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
             txtReportaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17).toString());
             txtIdPrivEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 18).toString());
-            
+
         }
     }//GEN-LAST:event_jTEmployeesKeyReleased
 

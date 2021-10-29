@@ -101,7 +101,7 @@ public class BudgetsDetailsDAO {
         List<BudgetsDetails> budgetsDetails = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM budget_details";
+            String sql = "SELECT * FROM loja.budget_details inner join budget on budget_details.budget_id = budget.id inner join products on budget_details.products_id = products.id";
             stmt = con.prepareStatement(sql);
             /*
             ResultSet é uma interface utilizada pra guardar dados vindos 
@@ -121,10 +121,12 @@ public class BudgetsDetailsDAO {
 
                 Budgets b = new Budgets();
                 b.setId(rs.getInt("budget_id"));
+                b.setDate(rs.getDate("budget.date"));
                 bd.setBudget(b);
 
                 Products p = new Products();
                 p.setId(rs.getInt("products_id"));
+                p.setName(rs.getString("products.name"));
                 bd.setProduct(p);
 
                 budgetsDetails.add(bd);
@@ -145,7 +147,7 @@ public class BudgetsDetailsDAO {
         List<BudgetsDetails> budgetsDetails = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM budget_details WHERE id=?";
+            String sql = "SELECT * FROM loja.budget_details inner join budget on budget_details.budget_id = budget.id inner join products on budget_details.products_id = products.id WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -158,12 +160,12 @@ public class BudgetsDetailsDAO {
 
                 Budgets b = new Budgets();
                 b.setId(rs.getInt("budget_id"));
-                b.setDate(rs.getDate("date"));
+                b.setDate(rs.getDate("budget.date"));
                 bd.setBudget(b);
 
                 Products p = new Products();
                 p.setId(rs.getInt("products_id"));
-                p.setName(rs.getString("name"));
+                p.setName(rs.getString("products.name"));
                 bd.setProduct(p);
 
                 budgetsDetails.add(bd);

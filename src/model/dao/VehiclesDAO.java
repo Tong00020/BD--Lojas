@@ -106,7 +106,7 @@ public class VehiclesDAO {
         List<Vehicles> vehicles = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM vehicles";
+            String sql = "SELECT * FROM loja.vehicles inner join clients on vehicles.clients_id = clients.id";
             stmt = con.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -121,8 +121,8 @@ public class VehiclesDAO {
                 v.setType_fuel(rs.getString("type_fuel"));
 
                 Clients c = new Clients();
-                c.setId(rs.getInt("id"));
-//                c.setName(rs.getString("name"));
+                c.setId(rs.getInt("clients.id"));
+                c.setName(rs.getString("clients.name"));
                 v.setClient(c);
 
                 vehicles.add(v);
@@ -143,7 +143,7 @@ public class VehiclesDAO {
         List<Vehicles> vehicles = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM clients WHERE id=?";
+            String sql = "SELECT * FROM loja.vehicles inner join clients on vehicles.clients_id = clients.id WHERE id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -159,8 +159,8 @@ public class VehiclesDAO {
                 v.setType_fuel(rs.getString("type_fuel"));
 
                 Clients c = new Clients();
-                c.setId(rs.getInt("id"));
-                c.setName(rs.getString("name"));
+                c.setId(rs.getInt("clients.id"));
+                c.setName(rs.getString("clients.name"));
                 v.setClient(c);
 
                 vehicles.add(v);

@@ -306,9 +306,9 @@ public class FBudget extends javax.swing.JFrame {
                 p.getTotal_items(),
                 p.getTotal(),
                 p.getDate(),
-                p.getVehiclesId(),
-                p.getServicesId(),
-                p.getClientsId()
+                p.getVehicle().getPlate(),
+                p.getService().getName(),
+                p.getClient().getName()
             });
 
         }
@@ -329,9 +329,9 @@ public class FBudget extends javax.swing.JFrame {
                 p.getTotal_items(),
                 p.getTotal(),
                 p.getDate(),
-                p.getVehiclesId(),
-                p.getServicesId(),
-                p.getClientsId()
+                p.getVehicle().getPlate(),
+                p.getService().getName(),
+                p.getClient().getName()
             });
 
         }

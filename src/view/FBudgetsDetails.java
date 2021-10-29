@@ -255,8 +255,8 @@ public class FBudgetsDetails extends javax.swing.JFrame {
                 p.getPrice(),
                 p.getAmount(),
                 p.getSubtotal(),
-                p.getBudgetsId(),
-                p.getProductsId()
+                p.getBudget().getDate(),
+                p.getProduct().getName()
             });
 
         }
@@ -276,8 +276,8 @@ public class FBudgetsDetails extends javax.swing.JFrame {
                 p.getPrice(),
                 p.getAmount(),
                 p.getSubtotal(),
-                p.getBudgetsId(),
-                p.getProductsId()
+                p.getBudget().getDate(),
+                p.getProduct().getName()
             });
 
         }
