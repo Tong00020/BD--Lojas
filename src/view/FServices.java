@@ -214,13 +214,13 @@ public class FServices extends javax.swing.JFrame {
         }
     }
 
-    public void readJTableForDesc(int id) {
+    public void readJTableForDesc(String name) {
 
         DefaultTableModel modelo = (DefaultTableModel) jTServices.getModel();
         modelo.setNumRows(0);
         ServicesDAO pdao = new ServicesDAO();
 
-        for (Services p : pdao.loadById(id)) {
+        for (Services p : pdao.loadByName(name)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -252,7 +252,7 @@ public class FServices extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Services p = new Services();
         ServicesDAO dao = new ServicesDAO();
-        p.setId(Integer.parseInt(txtIdServices.getText()));
+
         p.setName(txtNomeServices.getText());
         p.setDescription(txtDescricaoServices.getText());
         dao.create(p);
@@ -307,7 +307,7 @@ public class FServices extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-//        readJTableForDesc(txtBuscaServices.getText());
+        readJTableForDesc(txtBuscaServices.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

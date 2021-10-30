@@ -119,7 +119,7 @@ public class ServicesDAO {
         return services;
     }
 
-    public List<Services> loadById(int id) {
+    public List<Services> loadByName(String name) {
         Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
@@ -127,9 +127,9 @@ public class ServicesDAO {
         List<Services> services = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM services WHERE id=?";
+            String sql = "SELECT * FROM services WHERE name LIKE ?";
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+             stmt.setString(1, "%" + name + "%");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Services s = new Services();
