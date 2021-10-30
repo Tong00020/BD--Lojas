@@ -7,7 +7,6 @@ package view;
 
 import model.bean.Providers;
 import model.dao.ProvidersDAO;
-import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;

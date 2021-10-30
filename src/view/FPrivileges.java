@@ -5,7 +5,7 @@
  */
 package view;
 
-import java.sql.SQLException;
+import java.util.Scanner;
 import javax.swing.table.DefaultTableModel;
 import model.dao.PrivilegesDAO;
 import java.util.logging.Level;
@@ -49,13 +49,13 @@ public class FPrivileges extends javax.swing.JFrame {
 
     }
 
-    public void readJTableForDesc(int id) {
+    public void readJTableForDesc(String name) {
 
         DefaultTableModel modelo = (DefaultTableModel) jTPrivileges.getModel();
         modelo.setNumRows(0);
         PrivilegesDAO pdao = new PrivilegesDAO();
 
-        for (Privileges p : pdao.loadById(id)) {
+        for (Privileges p : pdao.loadByName(name)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -78,9 +78,7 @@ public class FPrivileges extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtIdPrivileges = new javax.swing.JTextField();
         txtNomePrivileges = new javax.swing.JTextField();
-        txtIsAdminPrivileges = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTPrivileges = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -88,14 +86,19 @@ public class FPrivileges extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         txtBuscaPrivileges = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jCheckBox2 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel5.setText("NOME");
 
-        jLabel9.setText("ID");
+        txtIdPrivileges.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdPrivilegesActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("É ADMINISTRADOR");
+        jLabel9.setText("ID");
 
         jTPrivileges.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -166,6 +169,13 @@ public class FPrivileges extends javax.swing.JFrame {
             }
         });
 
+        jCheckBox2.setText("ADMINISTRADOR?");
+        jCheckBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox2ItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -180,11 +190,10 @@ public class FPrivileges extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(txtNomePrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(txtIsAdminPrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtNomePrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jCheckBox2))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jButton1)
@@ -197,24 +206,23 @@ public class FPrivileges extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(jButton4))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 783, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel9)
                     .addComponent(jLabel5))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtIsAdminPrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtIdPrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNomePrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                            .addComponent(txtNomePrivileges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCheckBox2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
                             .addComponent(jButton3)
@@ -240,7 +248,8 @@ public class FPrivileges extends javax.swing.JFrame {
 
             txtIdPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 0).toString());
             txtNomePrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 1).toString());
-            txtIsAdminPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 2).toString());
+            //txtIsAdminPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 2).toString());
+            jCheckBox2.setSelected((boolean) jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 2));
 
         }
     }//GEN-LAST:event_jTPrivilegesMouseClicked
@@ -249,21 +258,21 @@ public class FPrivileges extends javax.swing.JFrame {
         if (jTPrivileges.getSelectedRow() != -1) {
             txtIdPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 0).toString());
             txtNomePrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 1).toString());
-            txtIsAdminPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 2).toString());
-            txtIdPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 1).toString());
+            //txtIsAdminPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 2).toString());
+            //txtIdPrivileges.setText(jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 1).toString());
+            jCheckBox2.setSelected((boolean) jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 2));
         }
     }//GEN-LAST:event_jTPrivilegesKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Privileges p = new Privileges();
         PrivilegesDAO dao = new PrivilegesDAO();
-        p.setId(Integer.parseInt(txtIdPrivileges.getText()));
         p.setName(txtNomePrivileges.getText());
-        p.setIs_superadmin(Boolean.parseBoolean(txtIsAdminPrivileges.getText()));
+        p.setIs_superadmin(jCheckBox2.isSelected());
         dao.create(p);
         txtIdPrivileges.setText("");
         txtNomePrivileges.setText("");
-        txtIsAdminPrivileges.setText("");
+        jCheckBox2.setSelected(false);
         readJTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -276,9 +285,8 @@ public class FPrivileges extends javax.swing.JFrame {
             dao.delete(p);
             txtIdPrivileges.setText("");
             txtNomePrivileges.setText("");
-            txtIsAdminPrivileges.setText("");
+            jCheckBox2.setSelected(false);
             readJTable();
-
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um privilegio para excluir.");
         }
@@ -291,7 +299,7 @@ public class FPrivileges extends javax.swing.JFrame {
             PrivilegesDAO dao = new PrivilegesDAO();
             p.setId(Integer.parseInt(txtIdPrivileges.getText()));
             p.setName(txtNomePrivileges.getText());
-            p.setIs_superadmin(Boolean.parseBoolean(txtIsAdminPrivileges.getText()));
+            p.setIs_superadmin(jCheckBox2.isSelected());
             p.setId((int) jTPrivileges.getValueAt(jTPrivileges.getSelectedRow(), 0));
             try {
                 dao.alter(p);
@@ -300,9 +308,8 @@ public class FPrivileges extends javax.swing.JFrame {
             }
             txtIdPrivileges.setText("");
             txtNomePrivileges.setText("");
-            txtIsAdminPrivileges.setText("");
+            jCheckBox2.setSelected(false);
             readJTable();
-
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -310,10 +317,20 @@ public class FPrivileges extends javax.swing.JFrame {
         jButton4.setEnabled(true);
     }//GEN-LAST:event_txtBuscaPrivilegesActionPerformed
 
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-//        readJTableForDesc(txtBuscaPrivileges.getText());
+        readJTableForDesc(txtBuscaPrivileges.getText());
+
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txtIdPrivilegesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdPrivilegesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdPrivilegesActionPerformed
+
+    private void jCheckBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox2ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -356,14 +373,13 @@ public class FPrivileges extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTPrivileges;
     private javax.swing.JTextField txtBuscaPrivileges;
     private javax.swing.JTextField txtIdPrivileges;
-    private javax.swing.JTextField txtIsAdminPrivileges;
     private javax.swing.JTextField txtNomePrivileges;
     // End of variables declaration//GEN-END:variables
 }

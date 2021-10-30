@@ -5,7 +5,6 @@
  */
 package view;
 
-import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import model.dao.VehiclesDAO;
 import java.util.logging.Level;

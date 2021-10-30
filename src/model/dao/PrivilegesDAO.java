@@ -122,7 +122,7 @@ public class PrivilegesDAO {
         return privileges;
     }
 
-    public List<Privileges> loadById(int id) {
+    public List<Privileges> loadByName(String name) {
         Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
@@ -130,9 +130,10 @@ public class PrivilegesDAO {
         List<Privileges> privileges = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM privileges WHERE id=?";
+            String sql = "SELECT * FROM privileges WHERE name LIKE ?";
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setString(1, "%" + name + "%");
+            //System.out.println(stmt);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Privileges p = new Privileges();

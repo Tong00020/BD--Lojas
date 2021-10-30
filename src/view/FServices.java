@@ -5,7 +5,6 @@
  */
 package view;
 
-import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
