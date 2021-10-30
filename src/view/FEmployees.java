@@ -6,11 +6,14 @@
 package view;
 
 import model.bean.Employees;
+import model.bean.Privileges;
 import model.dao.EmployeesDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import model.dao.PrivilegesDAO;
 
 /**
  *
@@ -21,7 +24,7 @@ public class FEmployees extends javax.swing.JFrame {
     /**
      * Creates new form Employees
      */
-    public FEmployees() throws Exception {
+    public FEmployees() {
         initComponents();
         DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
         jTEmployees.setRowSorter(new TableRowSorter(modelo));
@@ -34,7 +37,7 @@ public class FEmployees extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
         modelo.setNumRows(0);
         EmployeesDAO pdao = new EmployeesDAO();
-
+        PrivilegesDAO prDAO = new PrivilegesDAO();
         for (Employees p : pdao.list()) {
 
             modelo.addRow(new Object[]{
@@ -53,22 +56,26 @@ public class FEmployees extends javax.swing.JFrame {
                 p.getStatus(),
                 p.getLogin(),
                 p.getPassword(),
-                p.getJob_title(),
-                p.getReports_to() == null ? "NÃO SE REPORTA A NINGUÉM" : p.getReports_to(),
+                p.getJob_title() == null ? "-" : p.getJob_title(),
+                p.getReports_to() == null ? "-" : p.getReports_to(),
                 p.getPrivilege().getName()
 
             });
+            jComboBox2.addItem(p);
+        }
 
+        for (Privileges pr : prDAO.list()) {
+            jComboBox1.addItem(pr);
         }
 
     }
 
-    public void readJTableForId(int id) {
+    public void readJTableForName(String name) {
         DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
         modelo.setNumRows(0);
         EmployeesDAO pdao = new EmployeesDAO();
 
-        for (Employees p : pdao.loadById(id)) {
+        for (Employees p : pdao.loadByName(name)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -86,8 +93,8 @@ public class FEmployees extends javax.swing.JFrame {
                 p.getStatus(),
                 p.getLogin(),
                 p.getPassword(),
-                p.getJob_title(),
-                p.getReports_to() == null ? "NÃO SE REPORTA A NINGUÉM" : p.getReports_to(),
+                p.getJob_title() == null ? "-" : p.getJob_title(),
+                p.getReports_to() == null ? "-" : p.getReports_to(),
                 p.getPrivilege().getName()
 
             });
@@ -130,7 +137,7 @@ public class FEmployees extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtEmailEmployees = new javax.swing.JTextField();
-        txtFUNÇÃOEmployees = new javax.swing.JTextField();
+        txtTrabalhoEmployees = new javax.swing.JTextField();
         txtStatusEmployees = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -142,11 +149,11 @@ public class FEmployees extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         txtLoginEmployees = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        txtSenhaEmployees = new javax.swing.JTextField();
+        txtSenhaEmployees = new javax.swing.JPasswordField();
         jLabel17 = new javax.swing.JLabel();
-        txtReportaEmployees = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        txtIdPrivEmployees = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -175,11 +182,11 @@ public class FEmployees extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOME", "EMAIL", "CPF", "CELULAR", "TELEFONE FIXO", "CEP", "ENDEREÇO", "Nº ENDEREÇO", "COMPLEMENTO", "CIDADE", "ESTADO", "STATUS", "LOGIN", "SENHA", "FUNÇÃO", "REPORTA PARA (ID)", "ID PRIVILEGIO"
+                "ID", "NOME", "EMAIL", "CPF", "CELULAR", "TELEFONE FIXO", "CEP", "ENDEREÇO", "Nº ENDEREÇO", "COMPLEMENTO", "CIDADE", "ESTADO", "STATUS", "LOGIN", "SENHA", "TRABALHO", "REPORTA PARA (ID)", "ID PRIVILEGIO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
@@ -209,7 +216,7 @@ public class FEmployees extends javax.swing.JFrame {
 
         jLabel12.setText("STATUS");
 
-        jLabel13.setText("FUNÇÃO");
+        jLabel13.setText("TRABALHO");
 
         jButton1.setText("Cadastrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -325,17 +332,17 @@ public class FEmployees extends javax.swing.JFrame {
                                     .addComponent(txtLoginEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtFUNÇÃOEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTrabalhoEmployees, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                                     .addComponent(jLabel13)
                                     .addComponent(jLabel17)
-                                    .addComponent(txtReportaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel16)
-                                    .addComponent(txtSenhaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtSenhaEmployees, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                                     .addComponent(jLabel18)
-                                    .addComponent(txtIdPrivEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(91, 91, 91))))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -408,12 +415,25 @@ public class FEmployees extends javax.swing.JFrame {
                             .addComponent(txtTelefoFixoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCelularEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNumEnderecoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFUNÇÃOEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtTrabalhoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSenhaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(44, 44, 44))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,19 +443,8 @@ public class FEmployees extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jButton1)
                                 .addComponent(jButton3)
-                                .addComponent(jButton2))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtIdPrivEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtReportaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                                .addComponent(jButton2)))
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -494,9 +503,11 @@ public class FEmployees extends javax.swing.JFrame {
             txtStatusEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 12).toString());
             txtLoginEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
             txtSenhaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 14).toString());
-            txtFUNÇÃOEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
-            txtReportaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
-            txtIdPrivEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17).toString());
+            txtTrabalhoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
+            jComboBox1.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16));
+            jComboBox2.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17));
+            //System.out.println(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16));
+            //System.out.println(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17));
 
         }
     }//GEN-LAST:event_jTEmployeesMouseClicked
@@ -519,136 +530,134 @@ public class FEmployees extends javax.swing.JFrame {
             txtStatusEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 12).toString());
             txtLoginEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
             txtSenhaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 14).toString());
-            txtFUNÇÃOEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
-            txtReportaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
-            txtIdPrivEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17).toString());
-
+            txtTrabalhoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
+            jComboBox1.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
+            jComboBox2.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17));
+            //System.out.println(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16));
+            //System.out.println(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17));
         }
     }//GEN-LAST:event_jTEmployeesKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        Employees p = new Employees();
-//        EmployeesDAO dao = new EmployeesDAO();
-//        p.setId(Integer.parseInt(txtIdEmployees.getText()));
-//        p.setName(txtNomeEmployees.getText());
-//        p.setCpf(txtCpfEmployees.getText());
-//        p.setAddress_number(Integer.parseInt(txtNumEnderecoEmployees.getText()));
-//        p.setAddress(txtEnderecoEmployees.getText());
-//        p.setComplement(txtComplementoEmployees.getText());
-//        p.setState(txtEstadoEmployees.getText());
-//        p.setCity(txtCidadeEmployees.getText());
-//        p.setCep(txtCepEmployees.getText());
-//        p.setFixed_phone(txtTelefoFixoEmployees.getText());
-//        p.setCell_phone(txtCelularEmployees.getText());
-//        p.setEmail(txtEmailEmployees.getText());
-//        p.setStatus(txtStatusEmployees.getText());
-//        p.setLogin(txtLoginEmployees.getText());
-//        p.setPassword(txtSenhaEmployees.getText());
-//        p.setReports_to(Integer.parseInt(txtReportaEmployees.getText()));
-//        p.setPrivilegesId(Integer.parseInt(txtIdPrivEmployees.getText()));
-//        dao.create(p);
-//        txtIdEmployees.setText("");
-//        txtNomeEmployees.setText("");
-//        txtEmailEmployees.setText("");
-//        txtCpfEmployees.setText("");
-//        txtCelularEmployees.setText("");
-//        txtTelefoFixoEmployees.setText("");
-//        txtCepEmployees.setText("");
-//        txtEnderecoEmployees.setText("");
-//        txtNumEnderecoEmployees.setText("");
-//        txtComplementoEmployees.setText("");
-//        txtCidadeEmployees.setText("");
-//        txtEstadoEmployees.setText("");
-//        txtStatusEmployees.setText("");
-//        txtLoginEmployees.setText("");
-//        txtSenhaEmployees.setText("");
-//        txtFUNÇÃOEmployees.setText("");
-//        txtReportaEmployees.setText("");
-//        txtIdPrivEmployees.setText("");
-//        readJTable();
+        Employees p = new Employees();
+        EmployeesDAO dao = new EmployeesDAO();
+        Privileges privileges = (Privileges) jComboBox1.getSelectedItem();
+        Employees employees = (Employees) jComboBox2.getSelectedItem();
+        p.setName(txtNomeEmployees.getText());
+        p.setCpf(txtCpfEmployees.getText());
+        p.setAddress_number(Integer.parseInt(txtNumEnderecoEmployees.getText()));
+        p.setAddress(txtEnderecoEmployees.getText());
+        p.setComplement(txtComplementoEmployees.getText());
+        p.setState(txtEstadoEmployees.getText());
+        p.setCity(txtCidadeEmployees.getText());
+        p.setCep(txtCepEmployees.getText());
+        p.setFixed_phone(txtTelefoFixoEmployees.getText());
+        p.setCell_phone(txtCelularEmployees.getText());
+        p.setEmail(txtEmailEmployees.getText());
+        p.setStatus(txtStatusEmployees.getText());
+        p.setLogin(txtLoginEmployees.getText());
+        p.setPassword(txtSenhaEmployees.getText());
+        p.setReports_to(employees);
+        p.setPrivilege(privileges);
+        dao.create(p);
+        txtIdEmployees.setText("");
+        txtNomeEmployees.setText("");
+        txtEmailEmployees.setText("");
+        txtCpfEmployees.setText("");
+        txtCelularEmployees.setText("");
+        txtTelefoFixoEmployees.setText("");
+        txtCepEmployees.setText("");
+        txtEnderecoEmployees.setText("");
+        txtNumEnderecoEmployees.setText("");
+        txtComplementoEmployees.setText("");
+        txtCidadeEmployees.setText("");
+        txtEstadoEmployees.setText("");
+        txtStatusEmployees.setText("");
+        txtLoginEmployees.setText("");
+        txtSenhaEmployees.setText("");
+        txtTrabalhoEmployees.setText("");
+        readJTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//        if (jTEmployees.getSelectedRow() != -1) {
-//
-//            Employees p = new Employees();
-//            EmployeesDAO dao = new EmployeesDAO();
-//            p.setId((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
-//            dao.delete(p);
-//            txtIdEmployees.setText("");
-//            txtNomeEmployees.setText("");
-//            txtEmailEmployees.setText("");
-//            txtCpfEmployees.setText("");
-//            txtCelularEmployees.setText("");
-//            txtTelefoFixoEmployees.setText("");
-//            txtCepEmployees.setText("");
-//            txtEnderecoEmployees.setText("");
-//            txtNumEnderecoEmployees.setText("");
-//            txtComplementoEmployees.setText("");
-//            txtCidadeEmployees.setText("");
-//            txtEstadoEmployees.setText("");
-//            txtStatusEmployees.setText("");
-//            txtLoginEmployees.setText("");
-//            txtSenhaEmployees.setText("");
-//            txtFUNÇÃOEmployees.setText("");
-//            txtReportaEmployees.setText("");
-//            txtIdPrivEmployees.setText("");
-//            readJTable();
-//
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Selecione um empregado para excluir.");
-//        }
+        if (jTEmployees.getSelectedRow() != -1) {
+
+            Employees p = new Employees();
+            EmployeesDAO dao = new EmployeesDAO();
+            p.setId((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
+            dao.delete(p);
+            txtIdEmployees.setText("");
+            txtNomeEmployees.setText("");
+            txtEmailEmployees.setText("");
+            txtCpfEmployees.setText("");
+            txtCelularEmployees.setText("");
+            txtTelefoFixoEmployees.setText("");
+            txtCepEmployees.setText("");
+            txtEnderecoEmployees.setText("");
+            txtNumEnderecoEmployees.setText("");
+            txtComplementoEmployees.setText("");
+            txtCidadeEmployees.setText("");
+            txtEstadoEmployees.setText("");
+            txtStatusEmployees.setText("");
+            txtLoginEmployees.setText("");
+            txtSenhaEmployees.setText("");
+            txtTrabalhoEmployees.setText("");
+            readJTable();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um empregado para excluir.");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-//        if (jTEmployees.getSelectedRow() != -1) {
-//
-//            Employees p = new Employees();
-//            EmployeesDAO dao = new EmployeesDAO();
-//            p.setId(Integer.parseInt(txtIdEmployees.getText()));
-//            p.setName(txtNomeEmployees.getText());
-//            p.setCpf(txtCpfEmployees.getText());
-//            p.setAddress_number(Integer.parseInt(txtNumEnderecoEmployees.getText()));
-//            p.setAddress(txtEnderecoEmployees.getText());
-//            p.setComplement(txtComplementoEmployees.getText());
-//            p.setState(txtEstadoEmployees.getText());
-//            p.setCity(txtCidadeEmployees.getText());
-//            p.setCep(txtCepEmployees.getText());
-//            p.setFixed_phone(txtTelefoFixoEmployees.getText());
-//            p.setCell_phone(txtCelularEmployees.getText());
-//            p.setEmail(txtEmailEmployees.getText());
-//            p.setStatus(txtStatusEmployees.getText());
-//            p.setLogin(txtLoginEmployees.getText());
-//            p.setPassword(txtSenhaEmployees.getText());
-//            p.setEmployeesId(Integer.parseInt(txtReportaEmployees.getText()));
-//            p.setPrivilegesId(Integer.parseInt(txtIdPrivEmployees.getText()));
-//            p.setId((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
-//            try {
-//                dao.alter(p);
-//            } catch (Exception ex) {
-//                Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            txtIdEmployees.setText("");
-//            txtNomeEmployees.setText("");
-//            txtEmailEmployees.setText("");
-//            txtCpfEmployees.setText("");
-//            txtCelularEmployees.setText("");
-//            txtTelefoFixoEmployees.setText("");
-//            txtCepEmployees.setText("");
-//            txtEnderecoEmployees.setText("");
-//            txtNumEnderecoEmployees.setText("");
-//            txtComplementoEmployees.setText("");
-//            txtCidadeEmployees.setText("");
-//            txtEstadoEmployees.setText("");
-//            txtStatusEmployees.setText("");
-//            txtLoginEmployees.setText("");
-//            txtSenhaEmployees.setText("");
-//            txtFUNÇÃOEmployees.setText("");
-//            txtReportaEmployees.setText("");
-//            txtIdPrivEmployees.setText("");
-//            readJTable();
-//
-//        }
+        if (jTEmployees.getSelectedRow() != -1) {
+
+            Employees p = new Employees();
+            EmployeesDAO dao = new EmployeesDAO();
+            Privileges privileges = (Privileges) jComboBox1.getSelectedItem();
+            Employees employees = (Employees) jComboBox2.getSelectedItem();
+            p.setId(Integer.parseInt(txtIdEmployees.getText()));
+            p.setName(txtNomeEmployees.getText());
+            p.setCpf(txtCpfEmployees.getText());
+            p.setAddress_number(Integer.parseInt(txtNumEnderecoEmployees.getText()));
+            p.setAddress(txtEnderecoEmployees.getText());
+            p.setComplement(txtComplementoEmployees.getText());
+            p.setState(txtEstadoEmployees.getText());
+            p.setCity(txtCidadeEmployees.getText());
+            p.setCep(txtCepEmployees.getText());
+            p.setFixed_phone(txtTelefoFixoEmployees.getText());
+            p.setCell_phone(txtCelularEmployees.getText());
+            p.setEmail(txtEmailEmployees.getText());
+            p.setStatus(txtStatusEmployees.getText());
+            p.setLogin(txtLoginEmployees.getText());
+            p.setPassword(txtSenhaEmployees.getText());
+            p.setReports_to(employees);
+            p.setPrivilege(privileges);
+            p.setId((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
+            try {
+                dao.alter(p);
+            } catch (Exception ex) {
+                Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            txtIdEmployees.setText("");
+            txtNomeEmployees.setText("");
+            txtEmailEmployees.setText("");
+            txtCpfEmployees.setText("");
+            txtCelularEmployees.setText("");
+            txtTelefoFixoEmployees.setText("");
+            txtCepEmployees.setText("");
+            txtEnderecoEmployees.setText("");
+            txtNumEnderecoEmployees.setText("");
+            txtComplementoEmployees.setText("");
+            txtCidadeEmployees.setText("");
+            txtEstadoEmployees.setText("");
+            txtStatusEmployees.setText("");
+            txtLoginEmployees.setText("");
+            txtSenhaEmployees.setText("");
+            txtTrabalhoEmployees.setText("");
+            readJTable();
+
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtBuscaEmployeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaEmployeesActionPerformed
@@ -656,12 +665,9 @@ public class FEmployees extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscaEmployeesActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-//
-//        try {
-//            readJTableForDesc(txtBuscaEmployees.getText());
-//        } catch (SQLException ex) {
-//            Logger.getLogger(FEmployees.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+
+        readJTableForName(txtBuscaEmployees.getText());
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -709,6 +715,8 @@ public class FEmployees extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<Object> jComboBox1;
+    private javax.swing.JComboBox<Object> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -739,14 +747,12 @@ public class FEmployees extends javax.swing.JFrame {
     private javax.swing.JTextField txtEnderecoEmployees;
     private javax.swing.JTextField txtEstadoEmployees;
     private javax.swing.JTextField txtIdEmployees;
-    private javax.swing.JTextField txtIdPrivEmployees;
     private javax.swing.JTextField txtLoginEmployees;
     private javax.swing.JTextField txtNomeEmployees;
     private javax.swing.JTextField txtNumEnderecoEmployees;
-    private javax.swing.JTextField txtReportaEmployees;
     private javax.swing.JTextField txtSenhaEmployees;
     private javax.swing.JTextField txtStatusEmployees;
     private javax.swing.JTextField txtTelefoFixoEmployees;
-    private javax.swing.JTextField txtFUNÇÃOEmployees;
+    private javax.swing.JTextField txtTrabalhoEmployees;
     // End of variables declaration//GEN-END:variables
 }

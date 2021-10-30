@@ -5,9 +5,6 @@
  */
 package model.bean;
 
-import model.dao.EmployeesDAO;
-import java.util.ArrayList;
-
 /**
  *
  * @author Tong
@@ -184,6 +181,11 @@ public class Employees {
 
     public void setPrivilege(Privileges privilege) {
         this.privilege = privilege;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 
 }

@@ -188,7 +188,7 @@ public class EmployeesDAO {
         return employees;
     }
 
-    public List<Employees> loadById(int id) {
+    public List<Employees> loadByName(String name) {
         Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
@@ -196,9 +196,9 @@ public class EmployeesDAO {
         List<Employees> employees = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM loja.employees inner join privileges on employees.privileges_id = privileges.id WHERE id = ?";
+            String sql = "SELECT * FROM loja.employees inner join privileges on employees.privileges_id = privileges.id WHERE name LIKE ?";
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setString(1, "%" + name + "%");
             rs = stmt.executeQuery();
             while (rs.next()) {
 
@@ -243,102 +243,6 @@ public class EmployeesDAO {
         return employees;
     }
 
-//    public List<Employees> read() {
-//
-//        Connection con = ConnectionFactory.getConnection();
-//
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//
-//        List<Employees> produtos = new ArrayList<>();
-//
-//        try {
-//            stmt = con.prepareStatement("SELECT * FROM employees");
-//            rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//                Employees e = new Employees();
-//
-//                e.setId(rs.getInt("id"));
-//                e.setName(rs.getString("name"));
-//                e.setPhoto(rs.getString("photo"));
-//                e.setEmail(rs.getString("email"));
-//                e.setCpf(rs.getString("cpf"));
-//                e.setCell_phone(rs.getString("cell_phone"));
-//                e.setFixed_phone(rs.getString("fixed_phone"));
-//                e.setCep(rs.getString("cep"));
-//                e.setAddress(rs.getString("address"));
-//                e.setAddress_number(rs.getInt("address_number"));
-//                e.setComplement(rs.getString("complement"));
-//                e.setCity(rs.getString("city"));
-//                e.setState(rs.getString("state"));
-//                e.setStatus(rs.getString("status"));
-//                e.setLogin(rs.getString("login"));
-//                e.setPassword(rs.getString("password"));
-//                e.setJob_title(rs.getString("job_title"));
-//                e.setReports_to(rs.getInt("reports_to"));
-//                e.setPrivilege(rs.getInt("privileges_id"));
-//                produtos.add(e);
-//
-//            }
-//
-//        } catch (SQLException ex) {
-//            System.out.println(ex);
-//        } finally {
-//            ConnectionFactory.closeConnection(con, stmt);
-//        }
-//        return produtos;
-//
-//    }
-//    public List<Employees> readForDesc(String desc) {
-//
-//        Connection con = ConnectionFactory.getConnection();
-//
-//        PreparedStatement stmt = null;
-//        ResultSet rs = null;
-//
-//        List<Employees> produtos = new ArrayList<>();
-//
-//        try {
-//            stmt = con.prepareStatement("SELECT * FROM employees WHERE id LIKE ?");
-//            stmt.setString(1, "%" + desc + "%");
-//
-//            rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//
-//                Employees e = new Employees();
-//
-//                e.setId(rs.getInt("id"));
-//                e.setName(rs.getString("name"));
-//                e.setPhoto(rs.getString("photo"));
-//                e.setEmail(rs.getString("email"));
-//                e.setCpf(rs.getString("cpf"));
-//                e.setCell_phone(rs.getString("cell_phone"));
-//                e.setFixed_phone(rs.getString("fixed_phone"));
-//                e.setCep(rs.getString("cep"));
-//                e.setAddress(rs.getString("address"));
-//                e.setAddress_number(rs.getInt("address_number"));
-//                e.setComplement(rs.getString("complement"));
-//                e.setCity(rs.getString("city"));
-//                e.setState(rs.getString("state"));
-//                e.setStatus(rs.getString("status"));
-//                e.setLogin(rs.getString("login"));
-//                e.setPassword(rs.getString("password"));
-//                e.setJob_title(rs.getString("job_title"));
-//                e.setEmployeesId(rs.getInt("reports_to"));
-//                e.setPrivilegesId(rs.getInt("privileges_id"));
-//                produtos.add(e);
-//            }
-//
-//        } catch (SQLException ex) {
-//            System.out.println(ex);
-//        } finally {
-//            ConnectionFactory.closeConnection(con, stmt);
-//        }
-//        return produtos;
-//
-//    }
     public boolean checkLogin(String login, String password) {
 
         Connection con = ConnectionFactory.getConnection();

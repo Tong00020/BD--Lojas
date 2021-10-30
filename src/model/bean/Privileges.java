@@ -40,4 +40,9 @@ public class Privileges {
     public void setIs_superadmin(boolean is_superadmin) {
         this.is_superadmin = is_superadmin;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
