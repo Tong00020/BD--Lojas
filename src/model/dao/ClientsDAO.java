@@ -152,7 +152,7 @@ public class ClientsDAO {
         return clients;
     }
 
-    public List<Clients> loadById(int id) {
+    public List<Clients> loadByName(String name) {
         Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
@@ -160,13 +160,13 @@ public class ClientsDAO {
         List<Clients> clients = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM clients WHERE id=?";
+            String sql = "SELECT * FROM clients WHERE name LIKE ?";
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setString(1, "%" + name + "%");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Clients c = new Clients();
-                c.setId(id);
+                c.setId(rs.getInt("id"));
                 c.setCpf(rs.getString("cpf"));
                 c.setName(rs.getString("name"));
                 c.setAddress(rs.getString("address"));

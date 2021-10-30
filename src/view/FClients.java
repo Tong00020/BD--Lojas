@@ -332,7 +332,7 @@ public class FClients extends javax.swing.JFrame {
                 p.getCity(),
                 p.getCep(),
                 p.getCell_phone(),
-                p.getFixed_phone(),
+                p.getFixed_phone() == null ? "-" : p.getFixed_phone(),
                 p.getEmail()
             });
 
@@ -340,13 +340,13 @@ public class FClients extends javax.swing.JFrame {
 
     }
 
-    public void readJTableForDesc(int id) throws SQLException {
+    public void readJTableForDesc(String name) {
 
         DefaultTableModel modelo = (DefaultTableModel) jTClients.getModel();
         modelo.setNumRows(0);
         ClientsDAO pdao = new ClientsDAO();
 
-        for (Clients p : pdao.loadById(id)) {
+        for (Clients p : pdao.loadByName(name)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -359,7 +359,7 @@ public class FClients extends javax.swing.JFrame {
                 p.getCity(),
                 p.getCep(),
                 p.getCell_phone(),
-                p.getFixed_phone(),
+                p.getFixed_phone() == null ? "-" : p.getFixed_phone(),
                 p.getEmail()
             });
 
@@ -405,7 +405,6 @@ public class FClients extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Clients p = new Clients();
         ClientsDAO dao = new ClientsDAO();
-        p.setId(Integer.parseInt(txtIdClients.getText()));
         p.setCpf(txtCpfClients.getText());
         p.setName(txtNomeClients.getText());
         p.setAddress(txtEnderecoClients.getText());
@@ -501,7 +500,7 @@ public class FClients extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-//        readJTableForDesc(txtBuscaClients.getText());
+        readJTableForDesc(txtBuscaClients.getText());
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
