@@ -131,6 +131,7 @@ public class BudgetsDAO {
                 Vehicles v = new Vehicles();
                 v.setId(rs.getInt("vehicles_id"));
                 v.setPlate(rs.getString("plate"));
+                v.setBrand(rs.getString("brand"));
                 b.setVehicle(v);
 
                 Services s = new Services();
@@ -141,6 +142,7 @@ public class BudgetsDAO {
                 Clients c = new Clients();
                 c.setId(rs.getInt("clients_id"));
                 c.setName(rs.getString("clients.name"));
+                c.setCpf(rs.getString("cpf"));
                 b.setClient(c);
 
                 budgets.add(b);
@@ -176,6 +178,7 @@ public class BudgetsDAO {
                 Vehicles v = new Vehicles();
                 v.setId(rs.getInt("vehicles_id"));
                 v.setPlate(rs.getString("plate"));
+                v.setBrand(rs.getString("brand"));
                 b.setVehicle(v);
 
                 Services s = new Services();
@@ -186,6 +189,7 @@ public class BudgetsDAO {
                 Clients c = new Clients();
                 c.setId(rs.getInt("clients_id"));
                 c.setName(rs.getString("clients.name"));
+                c.setCpf(rs.getString("cpf"));
                 b.setClient(c);
 
                 budgets.add(b);

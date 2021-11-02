@@ -138,7 +138,6 @@ public class ServicesDAO {
                 s.setDescription(rs.getString("description"));
                 services.add(s);
             }
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
             Logger.getLogger(ServicesDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
