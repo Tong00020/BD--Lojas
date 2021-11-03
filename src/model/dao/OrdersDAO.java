@@ -17,7 +17,9 @@ import model.bean.Budgets;
 import model.bean.Employees;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import model.bean.Clients;
+import model.bean.Services;
+import model.bean.Vehicles;
 /**
  *
  * @author Vinícius Vasconcelos
@@ -85,7 +87,7 @@ public class OrdersDAO {
 
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement("DELETE FROM ordens WHERE id = ?");
+            stmt = con.prepareStatement("DELETE FROM orders WHERE id = ?");
             stmt.setInt(1, p.getId());
 
             stmt.executeUpdate();
@@ -107,7 +109,12 @@ public class OrdersDAO {
         List<Orders> orders = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM loja.orders inner join employees on orders.employees_id = employees.id inner join budget on orders.budget_id = budget.id";
+            String sql = "SELECT * FROM orders inner join employees on "
+                    + "orders.employees_id = employees.id inner join budget "
+                    + "on orders.budget_id = budget.id inner join clients on "
+                    + "budget.clients_id = clients.id inner join vehicles on "
+                    + "budget.vehicles_id = vehicles.id inner join services on "
+                    + "budget.services_id = services.id";
             stmt = con.prepareStatement(sql);
             /*
             ResultSet é uma interface utilizada pra guardar dados vindos 
@@ -137,6 +144,21 @@ public class OrdersDAO {
                 b.setDate(rs.getDate("budget.date"));
                 o.setBudget(b);
 
+                Clients c = new Clients();
+                c.setId(rs.getInt("budget.clients_id"));
+                c.setName(rs.getString("clients.name"));
+                o.getBudget().setClient(c);
+
+                Vehicles v = new Vehicles();
+                v.setId(rs.getInt("budget.vehicles_id"));
+                v.setPlate(rs.getString("vehicles.plate"));
+                o.getBudget().setVehicle(v);
+
+                Services s = new Services();
+                s.setId(rs.getInt("budget.services_id"));
+                s.setName(rs.getString("services.name"));
+                o.getBudget().setService(s);
+
                 orders.add(o);
             }
         } catch (SQLException ex) {
@@ -144,6 +166,7 @@ public class OrdersDAO {
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
+
         return orders;
     }
 
@@ -155,7 +178,12 @@ public class OrdersDAO {
         List<Orders> orders = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM loja.orders inner join employees on orders.employees_id = employees.id inner join budget on orders.budget_id = budget.id WHERE id=?";
+            String sql = "SELECT * FROM orders inner join employees on "
+                    + "orders.employees_id = employees.id inner join budget "
+                    + "on orders.budget_id = budget.id inner join clients on "
+                    + "budget.clients_id = clients.id inner join vehicles on "
+                    + "budget.vehicles_id = vehicles.id inner join services on "
+                    + "budget.services_id = services.id WHERE orders.id=?";
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -178,6 +206,21 @@ public class OrdersDAO {
                 b.setDate(rs.getDate("budget.date"));
                 o.setBudget(b);
 
+                Clients c = new Clients();
+                c.setId(rs.getInt("budget.clients_id"));
+                c.setName(rs.getString("clients.name"));
+                o.getBudget().setClient(c);
+
+                Vehicles v = new Vehicles();
+                v.setId(rs.getInt("budget.vehicles_id"));
+                v.setPlate(rs.getString("vehicles.plate"));
+                o.getBudget().setVehicle(v);
+
+                Services s = new Services();
+                s.setId(rs.getInt("budget.services_id"));
+                s.setName(rs.getString("services.name"));
+                o.getBudget().setService(s);
+
                 orders.add(o);
             }
         } catch (SQLException ex) {
@@ -198,7 +241,7 @@ public class OrdersDAO {
         List<Orders> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM ordens");
+            stmt = con.prepareStatement("SELECT * FROM orders");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -236,7 +279,7 @@ public class OrdersDAO {
         List<Orders> produtos = new ArrayList<>();
 
         try {
-            stmt = con.prepareStatement("SELECT * FROM ordens WHERE id LIKE ?");
+            stmt = con.prepareStatement("SELECT * FROM orders WHERE id LIKE ?");
             stmt.setString(1, "%"+desc+"%");
             
             rs = stmt.executeQuery();

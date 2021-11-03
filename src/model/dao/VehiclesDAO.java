@@ -123,6 +123,7 @@ public class VehiclesDAO {
                 Clients c = new Clients();
                 c.setId(rs.getInt("clients.id"));
                 c.setName(rs.getString("clients.name"));
+                c.setCpf(rs.getString("clients.cpf"));
                 v.setClient(c);
 
                 vehicles.add(v);
@@ -161,6 +162,7 @@ public class VehiclesDAO {
                 Clients c = new Clients();
                 c.setId(rs.getInt("clients.id"));
                 c.setName(rs.getString("clients.name"));
+                c.setCpf(rs.getString("clients.cpf"));
                 v.setClient(c);
 
                 vehicles.add(v);

@@ -6,7 +6,7 @@
 package view;
 
 import java.sql.Date;
-import java.sql.SQLException;
+import model.bean.Clients;
 import javax.swing.table.DefaultTableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import model.bean.Budgets;
 import model.dao.BudgetsDAO;
 import javax.swing.table.TableRowSorter;
+import model.dao.ClientsDAO;
 
 /**
  *
@@ -86,6 +87,8 @@ public class FBudget extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        txtPrecoBudget.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+
         jLabel9.setText("ID");
 
         jLabel11.setText("DATA");
@@ -93,6 +96,8 @@ public class FBudget extends javax.swing.JFrame {
         jLabel4.setText("TOTAL (R$)");
 
         jLabel2.setText("PREÇO DE SERVIÇO (R$)");
+
+        txtIdBudget.setDisabledTextColor(new java.awt.Color(0, 0, 0));
 
         jTBudget.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -165,8 +170,13 @@ public class FBudget extends javax.swing.JFrame {
 
         jLabel6.setText("TOTAL DOS ITENS (R$)");
 
+        txtIdClientesBudget.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+
+        txtIdVeiculosBudget.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+
         jLabel10.setText("CLIENTE");
 
+        txtIdServicosBudget.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtIdServicosBudget.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdServicosBudgetActionPerformed(evt);
@@ -179,7 +189,11 @@ public class FBudget extends javax.swing.JFrame {
 
         jLabel1.setText("CPF");
 
+        cpfClient.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+
         jLabel3.setText("MARCA");
+
+        brandVehicle.setDisabledTextColor(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,6 +220,19 @@ public class FBudget extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(brandVehicle, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txtBuscaBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(jButton4))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(30, 30, 30)
+                                .addComponent(jButton2)
+                                .addGap(26, 26, 26)
+                                .addComponent(jButton3))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,33 +247,23 @@ public class FBudget extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
-                                    .addComponent(txtSubtotalBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
-                                    .addComponent(txtIdServicosBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(txtPrecoBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(txttotalItensBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtSubtotalBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(txtBuscaBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(jButton4))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(30, 30, 30)
-                                .addComponent(jButton2)
-                                .addGap(26, 26, 26)
-                                .addComponent(jButton3)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtIdServicosBudget))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(txtPrecoBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(txttotalItensBudget, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(220, 220, 220)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -344,13 +361,13 @@ public class FBudget extends javax.swing.JFrame {
 
     }
 
-    public void readJTableForDesc(int id) throws SQLException {
+    public void readJTableForDesc(String date) {
 
         DefaultTableModel modelo = (DefaultTableModel) jTBudget.getModel();
         modelo.setNumRows(0);
         BudgetsDAO pdao = new BudgetsDAO();
 
-        for (Budgets p : pdao.loadById(id)) {
+        for (Budgets p : pdao.loadByDate(date)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -382,7 +399,7 @@ public class FBudget extends javax.swing.JFrame {
             txtIdClientesBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 7).toString());
             brandVehicle.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 8).toString());
             cpfClient.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 9).toString());
-            
+
         }
     }//GEN-LAST:event_jTBudgetMouseClicked
 
@@ -399,7 +416,7 @@ public class FBudget extends javax.swing.JFrame {
             txtIdClientesBudget.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 7).toString());
             brandVehicle.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 8).toString());
             cpfClient.setText(jTBudget.getValueAt(jTBudget.getSelectedRow(), 9).toString());
-            
+
         }
     }//GEN-LAST:event_jTBudgetKeyReleased
 
@@ -413,9 +430,9 @@ public class FBudget extends javax.swing.JFrame {
             p.setTotal_items(Integer.parseInt(txttotalItensBudget.getText()));
             p.setTotal(Double.parseDouble(txtSubtotalBudget.getText()));
             p.setDate(Date.valueOf(txtDateBudget.getText()));
-            p.setVehiclesId(Integer.parseInt(txtIdVeiculosBudget.getText()));
-            p.setServicesId(Integer.parseInt(txtIdServicosBudget.getText()));
-            p.setClientsId(Integer.parseInt(txtIdClientesBudget.getText()));
+//            p.setVehiclesId(Integer.parseInt(txtIdVeiculosBudget.getText()));
+//            p.setServicesId(Integer.parseInt(txtIdServicosBudget.getText()));
+//            p.setClientsId(Integer.parseInt(txtIdClientesBudget.getText()));
             dao.create(p);
 
             txtIdBudget.setText("");
@@ -425,7 +442,7 @@ public class FBudget extends javax.swing.JFrame {
             txtDateBudget.setText("");
             txtIdVeiculosBudget.setText("");
             txtIdServicosBudget.setText("");
-            txtIdClientesBudget.setText("");
+//            txtIdClientesBudget.setText("");
 
             readJTable();
 
@@ -448,7 +465,7 @@ public class FBudget extends javax.swing.JFrame {
             txtDateBudget.setText("");
             txtIdVeiculosBudget.setText("");
             txtIdServicosBudget.setText("");
-            txtIdClientesBudget.setText("");
+//            txtIdClientesBudget.setText("");
             readJTable();
 
         } else {
@@ -466,9 +483,6 @@ public class FBudget extends javax.swing.JFrame {
             p.setTotal_items(Integer.parseInt(txttotalItensBudget.getText()));
             p.setTotal(Double.parseDouble(txtSubtotalBudget.getText()));
             p.setDate(Date.valueOf(txtDateBudget.getText()));
-            p.setVehiclesId(Integer.parseInt(txtIdVeiculosBudget.getText()));
-            p.setServicesId(Integer.parseInt(txtIdServicosBudget.getText()));
-            p.setClientsId(Integer.parseInt(txtIdClientesBudget.getText()));
             p.setId((int) jTBudget.getValueAt(jTBudget.getSelectedRow(), 0));
             try {
                 dao.alter(p);
@@ -482,7 +496,6 @@ public class FBudget extends javax.swing.JFrame {
             txtDateBudget.setText("");
             txtIdVeiculosBudget.setText("");
             txtIdServicosBudget.setText("");
-            txtIdClientesBudget.setText("");
             readJTable();
 
         }
@@ -494,7 +507,7 @@ public class FBudget extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-//        readJTableForDesc(txtBuscaBudget.getText());
+        readJTableForDesc(txtBuscaBudget.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void txtIdServicosBudgetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdServicosBudgetActionPerformed

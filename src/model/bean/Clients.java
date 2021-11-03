@@ -120,4 +120,9 @@ public class Clients {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return " " + getName() + " - " + getCpf();
+    }
+
 }

@@ -382,11 +382,11 @@
                 <Column editable="false" title="COMPLEMENTO" type="java.lang.String"/>
                 <Column editable="false" title="CIDADE" type="java.lang.String"/>
                 <Column editable="false" title="ESTADO" type="java.lang.String"/>
-                <Column editable="false" title="STATUS" type="java.lang.Boolean"/>
+                <Column editable="false" title="STATUS" type="java.lang.String"/>
                 <Column editable="false" title="LOGIN" type="java.lang.String"/>
                 <Column editable="false" title="SENHA" type="java.lang.String"/>
                 <Column editable="false" title="TRABALHO" type="java.lang.String"/>
-                <Column editable="true" title="REPORTA PARA (ID)" type="java.lang.Integer"/>
+                <Column editable="false" title="REPORTA PARA (ID)" type="java.lang.Integer"/>
                 <Column editable="false" title="ID PRIVILEGIO" type="java.lang.Integer"/>
               </Table>
             </Property>
@@ -507,7 +507,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
-        <Property name="text" type="java.lang.String" value="TRABALHO"/>
+        <Property name="text" type="java.lang.String" value="FUN&#xc7;&#xc3;O"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtEmailEmployees">

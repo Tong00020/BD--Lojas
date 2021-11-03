@@ -30,6 +30,16 @@ public class FEmployees extends javax.swing.JFrame {
         jTEmployees.setRowSorter(new TableRowSorter(modelo));
 
         readJTable();
+        PrivilegesDAO prDAO = new PrivilegesDAO();
+        EmployeesDAO pdao = new EmployeesDAO();
+        for (Privileges pr : prDAO.list()) {
+            jComboBox1.setSelectedItem(null);
+            jComboBox1.addItem(pr);
+        }
+        for (Employees p : pdao.list()) {
+            jComboBox2.setSelectedItem(null);
+            jComboBox2.addItem(p);
+        }
     }
 
     public void readJTable() {
@@ -39,7 +49,6 @@ public class FEmployees extends javax.swing.JFrame {
         EmployeesDAO pdao = new EmployeesDAO();
         PrivilegesDAO prDAO = new PrivilegesDAO();
         for (Employees p : pdao.list()) {
-
             modelo.addRow(new Object[]{
                 p.getId(),
                 p.getName(),
@@ -56,24 +65,19 @@ public class FEmployees extends javax.swing.JFrame {
                 p.getStatus(),
                 p.getLogin(),
                 p.getPassword(),
-                p.getJob_title() == null ? "-" : p.getJob_title(),
-                p.getReports_to() == null ? "-" : p.getReports_to(),
-                p.getPrivilege().getName()
+                p.getJob_title(),
+                p.getReports_to(),
+                p.getPrivilege()
 
             });
-            jComboBox2.addItem(p);
         }
-
-        for (Privileges pr : prDAO.list()) {
-            jComboBox1.addItem(pr);
-        }
-
     }
 
     public void readJTableForName(String name) {
         DefaultTableModel modelo = (DefaultTableModel) jTEmployees.getModel();
         modelo.setNumRows(0);
         EmployeesDAO pdao = new EmployeesDAO();
+        PrivilegesDAO prDAO = new PrivilegesDAO();
 
         for (Employees p : pdao.loadByName(name)) {
 
@@ -93,12 +97,11 @@ public class FEmployees extends javax.swing.JFrame {
                 p.getStatus(),
                 p.getLogin(),
                 p.getPassword(),
-                p.getJob_title() == null ? "-" : p.getJob_title(),
-                p.getReports_to() == null ? "-" : p.getReports_to(),
-                p.getPrivilege().getName()
+                p.getJob_title(),
+                p.getReports_to(),
+                p.getPrivilege()
 
             });
-
         }
     }
 
@@ -189,10 +192,10 @@ public class FEmployees extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -219,7 +222,7 @@ public class FEmployees extends javax.swing.JFrame {
 
         jLabel12.setText("STATUS");
 
-        jLabel13.setText("TRABALHO");
+        jLabel13.setText("FUNÇÃO");
 
         jButton1.setText("Cadastrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -528,10 +531,8 @@ public class FEmployees extends javax.swing.JFrame {
             txtLoginEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
             txtSenhaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 14).toString());
             txtTrabalhoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
-            jComboBox1.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16));
-            jComboBox2.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17));
-            //System.out.println(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16));
-            //System.out.println(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17));
+            jComboBox1.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17));
+            jComboBox2.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16));
 
         }
     }//GEN-LAST:event_jTEmployeesMouseClicked
@@ -555,10 +556,8 @@ public class FEmployees extends javax.swing.JFrame {
             txtLoginEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 13).toString());
             txtSenhaEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 14).toString());
             txtTrabalhoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
-            jComboBox1.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16).toString());
-            jComboBox2.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17));
-            //System.out.println(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16));
-            //System.out.println(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17));
+            jComboBox1.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17));
+            jComboBox2.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16));
         }
     }//GEN-LAST:event_jTEmployeesKeyReleased
 
@@ -581,7 +580,12 @@ public class FEmployees extends javax.swing.JFrame {
         p.setStatus(txtStatusEmployees.getText());
         p.setLogin(txtLoginEmployees.getText());
         p.setPassword(txtSenhaEmployees.getText());
-        p.setReports_to(employees);
+        p.setJob_title(txtTrabalhoEmployees.getText());
+        if (employees != null) {
+            p.setReports_to(employees);
+        } else {
+            p.setReports_to(null);
+        }
         p.setPrivilege(privileges);
         dao.create(p);
         txtIdEmployees.setText("");
@@ -635,12 +639,10 @@ public class FEmployees extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (jTEmployees.getSelectedRow() != -1) {
-
             Employees p = new Employees();
             EmployeesDAO dao = new EmployeesDAO();
             Privileges privileges = (Privileges) jComboBox1.getSelectedItem();
             Employees employees = (Employees) jComboBox2.getSelectedItem();
-            p.setId(Integer.parseInt(txtIdEmployees.getText()));
             p.setName(txtNomeEmployees.getText());
             p.setCpf(txtCpfEmployees.getText());
             p.setAddress_number(Integer.parseInt(txtNumEnderecoEmployees.getText()));
@@ -655,7 +657,12 @@ public class FEmployees extends javax.swing.JFrame {
             p.setStatus(txtStatusEmployees.getText());
             p.setLogin(txtLoginEmployees.getText());
             p.setPassword(txtSenhaEmployees.getText());
-            p.setReports_to(employees);
+            p.setJob_title(txtTrabalhoEmployees.getText());
+            if (employees != null) {
+                p.setReports_to(employees);
+            } else {
+                p.setReports_to(null);
+            }
             p.setPrivilege(privileges);
             p.setId((int) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 0));
             try {

@@ -45,4 +45,10 @@ public class Privileges {
     public String toString() {
         return getName();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Privileges && this.id == ((Privileges) obj).getId();
+    }
+
 }

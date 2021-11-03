@@ -188,4 +188,9 @@ public class Employees {
         return getName();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Employees && this.id == ((Employees) obj).getId();
+    }
+
 }

@@ -155,7 +155,7 @@ public class BudgetsDAO {
         return budgets;
     }
 
-    public List<Budgets> loadById(int id) {
+    public List<Budgets> loadByDate(String date) {
         Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
@@ -163,9 +163,13 @@ public class BudgetsDAO {
         List<Budgets> budgets = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM budget inner join vehicles on budget.vehicles_id = vehicles.id inner join services on budget.services_id = services.id inner join clients on budget.clients_id = clients.id WHERE id=?";
+            String sql = "SELECT * FROM budget inner join vehicles on "
+                    + "budget.vehicles_id = vehicles.id inner join "
+                    + "services on budget.services_id = services.id "
+                    + "inner join clients on budget.clients_id = clients.id "
+                    + "WHERE budget.date LIKE ?";
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setString(1, "%" + date + "%");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Budgets b = new Budgets();
