@@ -74,6 +74,8 @@ public class Forders extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        txtIdOrders.setEnabled(false);
+
         jLabel4.setText("DATA");
 
         jLabel1.setText("SITUAÇÃO");

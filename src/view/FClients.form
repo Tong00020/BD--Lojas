@@ -413,6 +413,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtIdClients">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>

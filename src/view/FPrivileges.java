@@ -92,6 +92,7 @@ public class FPrivileges extends javax.swing.JFrame {
 
         jLabel5.setText("NOME");
 
+        txtIdPrivileges.setEnabled(false);
         txtIdPrivileges.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdPrivilegesActionPerformed(evt);

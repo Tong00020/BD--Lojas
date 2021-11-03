@@ -283,6 +283,8 @@ public class FEmployees extends javax.swing.JFrame {
             }
         });
 
+        txtIdEmployees.setEnabled(false);
+
         jLabel14.setText("ID");
 
         jLabel15.setText("LOGIN");

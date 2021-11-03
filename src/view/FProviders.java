@@ -95,6 +95,8 @@ public class FProviders extends javax.swing.JFrame {
 
         jLabel9.setText("ID");
 
+        txtIdProviders.setEnabled(false);
+
         jLabel10.setText("NUMERO DE ENDEREÇO");
 
         jTProviders.setModel(new javax.swing.table.DefaultTableModel(

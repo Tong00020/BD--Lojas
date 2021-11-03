@@ -169,6 +169,8 @@ public class FClients extends javax.swing.JFrame {
 
         jLabel10.setText("ID");
 
+        txtIdClients.setEnabled(false);
+
         jLabel12.setText("Nº DO ENDEREÇO");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

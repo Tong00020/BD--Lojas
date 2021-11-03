@@ -74,6 +74,7 @@ public class MainFlame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         Provedores = new javax.swing.JMenuItem();
+        Dashboard = new javax.swing.JMenuItem();
         Veiculos = new javax.swing.JMenuItem();
         Clientes = new javax.swing.JMenuItem();
         Funcionarios = new javax.swing.JMenuItem();
@@ -102,6 +103,19 @@ public class MainFlame extends javax.swing.JFrame {
         });
 
         jMenu1.setText("Banco de dados");
+		
+		Dashboard.setText("Dashboard");
+        Dashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+				try{
+				DashboardActionPerformed(evt);	
+				}catch (SQLException ex) {
+                    Logger.getLogger(FDashboard.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        });
+        jMenu1.add(Dashboard);
 
         Provedores.setText("Provedores");
         Provedores.addActionListener(new java.awt.event.ActionListener() {
@@ -242,6 +256,10 @@ public class MainFlame extends javax.swing.JFrame {
         new FProviders().setVisible(true);
     }//GEN-LAST:event_ProvedoresActionPerformed
 
+    private void DashboardActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        new FDashboard().setVisible(true);
+    }
+
     private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SairActionPerformed
@@ -331,6 +349,7 @@ public class MainFlame extends javax.swing.JFrame {
     private javax.swing.JMenuItem Funcionarios;
     private javax.swing.JMenuItem Produto;
     private javax.swing.JMenuItem Provedores;
+    private javax.swing.JMenuItem Dashboard;
     private javax.swing.JMenuItem Sair;
     private javax.swing.JButton Sobre;
     private javax.swing.JMenuItem Veiculos;
