@@ -5,21 +5,28 @@
  */
 package view;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import model.bean.Employees;
 import model.bean.Privileges;
 import model.dao.EmployeesDAO;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.dao.PrivilegesDAO;
+import utils.ManipularImagem;
 
 /**
  *
  * @author Tong
  */
 public class FEmployees extends javax.swing.JFrame {
+
+    BufferedImage imagem;
 
     /**
      * Creates new form Employees
@@ -67,7 +74,8 @@ public class FEmployees extends javax.swing.JFrame {
                 p.getPassword(),
                 p.getJob_title(),
                 p.getReports_to(),
-                p.getPrivilege()
+                p.getPrivilege(),
+                p.getPhoto()
 
             });
         }
@@ -99,7 +107,8 @@ public class FEmployees extends javax.swing.JFrame {
                 p.getPassword(),
                 p.getJob_title(),
                 p.getReports_to(),
-                p.getPrivilege()
+                p.getPrivilege(),
+                p.getPhoto()
 
             });
         }
@@ -160,6 +169,8 @@ public class FEmployees extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
+        jButton5 = new javax.swing.JButton();
+        imageSample = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -188,14 +199,14 @@ public class FEmployees extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "NOME", "EMAIL", "CPF", "CELULAR", "TELEFONE FIXO", "CEP", "ENDEREÇO", "Nº ENDEREÇO", "COMPLEMENTO", "CIDADE", "ESTADO", "STATUS", "LOGIN", "SENHA", "TRABALHO", "REPORTA PARA (ID)", "ID PRIVILEGIO"
+                "ID", "NOME", "EMAIL", "CPF", "CELULAR", "TELEFONE FIXO", "CEP", "ENDEREÇO", "Nº ENDEREÇO", "COMPLEMENTO", "CIDADE", "ESTADO", "STATUS", "LOGIN", "SENHA", "FUNÇÃO", "REPORTA PARA (ID)", "ID PRIVILEGIO", "FOTO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Byte.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -217,6 +228,20 @@ public class FEmployees extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTEmployees);
+        if (jTEmployees.getColumnModel().getColumnCount() > 0) {
+            jTEmployees.getColumnModel().getColumn(13).setMinWidth(0);
+            jTEmployees.getColumnModel().getColumn(13).setMaxWidth(0);
+            jTEmployees.getColumnModel().getColumn(14).setMinWidth(0);
+            jTEmployees.getColumnModel().getColumn(14).setMaxWidth(0);
+            jTEmployees.getColumnModel().getColumn(15).setMinWidth(0);
+            jTEmployees.getColumnModel().getColumn(15).setMaxWidth(0);
+            jTEmployees.getColumnModel().getColumn(16).setMinWidth(0);
+            jTEmployees.getColumnModel().getColumn(16).setMaxWidth(0);
+            jTEmployees.getColumnModel().getColumn(17).setMinWidth(0);
+            jTEmployees.getColumnModel().getColumn(17).setMaxWidth(0);
+            jTEmployees.getColumnModel().getColumn(18).setMinWidth(0);
+            jTEmployees.getColumnModel().getColumn(18).setMaxWidth(0);
+        }
 
         jLabel10.setText("EMAIL");
 
@@ -270,12 +295,21 @@ public class FEmployees extends javax.swing.JFrame {
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        jButton5.setText("Carregar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        imageSample.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -331,38 +365,42 @@ public class FEmployees extends javax.swing.JFrame {
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(imageSample, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel15)
-                            .addComponent(txtLoginEmployees)
-                            .addComponent(jLabel12)
                             .addComponent(jLabel17)
-                            .addComponent(txtStatusEmployees)
-                            .addComponent(jComboBox2, 0, 176, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSenhaEmployees)
+                            .addComponent(jComboBox1, 0, 204, Short.MAX_VALUE)
+                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtTrabalhoEmployees)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtSenhaEmployees)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel18)
+                            .addComponent(txtStatusEmployees)
+                            .addComponent(txtLoginEmployees))
+                        .addGap(0, 20, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel18)
-                                    .addComponent(jLabel16))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton1)
-                            .addGap(30, 30, 30)
-                            .addComponent(jButton2)
-                            .addGap(26, 26, 26)
-                            .addComponent(jButton3))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(txtBuscaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton4))))
-                .addGap(20, 20, 20))
+                                .addGap(902, 902, 902)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(jButton2)
+                                        .addGap(26, 26, 26)
+                                        .addComponent(jButton3))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtBuscaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton4))))
+                            .addComponent(jScrollPane1))
+                        .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,8 +459,8 @@ public class FEmployees extends javax.swing.JFrame {
                                         .addComponent(txtNumEnderecoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel3)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSeparator2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel11)
@@ -435,42 +473,44 @@ public class FEmployees extends javax.swing.JFrame {
                                     .addComponent(txtEmailEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(41, 41, 41))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtLoginEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSenhaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(28, 28, 28)
+                                .addGap(26, 26, 26))
+                            .addComponent(txtLoginEmployees, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtStatusEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSenhaEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTrabalhoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtStatusEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTrabalhoEmployees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addGap(28, 28, 28))
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
                             .addComponent(jButton3)
-                            .addComponent(jButton2))))
+                            .addComponent(jButton2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(imageSample, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(48, 48, 48)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -533,6 +573,7 @@ public class FEmployees extends javax.swing.JFrame {
             txtTrabalhoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
             jComboBox1.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17));
             jComboBox2.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16));
+            ManipularImagem.exibiImagemLabel((byte[]) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 18), imageSample);
 
         }
     }//GEN-LAST:event_jTEmployeesMouseClicked
@@ -558,6 +599,7 @@ public class FEmployees extends javax.swing.JFrame {
             txtTrabalhoEmployees.setText(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 15).toString());
             jComboBox1.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 17));
             jComboBox2.setSelectedItem(jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 16));
+            ManipularImagem.exibiImagemLabel((byte[]) jTEmployees.getValueAt(jTEmployees.getSelectedRow(), 18), imageSample);
         }
     }//GEN-LAST:event_jTEmployeesKeyReleased
 
@@ -581,6 +623,7 @@ public class FEmployees extends javax.swing.JFrame {
         p.setLogin(txtLoginEmployees.getText());
         p.setPassword(txtSenhaEmployees.getText());
         p.setJob_title(txtTrabalhoEmployees.getText());
+        p.setPhoto(ManipularImagem.getImgBytes(imagem));
         if (employees != null) {
             p.setReports_to(employees);
         } else {
@@ -604,6 +647,7 @@ public class FEmployees extends javax.swing.JFrame {
         txtLoginEmployees.setText("");
         txtSenhaEmployees.setText("");
         txtTrabalhoEmployees.setText("");
+        imageSample.setIcon(null);
         readJTable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -630,6 +674,7 @@ public class FEmployees extends javax.swing.JFrame {
             txtLoginEmployees.setText("");
             txtSenhaEmployees.setText("");
             txtTrabalhoEmployees.setText("");
+            imageSample.setIcon(null);
             readJTable();
 
         } else {
@@ -658,6 +703,7 @@ public class FEmployees extends javax.swing.JFrame {
             p.setLogin(txtLoginEmployees.getText());
             p.setPassword(txtSenhaEmployees.getText());
             p.setJob_title(txtTrabalhoEmployees.getText());
+            p.setPhoto(ManipularImagem.getImgBytes(imagem));
             if (employees != null) {
                 p.setReports_to(employees);
             } else {
@@ -686,6 +732,7 @@ public class FEmployees extends javax.swing.JFrame {
             txtLoginEmployees.setText("");
             txtSenhaEmployees.setText("");
             txtTrabalhoEmployees.setText("");
+            imageSample.setIcon(null);
             readJTable();
 
         }
@@ -700,6 +747,27 @@ public class FEmployees extends javax.swing.JFrame {
         readJTableForName(txtBuscaEmployees.getText());
 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        JFileChooser fc = new JFileChooser();
+        int res = fc.showOpenDialog(null);
+
+        if (res == JFileChooser.APPROVE_OPTION) {
+            File arquivo = fc.getSelectedFile();
+
+            try {
+                imagem = ManipularImagem.setImagemDimensao(arquivo.getAbsolutePath(), 160, 160);
+
+                imageSample.setIcon(new ImageIcon(imagem));
+
+            } catch (Exception ex) {
+                // System.out.println(ex.printStackTrace().toString());
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Voce nao selecionou nenhum arquivo.");
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -742,10 +810,12 @@ public class FEmployees extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel imageSample;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<Object> jComboBox1;
     private javax.swing.JComboBox<Object> jComboBox2;
     private javax.swing.JLabel jLabel1;

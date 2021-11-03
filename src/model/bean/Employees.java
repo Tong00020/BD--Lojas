@@ -13,7 +13,7 @@ public class Employees {
 
     private int id;
     private String name;
-    private String photo;
+    private byte[] photo;
     private String email;
     private String cpf;
     private String cell_phone;
@@ -47,11 +47,11 @@ public class Employees {
         this.name = name;
     }
 
-    public String getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 

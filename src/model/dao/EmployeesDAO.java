@@ -37,7 +37,7 @@ public class EmployeesDAO {
                     + "?,?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, e.getName());
-            stmt.setString(2, e.getPhoto());
+            stmt.setBytes(2, e.getPhoto());
             stmt.setString(3, e.getEmail());
             stmt.setString(4, e.getCpf());
             stmt.setString(5, e.getCell_phone());
@@ -78,7 +78,7 @@ public class EmployeesDAO {
                     + "reports_to = ?,privileges_id = ? WHERE id = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, e.getName());
-            stmt.setString(2, e.getPhoto());
+            stmt.setBytes(2, e.getPhoto());
             stmt.setString(3, e.getEmail());
             stmt.setString(4, e.getCpf());
             stmt.setString(5, e.getCell_phone());
@@ -152,7 +152,7 @@ public class EmployeesDAO {
                 Employees employee = new Employees();
                 employee.setId(rs.getInt("id"));
                 employee.setName(rs.getString("name"));
-                employee.setPhoto(rs.getString("photo"));
+                employee.setPhoto(rs.getBytes("photo"));
                 employee.setEmail(rs.getString("email"));
                 employee.setCpf(rs.getString("cpf"));
                 employee.setCell_phone(rs.getString("cell_phone"));
@@ -208,7 +208,7 @@ public class EmployeesDAO {
                 Employees employee = new Employees();
                 employee.setId(rs.getInt("id"));
                 employee.setName(rs.getString("name"));
-                employee.setPhoto(rs.getString("photo"));
+                employee.setPhoto(rs.getBytes("photo"));
                 employee.setEmail(rs.getString("email"));
                 employee.setCpf(rs.getString("cpf"));
                 employee.setCell_phone(rs.getString("cell_phone"));
