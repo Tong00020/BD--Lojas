@@ -85,4 +85,14 @@ public class Budgets {
         this.service = service;
     }
 
+    @Override
+    public String toString() {
+        return " " + getDate() + " - " + getVehicle();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Budgets && this.id == ((Budgets) obj).getId();
+    }
+
 }

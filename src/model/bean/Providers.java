@@ -123,4 +123,14 @@ public class Providers {
     public void setUrl_site(String url_site) {
         this.url_site = url_site;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Providers && this.id == ((Providers) obj).getId();
+    }
 }

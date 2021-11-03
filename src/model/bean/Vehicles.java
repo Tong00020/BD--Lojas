@@ -5,10 +5,6 @@
  */
 package model.bean;
 
-import model.dao.VehiclesDAO;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Tong
@@ -103,6 +99,16 @@ public class Vehicles {
 
     public void setClientId(int id) {
         this.client.setId(id);
+    }
+
+    @Override
+    public String toString() {
+        return getPlate();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Vehicles && this.id == ((Vehicles) obj).getId();
     }
 
 }

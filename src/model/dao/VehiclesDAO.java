@@ -136,7 +136,7 @@ public class VehiclesDAO {
         return vehicles;
     }
 
-    public List<Vehicles> loadById(int id) {
+    public List<Vehicles> loadByPlate(String plate) {
         Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
@@ -144,9 +144,10 @@ public class VehiclesDAO {
         List<Vehicles> vehicles = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM loja.vehicles inner join clients on vehicles.clients_id = clients.id WHERE id=?";
+            String sql = "SELECT * FROM vehicles inner join clients on "
+                    + "vehicles.clients_id = clients.id WHERE plate LIKE ?";
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setString(1, "%" + plate + "%");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Vehicles v = new Vehicles();

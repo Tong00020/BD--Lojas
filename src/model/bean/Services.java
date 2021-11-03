@@ -4,10 +4,6 @@
  */
 package model.bean;
 
-import java.util.ArrayList;
-import java.util.List;
-import model.dao.ServicesDAO;
-
 /**
  *
  * @author Vinícius Vasconcelos
@@ -41,4 +37,15 @@ public class Services {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Services && this.id == ((Services) obj).getId();
+    }
+
 }

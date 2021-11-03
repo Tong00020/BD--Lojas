@@ -108,7 +108,10 @@ public class BudgetsDAO {
         List<Budgets> budgets = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM budget inner join vehicles on budget.vehicles_id = vehicles.id inner join services on budget.services_id = services.id inner join clients on budget.clients_id = clients.id";
+            String sql = "SELECT * FROM budget inner join vehicles on "
+                    + "budget.vehicles_id = vehicles.id inner join services "
+                    + "on budget.services_id = services.id inner join clients "
+                    + "on budget.clients_id = clients.id";
             stmt = con.prepareStatement(sql);
             /*
             ResultSet é uma interface utilizada pra guardar dados vindos 

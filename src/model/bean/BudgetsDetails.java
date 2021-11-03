@@ -15,7 +15,7 @@ public class BudgetsDetails {
 
     private int id;
     private double price;
-    private double amount;
+    private int amount;
     private double subtotal;
     private Budgets budget;
     private Products product;
@@ -56,7 +56,7 @@ public class BudgetsDetails {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
@@ -82,5 +82,10 @@ public class BudgetsDetails {
 
     public void setProduct(Products product) {
         this.product = product;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof BudgetsDetails && this.id == ((BudgetsDetails) obj).getId();
     }
 }

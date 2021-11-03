@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.bean.Products;
+import model.bean.Providers;
+import model.dao.ProvidersDAO;
 
 /**
  *
@@ -31,6 +33,12 @@ public class FProducts extends javax.swing.JFrame {
         jTProducts.setRowSorter(new TableRowSorter(modelo));
 
         readJTable();
+
+        ProvidersDAO prDAO = new ProvidersDAO();
+        for (Providers pr : prDAO.list()) {
+            listProviders.setSelectedItem(null);
+            listProviders.addItem(pr);
+        }
     }
 
     /**
@@ -64,7 +72,7 @@ public class FProducts extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtDescProdutos = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtIdProvedorProdutos = new javax.swing.JTextField();
+        listProviders = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -145,6 +153,8 @@ public class FProducts extends javax.swing.JFrame {
             }
         });
 
+        txtIdProdutos.setEnabled(false);
+
         jLabel1.setText("DESCRIÇÃO");
 
         jLabel2.setText("QUANTIDADE EM ESTOQUE");
@@ -158,9 +168,9 @@ public class FProducts extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtQtdProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
@@ -172,53 +182,46 @@ public class FProducts extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(txtPrecoProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(txtIdProvedorProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(52, Short.MAX_VALUE))
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(listProviders, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtBuscaProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton4))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtIdProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtNomeProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtDescProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(txtCategoriaProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButton1)
-                                    .addGap(30, 30, 30)
-                                    .addComponent(jButton2)
-                                    .addGap(26, 26, 26)
-                                    .addComponent(jButton3))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(txtBuscaProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton4))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtIdProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtNomeProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel5)
-                                            .addGap(199, 199, 199)))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtDescProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel1))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6)
-                                        .addComponent(txtCategoriaProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jButton1)
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton2)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton3)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscaProducts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
@@ -241,7 +244,7 @@ public class FProducts extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDescProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -254,32 +257,33 @@ public class FProducts extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPrecoProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPrecoProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(listProviders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtIdProvedorProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(25, 25, 25)
+                        .addGap(26, 26, 26)))
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton3)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void readJTableForDesc(int id) throws SQLException {
+    public void readJTableForDesc(String name) {
 
         DefaultTableModel modelo = (DefaultTableModel) jTProducts.getModel();
         modelo.setNumRows(0);
         ProductsDAO pdao = new ProductsDAO();
 
-        for (Products p : pdao.loadById(id)) {
+        for (Products p : pdao.loadByName(name)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -289,7 +293,7 @@ public class FProducts extends javax.swing.JFrame {
                 p.getPrice(),
                 p.getBarcode(),
                 p.getQuantity(),
-                p.getProvider().getName()
+                p.getProvider()
             });
 
         }
@@ -312,7 +316,7 @@ public class FProducts extends javax.swing.JFrame {
                 p.getPrice(),
                 p.getBarcode(),
                 p.getQuantity(),
-                p.getProvider().getName()
+                p.getProvider()
             });
 
         }
@@ -320,7 +324,7 @@ public class FProducts extends javax.swing.JFrame {
     }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-//        readJTableForDesc(txtBuscaProducts.getText());
+        readJTableForDesc(txtBuscaProducts.getText());
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -334,7 +338,7 @@ public class FProducts extends javax.swing.JFrame {
             txtPrecoProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 4).toString());
             txtBarCodeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 5).toString());
             txtQtdProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 6).toString());
-            txtIdProvedorProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 7).toString());
+            listProviders.setSelectedItem(jTProducts.getValueAt(jTProducts.getSelectedRow(), 7));
         }
     }//GEN-LAST:event_jTProductsMouseClicked
 
@@ -348,8 +352,7 @@ public class FProducts extends javax.swing.JFrame {
             txtPrecoProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 4).toString());
             txtBarCodeProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 5).toString());
             txtQtdProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 6).toString());
-            txtIdProvedorProdutos.setText(jTProducts.getValueAt(jTProducts.getSelectedRow(), 7).toString());
-
+            listProviders.setSelectedItem(jTProducts.getValueAt(jTProducts.getSelectedRow(), 7));
         }
 
     }//GEN-LAST:event_jTProductsKeyReleased
@@ -357,14 +360,14 @@ public class FProducts extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Products p = new Products();
         ProductsDAO dao = new ProductsDAO();
-        p.setId(Integer.parseInt(txtIdProdutos.getText()));
         p.setName(txtNomeProdutos.getText());
         p.setDescription(txtDescProdutos.getText());
-        p.setProvidersId(Integer.parseInt(txtIdProvedorProdutos.getText()));
         p.setPrice(Double.parseDouble(txtPrecoProdutos.getText()));
-        p.setBarcode(Integer.parseInt(txtQtdProdutos.getText()));
+        p.setBarcode(Integer.parseInt(txtBarCodeProdutos.getText()));
         p.setQuantity(Integer.parseInt(txtQtdProdutos.getText()));
         p.setCategory(txtCategoriaProdutos.getText());
+        Providers providers = (Providers) listProviders.getSelectedItem();
+        p.setProvider(providers);
         dao.create(p);
         txtDescProdutos.setText("");
         txtQtdProdutos.setText("");
@@ -372,7 +375,6 @@ public class FProducts extends javax.swing.JFrame {
         txtNomeProdutos.setText("");
         txtIdProdutos.setText("");
         txtBarCodeProdutos.setText("");
-        txtIdProvedorProdutos.setText("");
         txtCategoriaProdutos.setText("");
         readJTable();
 
@@ -391,7 +393,6 @@ public class FProducts extends javax.swing.JFrame {
             txtNomeProdutos.setText("");
             txtIdProdutos.setText("");
             txtBarCodeProdutos.setText("");
-            txtIdProvedorProdutos.setText("");
             txtCategoriaProdutos.setText("");
             readJTable();
 
@@ -408,9 +409,10 @@ public class FProducts extends javax.swing.JFrame {
             p.setId(Integer.parseInt(txtIdProdutos.getText()));
             p.setName(txtNomeProdutos.getText());
             p.setDescription(txtDescProdutos.getText());
-            p.setProvidersId(Integer.parseInt(txtIdProvedorProdutos.getText()));
+            Providers providers = (Providers) listProviders.getSelectedItem();
+            p.setProvider(providers);
             p.setPrice(Double.parseDouble(txtPrecoProdutos.getText()));
-            p.setBarcode(Integer.parseInt(txtQtdProdutos.getText()));
+            p.setBarcode(Integer.parseInt(txtBarCodeProdutos.getText()));
             p.setQuantity(Integer.parseInt(txtQtdProdutos.getText()));
             p.setCategory(txtCategoriaProdutos.getText());
             p.setId((int) jTProducts.getValueAt(jTProducts.getSelectedRow(), 0));
@@ -425,7 +427,6 @@ public class FProducts extends javax.swing.JFrame {
             txtNomeProdutos.setText("");
             txtIdProdutos.setText("");
             txtBarCodeProdutos.setText("");
-            txtIdProvedorProdutos.setText("");
             txtCategoriaProdutos.setText("");
             readJTable();
 
@@ -492,12 +493,12 @@ public class FProducts extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTProducts;
+    private javax.swing.JComboBox<Object> listProviders;
     private javax.swing.JTextField txtBarCodeProdutos;
     private javax.swing.JTextField txtBuscaProducts;
     private javax.swing.JTextField txtCategoriaProdutos;
     private javax.swing.JTextField txtDescProdutos;
     private javax.swing.JTextField txtIdProdutos;
-    private javax.swing.JTextField txtIdProvedorProdutos;
     private javax.swing.JTextField txtNomeProdutos;
     private javax.swing.JTextField txtPrecoProdutos;
     private javax.swing.JTextField txtQtdProdutos;

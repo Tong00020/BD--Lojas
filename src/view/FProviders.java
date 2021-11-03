@@ -355,13 +355,13 @@ public class FProviders extends javax.swing.JFrame {
         }
     }
 
-    public void readJTableForDesc(int id) {
+    public void readJTableForDesc(String name) {
 
         DefaultTableModel modelo = (DefaultTableModel) jTProviders.getModel();
         modelo.setNumRows(0);
         ProvidersDAO pdao = new ProvidersDAO();
 
-        for (Providers p : pdao.loadID(id)) {
+        for (Providers p : pdao.loadByName(name)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -526,7 +526,7 @@ public class FProviders extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-//        readJTableForDesc(txtBuscaProviders.getText());
+        readJTableForDesc(txtBuscaProviders.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

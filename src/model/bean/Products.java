@@ -97,4 +97,14 @@ public class Products {
         this.provider.setId(id);
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Products && this.id == ((Products) obj).getId();
+    }
+
 }

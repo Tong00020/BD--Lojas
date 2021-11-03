@@ -85,4 +85,8 @@ public class Orders {
         this.budget = budget;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Orders && this.id == ((Orders) obj).getId();
+    }
 }

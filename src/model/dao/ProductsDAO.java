@@ -32,7 +32,7 @@ public class ProductsDAO {
 
         try {
             String sql = "INSERT INTO products (name,description,category,"
-                    + "price,barcode,quantity,id_provider) VALUES (?,?,?,?,?,?,?)";
+                    + "price,barcode,quantity,providers_id) VALUES (?,?,?,?,?,?,?)";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, p.getName());
             stmt.setString(2, p.getDescription());
@@ -60,7 +60,7 @@ public class ProductsDAO {
         try {
             String sql = "UPDATE products SET name = ?,description = ?,"
                     + "category = ?,price = ?,barcode = ?,quantity = ?,"
-                    + "id_provider = ? WHERE id = ?";
+                    + "providers_id = ? WHERE id = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, p.getName());
             stmt.setString(2, p.getDescription());
@@ -108,7 +108,8 @@ public class ProductsDAO {
         List<Products> products = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM loja.products inner join providers on products.providers_id = providers.id";
+            String sql = "SELECT * FROM products inner join providers on "
+                    + "products.providers_id = providers.id";
             stmt = con.prepareStatement(sql);
             /*
             ResultSet é uma interface utilizada pra guardar dados vindos 
@@ -131,7 +132,7 @@ public class ProductsDAO {
                 p.setQuantity(rs.getInt("quantity"));
 
                 Providers pv = new Providers();
-                pv.setId(rs.getInt("id"));
+                pv.setId(rs.getInt("providers_id"));
                 pv.setName(rs.getString("providers.name"));
                 p.setProvider(pv);
 
@@ -146,7 +147,7 @@ public class ProductsDAO {
         return products;
     }
 
-    public List<Products> loadById(int id) {
+    public List<Products> loadByName(String name) {
         Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
@@ -154,9 +155,11 @@ public class ProductsDAO {
         List<Products> products = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM loja.products inner join providers on products.providers_id = providers.id WHERE id=?";
+            String sql = "SELECT * FROM products inner join providers on "
+                    + "products.providers_id = providers.id WHERE "
+                    + "products.name LIKE ?";
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+             stmt.setString(1, "%" + name + "%");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Products p = new Products();
@@ -169,7 +172,7 @@ public class ProductsDAO {
                 p.setQuantity(rs.getInt("quantity"));
 
                 Providers pv = new Providers();
-                pv.setId(rs.getInt("id"));
+                pv.setId(rs.getInt("providers_id"));
                 pv.setName(rs.getString("providers.name"));
                 p.setProvider(pv);
 
@@ -207,7 +210,7 @@ public class ProductsDAO {
                 p.setPrice(rs.getDouble("price"));
                 p.setBarcode(rs.getInt("barcode"));
                 p.setQuantity(rs.getInt("quantity"));
-                p.setProvidersId(rs.getInt("id_provider"));
+                p.setProvidersId(rs.getInt("providers_id"));
 
                 produtos.add(p);
 
@@ -248,7 +251,7 @@ public class ProductsDAO {
                 p.setPrice(rs.getDouble("price"));
                 p.setBarcode(rs.getInt("barcode"));
                 p.setQuantity(rs.getInt("quantity"));
-                p.setProvidersId(rs.getInt("id_provider"));
+                p.setProvidersId(rs.getInt("providers_id"));
                 produtos.add(p);
             }
 

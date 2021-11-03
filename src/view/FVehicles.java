@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableRowSorter;
 import model.bean.Vehicles;
+import model.bean.Clients;
+import model.dao.ClientsDAO;
 
 /**
  *
@@ -28,6 +30,11 @@ public class FVehicles extends javax.swing.JFrame {
         jTVehicles.setRowSorter(new TableRowSorter(modelo));
 
         readJTable();
+        ClientsDAO cDAO = new ClientsDAO();
+        for (Clients pr : cDAO.list()) {
+            listClients.setSelectedItem(null);
+            listClients.addItem(pr);
+        }
     }
 
     /**
@@ -63,10 +70,8 @@ public class FVehicles extends javax.swing.JFrame {
         txtBuscaVehicles = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        txtIdClienteVehicles = new javax.swing.JTextField();
-        cpfCLient = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        listClients = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,6 +80,8 @@ public class FVehicles extends javax.swing.JFrame {
         jLabel9.setText("ID");
 
         jLabel2.setText("MODELO");
+
+        txtIdVehicles.setEnabled(false);
 
         jLabel3.setText("ANO");
 
@@ -91,14 +98,14 @@ public class FVehicles extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "MODELO", "MARCA", "PLACA", "ANO", "COR", "TIPO DE COMBUSTIVEL", "QUILOMETRAGEM ATUAL", "CLIENTE", "CPF"
+                "ID", "MODELO", "MARCA", "PLACA", "ANO", "COR", "TIPO DE COMBUSTIVEL", "QUILOMETRAGEM ATUAL", "CLIENTE"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, false, false, true, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -120,6 +127,9 @@ public class FVehicles extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTVehicles);
+        if (jTVehicles.getColumnModel().getColumnCount() > 0) {
+            jTVehicles.getColumnModel().getColumn(0).setMaxWidth(100);
+        }
 
         jButton1.setText("Cadastrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -157,8 +167,6 @@ public class FVehicles extends javax.swing.JFrame {
 
         jLabel8.setText("TIPO DE COMBUSTIVEL");
 
-        jLabel6.setText("CPF");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -169,41 +177,6 @@ public class FVehicles extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(917, 917, 917))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jButton1)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(jButton2)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(jButton3))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 991, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(744, 744, 744)
-                                        .addComponent(txtBuscaVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton4))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtIdVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtPlacaVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtModeloVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel2))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(txtMarcaVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,14 +199,45 @@ public class FVehicles extends javax.swing.JFrame {
                                     .addComponent(txtKmVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(listClients, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtIdClienteVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(cpfCLient))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(jButton2)
+                                        .addGap(26, 26, 26)
+                                        .addComponent(jButton3))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 991, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(744, 744, 744)
+                                        .addComponent(txtBuscaVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton4))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtIdVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtPlacaVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtModeloVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel2))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(txtMarcaVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,14 +273,10 @@ public class FVehicles extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIdClienteVehicles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cpfCLient))
-                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(listClients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton3)
@@ -307,21 +307,20 @@ public class FVehicles extends javax.swing.JFrame {
                 p.getColor(),
                 p.getType_fuel(),
                 p.getKm_current(),
-                p.getClient().getName(),
-                p.getClient().getCpf()
+                p.getClient()
             });
 
         }
 
     }
 
-    public void readJTableForDesc(int id) {
+    public void readJTableForDesc(String plate) {
 
         DefaultTableModel modelo = (DefaultTableModel) jTVehicles.getModel();
         modelo.setNumRows(0);
         VehiclesDAO pdao = new VehiclesDAO();
 
-        for (Vehicles p : pdao.loadById(id)) {
+        for (Vehicles p : pdao.loadByPlate(plate)) {
 
             modelo.addRow(new Object[]{
                 p.getId(),
@@ -332,8 +331,7 @@ public class FVehicles extends javax.swing.JFrame {
                 p.getColor(),
                 p.getType_fuel(),
                 p.getKm_current(),
-                p.getClient().getName(),
-                p.getClient().getCpf()
+                p.getClient()
             });
 
         }
@@ -350,8 +348,7 @@ public class FVehicles extends javax.swing.JFrame {
             txtCorVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 5).toString());
             txtCombusVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 6).toString());
             txtKmVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 7).toString());
-            txtIdClienteVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 8).toString());
-            cpfCLient.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 9).toString());
+            listClients.setSelectedItem(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 8));
         }
     }//GEN-LAST:event_jTVehiclesMouseClicked
 
@@ -366,8 +363,7 @@ public class FVehicles extends javax.swing.JFrame {
             txtCorVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 5).toString());
             txtCombusVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 6).toString());
             txtKmVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 7).toString());
-            txtIdClienteVehicles.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 8).toString());
-            cpfCLient.setText(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 9).toString());
+            listClients.setSelectedItem(jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 8));
         }
     }//GEN-LAST:event_jTVehiclesKeyReleased
 
@@ -376,14 +372,14 @@ public class FVehicles extends javax.swing.JFrame {
             Vehicles p = new Vehicles();
             VehiclesDAO dao = new VehiclesDAO();
 
-            p.setId(Integer.parseInt(txtIdVehicles.getText()));
             p.setYear(Integer.parseInt(txtAnoVehicles.getText()));
             p.setColor(txtCorVehicles.getText());
             p.setType_fuel(txtCombusVehicles.getText());
             p.setKm_current(Double.parseDouble(txtKmVehicles.getText()));
             p.setModel(txtModeloVehicles.getText());
             p.setPlate(txtPlacaVehicles.getText());
-            p.setClientId(Integer.parseInt(txtIdClienteVehicles.getText()));
+            Clients clients = (Clients) listClients.getSelectedItem();
+            p.setClient(clients);
             p.setBrand(txtMarcaVehicles.getText());
             dao.create(p);
 
@@ -395,7 +391,6 @@ public class FVehicles extends javax.swing.JFrame {
             txtPlacaVehicles.setText("");
             txtCombusVehicles.setText("");
             txtMarcaVehicles.setText("");
-            txtIdClienteVehicles.setText("");
             readJTable();
 
         } catch (Exception ex) {
@@ -418,7 +413,6 @@ public class FVehicles extends javax.swing.JFrame {
             txtPlacaVehicles.setText("");
             txtCombusVehicles.setText("");
             txtMarcaVehicles.setText("");
-            txtIdClienteVehicles.setText("");
             readJTable();
 
         } else {
@@ -438,7 +432,8 @@ public class FVehicles extends javax.swing.JFrame {
             p.setKm_current(Double.parseDouble(txtKmVehicles.getText()));
             p.setModel(txtModeloVehicles.getText());
             p.setPlate(txtPlacaVehicles.getText());
-            p.setClientId(Integer.parseInt(txtIdClienteVehicles.getText()));
+            Clients clients = (Clients) listClients.getSelectedItem();
+            p.setClient(clients);
             p.setBrand(txtMarcaVehicles.getText());
             p.setId((int) jTVehicles.getValueAt(jTVehicles.getSelectedRow(), 0));
             try {
@@ -454,7 +449,6 @@ public class FVehicles extends javax.swing.JFrame {
             txtPlacaVehicles.setText("");
             txtCombusVehicles.setText("");
             txtMarcaVehicles.setText("");
-            txtIdClienteVehicles.setText("");
             readJTable();
 
         }
@@ -466,7 +460,7 @@ public class FVehicles extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
-//        readJTableForDesc(txtBuscaVehicles.getText());
+        readJTableForDesc(txtBuscaVehicles.getText());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -506,7 +500,6 @@ public class FVehicles extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField cpfCLient;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -517,18 +510,17 @@ public class FVehicles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTVehicles;
+    private javax.swing.JComboBox<Object> listClients;
     private javax.swing.JTextField txtAnoVehicles;
     private javax.swing.JTextField txtBuscaVehicles;
     private javax.swing.JTextField txtCombusVehicles;
     private javax.swing.JTextField txtCorVehicles;
-    private javax.swing.JTextField txtIdClienteVehicles;
     private javax.swing.JTextField txtIdVehicles;
     private javax.swing.JTextField txtKmVehicles;
     private javax.swing.JTextField txtMarcaVehicles;

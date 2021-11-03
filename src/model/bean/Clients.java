@@ -122,7 +122,12 @@ public class Clients {
 
     @Override
     public String toString() {
-        return " " + getName() + " - " + getCpf();
+        return getName() + " - " + getCpf();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Clients && this.id == ((Clients) obj).getId();
     }
 
 }

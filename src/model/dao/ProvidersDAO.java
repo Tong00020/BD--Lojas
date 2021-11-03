@@ -139,16 +139,16 @@ public class ProvidersDAO {
         return providers;
     }
 
-    public List<Providers> loadID(int id) {
+    public List<Providers> loadByName(String name) {
         Connection con = ConnectionFactory.getConnection();
 
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Providers> providers = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM providers WHERE id=?";
+            String sql = "SELECT * FROM providers WHERE name LIKE ?";
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setString(1, "%" + name + "%");
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Providers p = new Providers();
